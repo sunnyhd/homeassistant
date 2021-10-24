@@ -1,0 +1,17 @@
+shell_command:
+#https://home-assistant.io/components/shell_command/
+
+####################################################
+#                                                  #
+#              SHUTDOWN COMPUTERS                  #
+#                                                  #
+####################################################
+
+  sleep_simon_pc: !secret sleep_simon_pc
+  sleep_on_lan_desktop: !secret sleep_pc_simon
+
+####################################################
+#                                                  #
+#          END OF CONFIGURATION FILE               #
+#                                                  #
+####################################################

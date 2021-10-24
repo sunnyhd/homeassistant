@@ -1,0 +1,195 @@
+
+input_boolean:
+
+  ####################################################
+  #                                                  #
+  #                     BOOLEAN                      #
+  #                                                  #
+  ####################################################
+
+  laundry_display:
+
+  sovrum_anslut_oscillate:
+    name: Oscillera
+    icon: mdi:arrow-left-right
+
+  computer_lock:
+    name: Avstängningslås
+    icon: custom:lock
+
+####################################################
+#                                                  #
+#             SONOS RADIO STATIONEN                #
+#                                                  #
+####################################################
+
+  switch_weihnachtsbeleuchtung:
+    name: Weihnachtsbeleuchtung
+    initial: off
+    icon: mdi:pine-tree
+
+  switch_weisses_funkeln:
+    name: Weisses Funkeln
+    initial: off
+    icon: mdi:star-circle-outline
+
+  switch_wohnzimmer_beleuchtung_hell:
+    name: Hell
+    initial: off
+    icon: mdi:brightness-5
+
+  switch_wohnzimmer_beleuchtung_gemuetlich:
+    name: Gemütlich
+    initial: off
+    icon: mdi:brightness-6
+
+  switch_wohnzimmer_beleuchtung_automatik:
+    name: Automatik
+    initial: on
+    icon: mdi:brightness-auto
+
+  switch_wohnzimmer_beleuchtung_aus:
+    name: Aus
+    initial: off
+    icon: mdi:power
+
+input_number:
+
+  ####################################################
+  #                                                  #
+  #                      NUMBER                      #
+  #                                                  #
+  ####################################################
+
+  monitors_volume:
+    name: Volym
+    icon: mdi:volume-high
+    initial: 20
+    min: 7
+    max: 75
+    unit_of_measurement: '%'
+
+  wohnzimmer_fan_timer:
+    name: Ausschalten nach
+    icon: mdi:timer-outline
+    initial: 12
+    min: 1
+    max: 12
+    unit_of_measurement: h
+
+  sovrum_anslut_timer:
+    name: Stäng efter
+    icon: mdi:timer-outline
+    initial: 12
+    min: 1
+    max: 12
+    unit_of_measurement: h
+
+  sovrum_anslut_speed:
+    name: Fläkthastighet
+    initial: 0
+    min: 0
+    max: 100
+    unit_of_measurement: '%'
+
+  air_purifier_speed:
+    name: Hastighet
+    initial: 0
+    min: 0
+    max: 100
+    unit_of_measurement: '%'
+
+input_select:
+
+  ####################################################
+  #                                                  #
+  #                      SELECT                      #
+  #                                                  #
+  ####################################################
+
+  hdmi:
+    name: Quelle
+    options:
+      - HDMI 1
+      - HDMI 2/MHL
+      - HDMI 3
+      - HDMI 4
+    initial: HDMI 1
+    icon: custom:hdmi-source
+
+  hdmi2:
+    name: Quelle
+    options:
+      - TV
+      - HDMI
+    initial: HDMI
+    icon: custom:hdmi-source
+
+  roborock_speed:
+    name: Reinigungsmodus
+    icon: mdi:format-list-bulleted
+    options:
+      - Leise
+      - Standard
+      - Medium
+      - Turbo
+      - Av
+
+  sovrum_anslut_speed:
+    name: Gechwindigkeit
+    options:
+      - Leise
+      - Medium
+      - Max
+
+  air_purifier_speed:
+    name: Gechwindigkeit
+    options:
+      - Leise
+      - Niedrig
+      - Hoch
+      - Turbo
+
+  roborock_zone:
+    initial: Keine gewählt
+    options:
+      - Keine gewählt
+      - Flur
+      - Küche
+      - Wohnzimmer
+      - Büro
+      - Schlafzimmer
+
+  conditional_media:
+    initial: Mediaplayer aus
+    options:
+      - wohnzimmer_2
+      - wohnzimmer
+      - kueche
+      - bad
+      - buro
+      - schlafzimmer
+      - Mediaplayer aus
+
+  bad_deckenlampe_lichtstimmung:
+    name: Bad Deckenlampe Lichtstimmung
+    options:
+      - Aus
+    initial: Aus
+  bad_spiegellampe_lichtstimmung:
+    name: Bad Spiegellampe Lichtstimmung
+    options:
+      - Aus
+    initial: Aus
+  eingangstuer_deckenlampe_lichtstimmung:
+    name: Eingangstür Deckenlampe Lichtstimmung
+    options:
+      - Aus
+    initial: Aus
+  autostatistiken:
+    name: Autostatistiken
+    options:
+      - Jahr
+      - Woche
+      - Tag
+    initial: Jahr

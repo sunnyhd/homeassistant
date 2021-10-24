@@ -1,0 +1,21 @@
+
+lina_schlafenszeit:
+  alias: Lina Schlafenszeit
+  icon: 'mdi:human-baby-changing-table'
+  sequence:
+    - service: light.turn_off
+      data:
+        entity_id:
+          - light.schlafzimmer_deckenlampe
+          - light.schlafzimmer_nachttisch_simon
+          - light.kinderzimmer_deckenlampe
+    - service: light.turn_on
+      data:
+        entity_id:
+          - light.schlafzimmer_nachttisch_lisa
+          - light.kinderzimmer_tischleuchte
+    - service: media_player.select_source
+      data:
+        source: '90 Minutes Womb Sounds (Baby-Einschlafhilfe)'
+        entity_id: media_player.schlafzimmer
+  mode: single

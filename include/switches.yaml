@@ -1,0 +1,176 @@
+switch:
+#https://home-assistant.io/components/switch/
+
+#  - platform: ha_ambilight_hue
+#    name: Ambilight Test
+#    host: '192.168.178.19'
+#    entity_id: light.wohnzimmer_deckenlampe
+#    display_options: right
+
+####################################################
+#                                                  #
+#             WAKE ON LAN SWITCHES                 #
+#                                                  #
+####################################################
+
+#https://home-assistant.io/components/switch.wake_on_lan/
+
+  - platform: template
+    switches:
+      simon_pc:
+        friendly_name: "Simon-PC"
+        value_template: "{{ is_state('binary_sensor.simonpc', 'on') }}"
+        turn_on:
+          service: script.simon_pc_aufwecken
+        turn_off:
+          service: script.simon_pc_herunterfahren
+
+
+####################################################
+#                                                  #
+#                      Räume                       #
+#                                                  #
+####################################################
+
+#https://home-assistant.io/components/switch.template/
+
+  - platform: template
+    switches:
+      wohnzimmer:
+        value_template: "{{ is_state('group.schaltung_wohnzimmer', 'on') }}"
+        turn_on:
+          service: homeassistant.turn_on
+          data:
+            entity_id: group.schaltung_wohnzimmer
+        turn_off:
+          service: homeassistant.turn_off
+          data:
+            entity_id: group.schaltung_wohnzimmer
+
+  - platform: template
+    switches:
+      kueche:
+        value_template: "{{ is_state('group.schaltung_kueche', 'on') }}"
+        turn_on:
+          service: homeassistant.turn_on
+          data:
+            entity_id: group.schaltung_kueche
+        turn_off:
+          service: homeassistant.turn_off
+          data:
+            entity_id: group.schaltung_kueche
+
+  - platform: template
+    switches:
+      schlafzimmer:
+        value_template: "{{ is_state('group.schaltung_schlafzimmer', 'on') }}"
+        turn_on:
+          service: homeassistant.turn_on
+          data:
+            entity_id: group.schaltung_schlafzimmer
+        turn_off:
+          service: homeassistant.turn_off
+          data:
+            entity_id: group.schaltung_schlafzimmer
+
+  - platform: template
+    switches:
+      badezimmer:
+        value_template: "{{ is_state('group.schaltung_badezimmer', 'on') }}"
+        turn_on:
+          service: homeassistant.turn_on
+          data:
+            entity_id: group.schaltung_badezimmer
+        turn_off:
+          service: homeassistant.turn_off
+          data:
+            entity_id: group.schaltung_badezimmer
+
+  - platform: template
+    switches:
+      buero:
+        value_template: "{{ is_state('group.schaltung_buero', 'on') }}"
+        turn_on:
+          service: homeassistant.turn_on
+          data:
+            entity_id: group.schaltung_buero
+        turn_off:
+          service: homeassistant.turn_off
+          data:
+            entity_id: group.schaltung_buero
+
+  - platform: template
+    switches:
+      flur:
+        value_template: "{{ is_state('group.schaltung_flur', 'on') }}"
+        turn_on:
+          service: homeassistant.turn_on
+          data:
+            entity_id: group.schaltung_flur
+        turn_off:
+          service: homeassistant.turn_off
+          data:
+            entity_id: group.schaltung_flur
+
+  - platform: template
+    switches:
+      ankleide:
+        value_template: "{{ is_state('group.schaltung_ankleide', 'on') }}"
+        turn_on:
+          service: homeassistant.turn_on
+          data:
+            entity_id: group.schaltung_ankleide
+        turn_off:
+          service: homeassistant.turn_off
+          data:
+            entity_id: group.schaltung_ankleide
+
+  - platform: template
+    switches:
+      autofarbtemparatur:
+        friendly_name: Automatische Farbtemparatur
+        value_template: "{{ is_state('group.automatische_farbtemparatur', 'on') }}"
+        turn_on:
+          service: homeassistant.turn_on
+          data:
+            entity_id: group.automatische_farbtemparatur
+        turn_off:
+          service: homeassistant.turn_off
+          data:
+            entity_id: group.automatische_farbtemparatur
+
+####################################################
+#                                                  #
+#                   HUE LABS                       #
+#                                                  #
+####################################################
+
+#https://community.home-assistant.io/t/possible-to-trigger-hue-labs-from-home-assistant/43881/9
+
+
+  - platform: command_line
+    switches:
+      hue_labs_wohnzimmer_timeless:
+        command_on: !secret huelab_timeless_command_on
+        command_off: !secret huelab_timeless_command_off
+        command_state: !secret huelab_timeless_command_state
+        value_template: '{{ value_json.state.status == 1 }}'
+        friendly_name: HUE Labs Wohnzimmer Timeless
+      hue_labs_wohnzimmer_scandinavian:
+        command_on: !secret huelab_scandinavian_command_on
+        command_off: !secret huelab_scandinavian_command_off
+        command_state: !secret huelab_scandinavian_command_state
+        value_template: '{{ value_json.state.status == 1 }}'
+        friendly_name: HUE Labs Wohnzimmer Scandinavian
+      hue_labs_wohnzimmer_urban:
+        command_on: !secret huelab_urban_command_on
+        command_off: !secret huelab_urban_command_off
+        command_state: !secret huelab_urban_command_state
+        value_template: '{{ value_json.state.status == 1 }}'
+        friendly_name: HUE Labs Wohnzimmer Urban
+
+####################################################
+#                                                  #
+#           END OF CONFIGURATION FILE              #
+#                                                  #
+####################################################

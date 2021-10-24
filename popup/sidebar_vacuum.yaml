@@ -1,0 +1,206 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Staubsauger
+  style:
+    .: |
+      :host .content {
+        width: calc(385px + 385px + 385px);
+        max-width: 90vw;
+      }
+    layout-card$grid-layout:
+      $: |
+        hui-vertical-stack-card {
+          border-radius: 0;
+          animation: hui-vertical-stack-card 1s forwards;
+        }
+        @keyframes hui-vertical-stack-card {
+          0%, 100% {
+              border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+          }
+        }
+        /* phone */
+        @media screen and (max-width: 800px) {
+          hui-vertical-stack-card {
+              border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+              padding-right: 0;
+              animation: none;
+          }
+        }
+      $hui-vertical-stack-card:
+        $hui-horizontal-stack-card$: |
+          #root {
+            justify-content: space-evenly !important;
+          }
+        $: |
+          hui-horizontal-stack-card {
+            padding: 0em 2em 2em 2em !important;
+          }
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: 385px repeat(2, 385px)
+      grid-template-rows: 1fr
+      grid-template-areas: |
+        "info map map"
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-template-columns: 1fr
+          grid-template-rows: repeat(2, 1fr)
+          grid-template-areas: |
+            "info"
+            "map"
+    cards:
+
+      #################################################
+      #                                               #
+      #                 EINSTELLUNGEN                 #
+      #                                               #
+      #################################################
+
+      - type: vertical-stack
+        cards:
+          - type: entities
+            view_layout:
+              grid-area: info
+            title: Einstellungen
+            entities:
+            - entity: vacuum.xiaomi_vacuum_cleaner
+              name: Robi
+              icon: custom:roborock-vacuum
+
+            - entity: sensor.template_roborock_last_clean
+
+            - type: custom:bar-card
+              width: 55%
+              height: 2em
+              decimal: 0
+              unit_of_measurement: '%'
+              positions:
+                icon: outside
+                indicator: 'off'
+                name: outside
+              severity:
+                - color: '#303435'
+                  from: 11
+                  to: 100
+                - color: '#6d2525'
+                  from: 0
+                  to: 10
+              entity_row: true
+              entities:
+                - entity: vacuum.xiaomi_vacuum_cleaner
+                  attribute: battery_level
+                  name: Akku
+                  icon: mdi:battery
+
+                - entity: sensor.template_roborock_filter
+
+                - entity: sensor.template_roborock_mainbrush
+
+                - entity: sensor.template_roborock_sidebrush
+
+                - entity: sensor.template_roborock_sensors
+
+            - entity: input_select.roborock_speed
+
+          - type: horizontal-stack
+            cards:
+
+              - type: custom:button-card
+                icon: mdi:play-pause
+                triggers_update:
+                  ['vacuum.xiaomi_vacuum_cleaner']
+                tap_action:
+                  action: call-service
+                  service: >
+                    [[[
+                      if (states['vacuum.xiaomi_vacuum_cleaner'].state === 'docked' ||
+                        states['vacuum.xiaomi_vacuum_cleaner'].state === 'paused')
+                        return 'vacuum.start';
+                      else return 'vacuum.pause';
+                    ]]]
+                  service_data:
+                    entity_id: vacuum.xiaomi_vacuum_cleaner
+                styles:
+                  icon:
+                    - width: 1.8em
+                  card:
+                    - width: 6em
+                template: icon_only
+
+              - type: custom:button-card
+                icon: mdi:flash
+                tap_action:
+                  action: call-service
+                  service: vacuum.return_to_base
+                  service_data:
+                    entity_id: vacuum.xiaomi_vacuum_cleaner
+                template: icon_only
+
+              - type: custom:button-card
+                icon: mdi:map-marker-question
+                tap_action:
+                  action: call-service
+                  service: vacuum.locate
+                  service_data:
+                    entity_id: vacuum.xiaomi_vacuum_cleaner
+                template: icon_only
+
+      #################################################
+      #                                               #
+      #              KARTENDARSTELLUNG                #
+      #                                               #
+      #################################################
+
+      - type: picture-elements
+        title: Karte
+        view_layout:
+          grid-area: map
+        image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 50 45' /%3E"
+        style: |
+          #root {
+            animation: fade 1s both;
+          }
+          @keyframes fade {
+            0% {
+              opacity: 0;
+            }
+            50% {
+              opacity: 0;
+            }
+            100% {
+              opacity: 1;
+            }
+          }
+        elements:
+
+          - type: custom:xiaomi-vacuum-map-card
+            entity: vacuum.xiaomi_vacuum_cleaner
+            map_camera: camera.robi_karte
+            calibration_points:
+              - vacuum:
+                  x: 25500
+                  y: 25500
+                map:
+                  x: 194
+                  y: 126
+              - vacuum:
+                  x: 26500
+                  y: 25500
+                map:
+                  x: 234
+                  y: 126
+              - vacuum:
+                  x: 26500
+                  y: 26500
+                map:
+                  x: 234
+                  y: 86
+            language: de
+            style:
+              top: 55%
+              left: 50%
+              width: 100%

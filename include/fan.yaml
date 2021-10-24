@@ -1,0 +1,21 @@
+fan:
+
+    ####################################################
+    #                                                  #
+    #                       FAN                        #
+    #                                                  #
+    ####################################################
+
+  - platform: template
+    fans:
+      wohnzimmer:
+        friendly_name: "Ventilator"
+        value_template: >
+          {{ 'off' if is_state('switch.steckdose_wohnzimmer_lowboard', 'unavailable')
+          else states('switch.steckdose_wohnzimmer_lowboard') }}
+        turn_on:
+          - service: switch.turn_on
+            entity_id: switch.steckdose_wohnzimmer_lowboard
+        turn_off:
+          - service: switch.turn_off
+            entity_id: switch.steckdose_wohnzimmer_lowboard

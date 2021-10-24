@@ -1,0 +1,408 @@
+####################################################
+#                                                  #
+#                 HOME ASSISTANT                   #
+#                                                  #
+####################################################
+
+# https://home-assistant.io/docs/ha_configuration/basic/
+
+homeassistant:
+  #  packages: !include_dir_named packages/
+  name: Home
+  latitude: !secret latitude
+  longitude: !secret longitude
+  elevation: 194
+  unit_system: metric
+  time_zone: !secret time_zone
+  auth_providers:
+    - type: homeassistant
+  external_url: !secret external_url
+  internal_url: !secret internal_url
+  packages: !include_dir_named include
+  allowlist_external_dirs: [/config/]
+
+####################################################
+#                                                  #
+#                 LOVELACE TEST                    #
+#                                                  #
+####################################################
+
+lovelace:
+  mode: yaml
+  #resources: !include ui-resources.yaml
+  resources:
+    [ { url: /hacsfiles/bar-card/bar-card.js,                                        type: module },
+      { url: /hacsfiles/button-card/button-card.js,                                  type: module },
+      { url: /hacsfiles/kiosk-mode/kiosk-mode.js,                                    type: module },
+      { url: /hacsfiles/light-entity-card/light-entity-card.js,                      type: module },
+      { url: /hacsfiles/light-popup-card/light-popup-card.js,                        type: module },
+      { url: /hacsfiles/lovelace-card-mod/card-mod.js,                               type: module },
+      { url: /hacsfiles/lovelace-hui-element/hui-element.js,                         type: module },
+      { url: /hacsfiles/lovelace-layout-card/layout-card.js,                         type: module },
+      { url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js,             type: module },
+      { url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js,                   type: module },
+      { url: /hacsfiles/swipe-card/swipe-card.js,                                    type: module },
+      { url: /hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js,   type: module },
+      { url: /hacsfiles/thermostat-popup-card/thermostat-popup-card.js,              type: module },
+
+      { url: '/local/calendar-card.js?v=31091',                                      type: module },
+      { url: '/local/custom_icons.js?v=25052001',                                    type: module },
+      { url: /local/font.css,                                                        type: css    } ]
+  dashboards:
+    default-dashboard:
+      mode: yaml
+      title: Dashboard
+      show_in_sidebar: true
+      require_admin: false
+      icon: mdi:floor-plan
+      filename: ui-lovelace.yaml
+
+####################################################
+#                                                  #
+#                     GENERAL                      #
+#                                                  #
+####################################################
+
+# https://home-assistant.io/components/config/
+config:
+# https://home-assistant.io/components/sun/
+sun:
+# https://home-assistant.io/components/http/
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.20.0.0/24
+# https://home-assistant.io/components/updater/
+updater:
+# https://home-assistant.io/components/discovery/
+discovery:
+# https://home-assistant.io/components/conversation/
+conversation:
+# https://home-assistant.io/components/history/
+history:
+# https://home-assistant.io/components/tts/
+tts:
+  - platform: google_translate
+    cache: true
+    cache_dir: /tts
+    time_memory: 300
+    base_url: http://192.168.178.3:8123
+    language: "de"
+# https://home-assistant.io/components/python_script/
+python_script:
+# https://www.home-assistant.io/docs/mqtt/broker#embedded-broker
+mqtt:
+  broker: 192.168.178.3
+  port: 1883
+  username: !secret mqtt_user
+  password: !secret mqtt_pw
+  discovery: true
+  discovery_prefix: homeassistant
+  birth_message:
+    topic: "hass/status"
+    payload: "online"
+  will_message:
+    topic: "hass/status"
+    payload: "offline"
+# https://www.home-assistant.io/components/system_health/
+system_health:
+# https://www.home-assistant.io/components/person/
+person:
+# https://www.home-assistant.io/integrations/logger
+logger:
+  default: error
+  logs:
+    custom_components.toyota: error
+    custom_components.pyscript: error
+    custom_components.powercalc: error
+# https://www.home-assistant.io/docs/energy
+#energy:
+
+####################################################
+#                                                  #
+#      LINKS TO INDIVUAL CONFIGURATION FILES       #
+#                                                  #
+####################################################
+
+# https://home-assistant.io/docs/ha_configuration/splitting_ha_configuration/
+
+google_assistant: !include google_assistant/google_assistant.yaml
+
+####################################################
+#                                                  #
+#                PANEL IFRAME                      #
+#                                                  #
+####################################################
+
+# https://www.home-assistant.io/components/panel_iframe/
+
+panel_iframe:
+  grafana:
+    title: "Grafana"
+    icon: mdi:graphql
+    url: !secret grafana_iframe
+  traefik:
+    title: "Traefik"
+    icon: mdi:ip-network
+    url: !secret traefik_iframe
+  portainer:
+    title: "Portainer"
+    icon: mdi:docker
+    url: !secret portainer_iframe
+
+####################################################
+#                                                  #
+#                  GOOGLE CALENDAR                 #
+#                                                  #
+####################################################
+
+# https://www.home-assistant.io/components/calendar.google/
+
+google:
+  client_id: !secret gcalendar_client_id
+  client_secret: !secret gcalendar_client_secret
+
+####################################################
+#                                                  #
+#                      SONOS                       #
+#                                                  #
+####################################################
+
+# https://home-assistant.io/components/media_player.sonos/
+
+sonos:
+  media_player:
+    hosts:
+      - 192.168.178.10
+      - 192.168.178.11
+      - 192.168.178.12
+      - 192.168.178.13
+      - 192.168.178.14
+      - 192.168.178.15
+
+####################################################
+#                                                  #
+#                       WOL                        #
+#                                                  #
+####################################################
+
+# https://www.home-assistant.io/integrations/wake_on_lan
+
+wake_on_lan:
+
+####################################################
+#                                                  #
+#                    LUFTDATEN                     #
+#                                                  #
+####################################################
+
+# https://www.home-assistant.io/components/luftdaten/
+
+luftdaten:
+  sensor_id: 19149
+  show_on_map: false
+  sensors:
+    monitored_conditions:
+      - P1
+      - P2
+
+####################################################
+#                                                  #
+#                       HACS                       #
+#                                                  #
+####################################################
+
+# https://custom-components.github.io/hacs/
+
+hacs:
+  token: !secret github_token
+  options:
+    release_limit: 5
+
+####################################################
+#                                                  #
+#                 MOBILE APP                       #
+#                                                  #
+####################################################
+
+# https://www.home-assistant.io/integrations/mobile_app/
+
+mobile_app:
+
+####################################################
+#                                                  #
+#                BROWSER MOD                       #
+#                                                  #
+####################################################
+
+# https://github.com/thomasloven/hass-browser_mod
+
+browser_mod:
+  prefix: "browser_mod_"
+
+####################################################
+#                                                  #
+#                   TANKERKOENIG                   #
+#                                                  #
+####################################################
+
+#https://www.home-assistant.io/integrations/tankerkoenig/
+
+tankerkoenig:
+  api_key: !secret tanker_api
+  radius: 6
+  fuel_types:
+    - "e10"
+
+####################################################
+#                                                  #
+#                     ROBOROCK                     #
+#                                                  #
+####################################################
+
+#https://www.home-assistant.io/integrations/tankerkoenig/
+
+#vacuum:
+#  - platform: xiaomi_miio
+#    host: 192.168.178.7
+#    token: !secret roborock_token
+
+####################################################
+#                                                  #
+#                      DOCKER                      #
+#                                                  #
+####################################################
+
+#https://github.com/ualex73/monitor_docker
+
+monitor_docker:
+  - name: Docker
+    containers:
+      - home-assistant
+      - watchtower
+    rename:
+      watchtower: Watchtower
+      home-assistant: Home Assistant
+    monitored_conditions:
+      - version
+      - containers_running
+      - containers_total
+      - state
+      - status
+      - 1cpu_percentage
+      - memory_percentage
+      - memory
+
+####################################################
+#                                                  #
+#               TIMESCALE LTSS                     #
+#                                                  #
+####################################################
+
+# https://github.com/freol35241/ltss
+
+ltss:
+  db_url: !secret ltss_url
+  include:
+    domains:
+      #        - automation
+      - climate
+      #        - input_boolean
+      #        - input_select
+      #        - light
+      - media_player
+    #        - script
+    #        - sensor
+    #        - switch
+    #        - vacuum
+    entities:
+      - sensor.heizung_bad_battery_level
+      - sensor.heizung_buro_battery_level
+      - sensor.ipad_von_simon_battery_level_2
+      - sensor.mi_a3_battery_level
+      - sensor.nokia_7_2_battery_level
+      - sensor.von_der_arbeit_nach_hause
+      - sensor.von_zu_hause_zur_arbeit
+      - sensor.tankerkoenig_zg_raiffeisen_tankstelle_kraichtal_munzesheim_e10
+      - sensor.tankerkoenig_autohaus_bahm_gmbh_e10
+      - sensor.tankerkoenig_tk_unterowisheim_11_e10
+      - sensor.tankerkoenig_oil_tankstelle_oberderdingen_e10
+      - sensor.fritzbox_is_connected
+      - sensor.fritzbox_is_linked
+      - sensor.fritzbox_uptime
+      - sensor.fritzbox_transmission_rate_down
+      - sensor.fritzbox_transmission_rate_up
+      - sensor.fritzbox_bytes_received
+      - sensor.fritzbox_bytes_sent
+      - sensor.speedtest_download
+      - sensor.speedtest_upload
+      - sensor.speedtest_ping
+      - sensor.gesamtverbrauch_waschmaschine
+      - sensor.gesamtverbrauch_trockner
+      - sensor.gesamtverbrauch_spuehlmaschine
+      - sensor.gesamtverbrauch_wohnzimmer_lowboard
+      - sensor.gesamtverbrauch_beleuchtung
+      - sensor.stromverbrauch_spuehlmaschine
+      - sensor.stromverbrauch_waschmaschine
+      - sensor.stromverbrauch_wohnzimmer_lowboard
+      - sensor.stromverbrauch_trockner
+      - sensor.stromverbrauch_beleuchtung
+      - sensor.temperatur_ankleide
+      - sensor.temperatur_wohnzimmer_lowboard
+      - sensor.temperatur_climate_buero
+      - sensor.temperatur_climate_bad
+      - sensor.einganstuer_bewegungsmelder_temperature
+      - sensor.luftdaten_19149_p2
+      - sensor.luftdaten_19149_p1
+      - sensor.dwd_weather_kraichtal_gochsheim_temperature
+      - sensor.dwd_weather_kraichtal_gochsheim_pressure
+      - sensor.dwd_weather_kraichtal_gochsheim_wind_speed
+      - sensor.dwd_weather_kraichtal_gochsheim_wind_bearing
+      - sensor.dwd_weather_kraichtal_gochsheim_visibility
+      - sensor.dwd_weather_kraichtal_gochsheim_humidity
+      - person.corolla
+      - sensor.corolla_odometer
+      - sensor.corolla_fuel_tank
+      - sensor.tank_corolla_l
+      - sensor.o_spritverbrauch_corolla_aktuelles_jahr
+      - sensor.ev_distanz_anteil_corolla_aktuelles_jahr
+      - sensor.ev_distanz_corolla_aktuelles_jahr
+      - sensor.gesamtdistanz_corolla_aktuelles_jahr
+      - sensor.gesamtfahrten_corolla_aktuelles_jahr
+      - sensor.nachtfahrten_corolla_aktuelles_jahr
+      - sensor.max_geschwindigkeit_corolla_aktuelles_jahr
+      - sensor.o_geschwindigkeit_corolla_aktuelles_jahr
+      - sensor.o_spritverbrauch_corolla_aktuelle_woche
+      - sensor.ev_distanz_anteil_corolla_aktuelle_woche
+      - sensor.ev_distanz_corolla_aktuelle_woche
+      - sensor.gesamtdistanz_corolla_aktuelle_woche
+      - sensor.gesamtfahrten_corolla_aktuelle_woche
+      - sensor.nachtfahrten_corolla_aktuelle_woche
+      - sensor.max_geschwindigkeit_corolla_aktuelle_woche
+      - sensor.o_geschwindigkeit_corolla_aktuelle_woche
+      - sensor.o_spritverbrauch_corolla_aktueller_tag
+      - sensor.ev_distanz_anteil_corolla_aktueller_tag
+      - sensor.ev_distanz_corolla_aktueller_tag
+      - sensor.gesamtdistanz_corolla_aktueller_tag
+      - sensor.gesamtfahrten_corolla_aktueller_tag
+      - sensor.nachtfahrten_corolla_aktueller_tag
+      - sensor.max_geschwindigkeit_corolla_aktueller_tag
+      - sensor.o_geschwindigkeit_corolla_aktueller_tag
+
+
+lock:
+  - platform: template
+    name: Dator
+    value_template: "{{ states('input_boolean.computer_lock') }}"
+    lock:
+      service: input_boolean.turn_on
+      entity_id: input_boolean.computer_lock
+    unlock:
+      service: input_boolean.turn_off
+      entity_id: input_boolean.computer_lock
+
+####################################################
+#                                                  #
+#            END OF CONFIGURATION FILE             #
+#                                                  #
+####################################################

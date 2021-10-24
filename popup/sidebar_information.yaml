@@ -1,0 +1,282 @@
+action: fire-dom-event
+browser_mod:
+  command: popup
+  title: Information
+  style:
+    .: |
+      :host .content {
+        width: calc(385px + 385px + 385px);
+        max-width: 90vw;
+      }
+  card:
+    type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: repeat(3, 1fr)
+      grid-template-rows: 1fr
+      grid-template-areas: |
+        "printer hass nas"
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-template-columns: 1fr
+          grid-template-rows: repeat(3, 1fr)
+          grid-template-areas: |
+            "printer"
+            "hass"
+            "nas"
+    cards:
+
+      #################################################
+      #                                               #
+      #                    DRUCKER                    #
+      #                                               #
+      #################################################
+
+      - type: entities
+        view_layout:
+          grid-area: printer
+        title: HP Envy 5540
+        show_header_toggle: false
+        style: &border |
+          ha-card {
+            border-radius: 0;
+            animation: ha-card 1s forwards;
+          }
+
+          @keyframes ha-card {
+            0%, 100% {
+                border-right: 1.5px solid rgba(0, 0, 0, 0.2);
+            }
+          }
+
+          /* phone */
+          @media screen and (max-width: 800px) {
+            ha-card {
+                border-bottom: 1.5px solid rgba(0, 0, 0, 0.2);
+                padding-right: 0;
+                animation: none;
+            }
+          }
+        entities:
+          - entity: sensor.template_printer_status
+          - entity: sensor.simon_drucker_printer
+          - entity: sensor.simon_drucker_scanner
+
+          - type: custom:bar-card
+            width: 55%
+            height: 2em
+            decimal: 0
+            unit_of_measurement: '%'
+            positions: &bar_card_positions
+              icon: outside
+              indicator: 'off'
+              name: outside
+            severity: &bar_card_severity
+              - color: '#303435'
+                from: 0
+                to: 89
+              - color: '#6d2525'
+                from: 90
+                to: 200
+            entity_row: true
+            entities:
+
+              - entity: sensor.simon_drucker_inkcartridge_black
+                name: Schwarz
+                icon: mdi:water
+
+              - entity: sensor.simon_drucker_inkcartridge_cyanmagentayellow
+                name: Farbe
+                icon: mdi:water-outline
+
+
+      #################################################
+      #                                               #
+      #                HOME ASSISTANT                 #
+      #                                               #
+      #################################################
+
+      - type: entities
+        view_layout:
+          grid-area: hass
+        title: Home Assistant
+        show_header_toggle: false
+        style: *border
+        entities:
+          - entity: sensor.hass_version
+
+          - entity: switch.docker_watchtower
+
+          - entity: sensor.hass_dev_release
+
+          - entity: sensor.ltss_database
+
+          - entity: sensor.home_assistant_log
+
+          - entity: sensor.uptime
+            name: Letzter Neustart
+
+          - type: custom:bar-card
+            width: 55%
+            height: 2em
+            decimal: 0
+            unit_of_measurement: '%'
+            positions: *bar_card_positions
+            severity: *bar_card_severity
+            entity_row: true
+            entities:
+
+              - entity: sensor.docker_home_assistant_1cpu
+                tap_action:
+                  action: call-service
+                  service: homeassistant.update_entity
+                  service_data:
+                    entity_id: sensor.docker_home_assistant_1cpu
+
+              - entity: sensor.docker_home_assistant_memory_percent
+                tap_action:
+                  action: call-service
+                  service: homeassistant.update_entity
+                  service_data:
+                    entity_id: sensor.docker_home_assistant_memory_percent
+
+          - type: custom:hui-element
+            card_type: horizontal-stack
+            style: &horizontal-style |
+              #root {
+                justify-content: space-evenly;
+                margin-top: 2em;
+                margin-left: 1em;
+              }
+            cards:
+              - type: custom:button-card
+                name: Home Assistant
+                icon: mdi:reload
+                tap_action:
+                  services: |
+                    [[[
+                      hass.callService('browser_mod', 'toast', {
+                        message: 'Starte Home Assistant...'
+                      });
+                      hass.callService('homeassistant', 'restart');
+                    ]]]
+                template: icon_name
+
+              - type: custom:button-card
+                name: Container
+                icon: mdi:reload
+                tap_action:
+                  action: call-service
+                  service: script.turn_on
+                  service_data:
+                    entity_id: script.homeassistant_restart
+                template: icon_name
+
+      #################################################
+      #                                               #
+      #                      NAS                      #
+      #                                               #
+      #################################################
+
+      - type: entities
+        view_layout:
+          grid-area: nas
+        title: Openmediavault
+        show_header_toggle: false
+        entities:
+          - entity:  sensor.load_15m
+
+          - entity: sensor.processor_temperature
+
+          - entity: sensor.last_boot
+            name: Letzter Neustart
+
+          - type: custom:bar-card
+            width: 55%
+            height: 2em
+            decimal: 0
+            unit_of_measurement: '%'
+            positions: *bar_card_positions
+            severity: *bar_card_severity
+            entity_row: true
+            entities:
+
+              - entity: sensor.processor_use_percent
+                name: CPU
+                tap_action:
+                  action: call-service
+                  service: homeassistant.update_entity
+                  service_data:
+                    entity_id: sensor.processor_use_percent
+
+              - entity: sensor.memory_use_percent
+                name: Memory
+                tap_action:
+                  action: call-service
+                  service: homeassistant.update_entity
+                  service_data:
+                    entity_id: sensor.memory_use_percent
+
+              - entity: sensor.disk_use_percent
+                name: Speicher
+                tap_action:
+                  action: call-service
+                  service: homeassistant.update_entity
+                  service_data:
+                    entity_id: sensor.disk_use_percent
+
+          - type: custom:hui-element
+            card_type: horizontal-stack
+            style: |
+              #root {
+                justify-content: space-evenly;
+                margin-top: 1em;
+                width: 95% !important;
+              }
+              #root > * {
+                flex: none !important;
+              }
+            cards:
+              - type: entities
+                style: |
+                  #states {
+                    padding: 0;
+                  }
+                entities:
+                  - entity: sensor.nas_net_down
+                    style: |
+                      :host {
+                        --paper-item-icon-color: green;
+                      }
+
+              - type: entities
+                style: |
+                  #states {
+                    padding: 0;
+                  }
+                entities:
+                  - entity: sensor.nas_net_up
+                    style: |
+                      :host {
+                        --paper-item-icon-color: #385581;
+                      }
+
+        footer:
+          type: custom:mini-graph-card
+          entities:
+            - color: '#385581'
+              entity: sensor.network_throughput_out_eno1
+            - color: green
+              entity: sensor.network_throughput_in_eno1
+          align_state: left
+          group: false
+          points_per_hour: 30
+          line_width: 3
+          hour24: true
+          hours_to_show: 1.5
+          show:
+            {fill: fade, icon: false, name: false, state: false,
+            name_adaptive_color: true, labels: hover, legend: false}
+          tap_action:
+            action: none

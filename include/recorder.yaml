@@ -1,0 +1,34 @@
+recorder:
+##https://home-assistant.io/components/recorder/
+
+####################################################
+#                                                  #
+#                 RECORDER.YAML                    #
+#                                                  #
+####################################################
+
+  db_url: !secret db_url
+  auto_purge: false
+  commit_interval: 1
+  include:
+    domains:
+      - light
+      - media_player
+      - person
+      - climate
+      - sensor
+      - binary_sensor
+      - switch
+      - person
+    entities:
+      - device_tracker.mi_a3
+      - device_tracker.nokia_7_2
+      - device_tracker.lisi_philipstv
+      - vacuum.xiaomi_vacuum_cleaner
+      - sun.sun
+
+####################################################
+#                                                  #
+#           END OF CONFIGURATION FILE              #
+#                                                  #
+####################################################

@@ -1,0 +1,173 @@
+#https://home-assistant.io/components/google_assistant/
+
+####################################################
+#                                                  #
+#       GOOGLE ASSISTANT MANUAL CONFIG              #
+#                                                  #
+####################################################
+
+  project_id: !secret assistant_project_id
+  service_account: !include GA_SERVICE_ACCOUNT.json
+  report_state: true
+  expose_by_default: false
+  exposed_domains:
+    - climate
+    - light
+    - script
+    - switch
+    - sensor
+  entity_config:
+
+
+    light.buro_deckenlampe:
+      expose: true
+      room: Büro
+      name: Deckenlampe
+      aliases:
+        - Deckenleuchte
+        - Deckenlicht
+    light.buro_schreibtisch:
+      expose: true
+      room: Büro
+      name: Schreibtischlampe
+      aliases:
+        - Schreibtischleuchte
+        - Schreibtischlicht
+
+    light.deckenlampen_flur:
+      expose: true
+      room: Flur
+      name: Deckenlampen
+      aliases:
+        - Deckenleuchten
+        - Deckenlicht
+
+    climate.klimaanlage:
+      expose: true
+      room: Kinderzimmer
+      name: Klimaanlage
+
+    light.kinderzimmer_deckenlampe:
+      expose: true
+      room: Kinderzimmer
+      name: Deckenlampe
+      aliases:
+        - Deckenleuchte
+        - Deckenlicht
+    light.kinderzimmer_tischleuchte:
+      expose: true
+      room: Kinderzimmer
+      name: Wickeltischlampe
+      aliases:
+        - Wickeltischleuchte
+        - Wickeltischlicht
+
+    light.kuche_esstisch:
+      expose: true
+      room: Küche
+      name: Esstischlampe
+      aliases:
+        - Esstischleuchte
+        - Esstischlicht
+    light.kuche_herd:
+      expose: true
+      room: Küche
+      name: Herdlampe
+      aliases:
+        - Herdleuchte
+        - Herdlicht
+
+    light.schlafzimmer_deckenlampe:
+      expose: true
+      room: Schlafzimmer
+      name: Deckenlampe
+      aliases:
+        - Deckenleuchte
+        - Deckenlicht
+    light.schlafzimmer_nachttisch_lisa:
+      expose: true
+      room: Schlafzimmer
+      name: Nachttischlampe Lisa
+      aliases:
+        - Nachttischleuchte Lisa
+        - Nachttischlicht Lisa
+    light.schlafzimmer_nachttisch_simon:
+      expose: true
+      room: Schlafzimmer
+      name: Nachttischlampe Simon
+      aliases:
+        - Nachttischleuchte Simon
+        - Nachttischlicht Simon
+
+    light.shelly_badspiegel:
+      expose: true
+      room: Bad
+      name: Spiegellampe
+      aliases:
+        - Spiegelleuchte
+        - Spiegellicht
+    light.shelly_deckenlampe_bad:
+      expose: true
+      room: Bad
+      name: Deckenlampe
+      aliases:
+        - Deckenleuchte
+        - Deckenlicht
+
+    light.wandlampen_treppenhaus:
+      expose: true
+      room: Treppenhaus
+      name: Wandlampe
+      aliases:
+        - Wandleuchte
+        - Wandlicht
+
+    light.stehlampe_wohnzimmer_links:
+      expose: true
+      room: Wohnzimmer
+      name: Stehlampe links
+      aliases:
+        - Stehleuchte links
+        - Stehlicht links
+    light.wohnzimmer_deckenlampe:
+      expose: true
+      room: Wohnzimmer
+      name: Deckenlampe
+      aliases:
+        - Deckenleuchte
+        - Deckenlicht
+    light.wohnzimmer_lightstrip:
+      expose: true
+      room: Wohnzimmer
+      name: Lightstrip
+      aliases:
+        - Lichtschlauch
+    light.wohnzimmer_stehlampe_rechts:
+      expose: true
+      room: Wohnzimmer
+      name: Stehlampe rechts
+      aliases:
+        - Stehleuchte rechts
+        - Stehlicht rechts
+    light.wohnzimmer_weihnachtsstern:
+      expose: true
+      room: Wohnzimmer
+      name: Weihnachtsstern
+
+
+    switch.wasserpumpe:
+      expose: true
+      room: Außen
+      name: Balkonbewässerung
+    light.eingangstuer_decke:
+      expose: true
+      room: Außen
+      name: Licht Eingangstür
+      aliases:
+        - Deckenleuchte Eingangstür
+
+#########################################################
+#                                                       #
+#            END OF CONFIGURATION FILE                  #
+#                                                       #
+#########################################################

@@ -1,0 +1,201 @@
+binary_sensor:
+#https://home-assistant.io/components/binary_sensor/
+
+####################################################
+#                                                  #
+#           Binary Device Trackers                 #
+#                                                  #
+####################################################
+
+# https://home-assistant.io/components/binary_sensor/
+
+  - platform: template
+    sensors:
+      openmediavault:
+        friendly_name: "Server"
+        value_template: >-
+          {{ is_state('device_tracker.openmediavault', 'home') }}
+      simonpc:
+        friendly_name: "Simon-PC"
+        value_template: >-
+          {{ is_state('device_tracker.simonpc', 'home') }}
+      philipstv:
+        friendly_name: "Philips-TV"
+        value_template: >-
+          {{ is_state('device_tracker.lisi_philipstv', 'home') }}
+      simondrucker:
+        friendly_name: "Drucker"
+        value_template: >-
+          {{ is_state('device_tracker.simondrucker', 'home') }}
+      simonlaptop:
+        friendly_name: "Laptop"
+        value_template: >-
+          {{ is_state('device_tracker.simonlaptop', 'home') }}
+      waschmaschine:
+        friendly_name: "Waschmaschine"
+        value_template: >-
+          {{ is_state('sensor.status_waschmaschine', 'Wäscht') }}
+      trockner:
+        friendly_name: "Trockner"
+        value_template: >-
+          {{ is_state('sensor.status_trockner', 'Trocknet') }}
+      spuehlmaschine:
+        friendly_name: "Spülmaschine"
+        value_template: >-
+          {{ not is_state('sensor.status_spuelmaschine', 'Aus') }}
+
+
+####################################################
+#                                                  #
+#             Binary Window Sensor                 #
+#                                                  #
+####################################################
+
+# https://home-assistant.io/components/binary_sensor/
+
+  - platform: template
+    sensors:
+      heizung_bad_window_open:
+        friendly_name: "Fenster Bad"
+        value_template: >-
+          {{ state_attr('climate.heizung_bad', 'window_open') }}
+      heizung_buro_window_open:
+        friendly_name: "Fenster Büro"
+        value_template: >-
+          {{ state_attr('climate.heizung_buro', 'window_open') }}
+
+####################################################
+#                                                  #
+#                    Presence                      #
+#                                                  #
+####################################################
+
+# https://home-assistant.io/components/binary_sensor/
+
+  - platform: template
+    sensors:
+      presence:
+        friendly_name: "Anwesenheit"
+        value_template: >-
+          {{ is_state('group.anwesenheit', 'home') }}
+
+####################################################
+#                                                  #
+#                    Climate ON                    #
+#                                                  #
+####################################################
+
+# https://home-assistant.io/components/binary_sensor/
+
+  - platform: template
+    sensors:
+      all_climates_on:
+        friendly_name: "Alle Heizungen an"
+        value_template: >-
+          {{ state_attr('weather.dark_sky', 'temperature')|float < 21 }}
+
+####################################################
+#                                                  #
+#                Workday Sensor                    #
+#                                                  #
+####################################################
+
+# https://www.home-assistant.io/integrations/workday/
+
+  - platform: workday
+    country: DE
+    workdays: [mon, tue, wed, thu, fri]
+    excludes: [sat, sun, holiday]
+
+####################################################
+#                                                  #
+#                    Lights ON                     #
+#                                                  #
+####################################################
+
+# https://home-assistant.io/components/binary_sensor/
+
+  - platform: template
+    sensors:
+      indicator_lights_on:
+        friendly_name: "Indikator für gerade angeschaltete lichter"
+        device_class: light
+        value_template: >-
+          {{ states('sensor.current_lights_on')|float > 0 }}
+
+####################################################
+#                                                  #
+#              Adaptive Light ON                   #
+#                                                  #
+####################################################
+
+# https://home-assistant.io/components/binary_sensor/
+
+  - platform: template
+    sensors:
+      adaptive_lighting_buro_deckenlampe_manual_control:
+        friendly_name: "Adaptive Lighting Büro Deckenlampe im manuellen Modus"
+        value_template: >-
+          {{ 'light.buro_deckenlampe' in state_attr('switch.adaptive_lighting_buro_deckenlampe', 'manual_control') }}
+      adaptive_lighting_buro_schreibtisch_manual_control:
+        friendly_name: "Adaptive Lighting Büro Schreibtisch im manuellen Modus"
+        value_template: >-
+          {{ 'light.buro_schreibtisch' in state_attr('switch.adaptive_lighting_buro_schreibtisch', 'manual_control') }}
+      adaptive_lighting_flur_deckenlampe_manual_control:
+        friendly_name: "Adaptive Lighting Flur Deckenlampen im manuellen Modus"
+        value_template: >-
+          {{ 'light.flur_deckenlampe_1' in state_attr('switch.adaptive_lighting_flur_deckenlampe', 'manual_control') }}
+      adaptive_lighting_kinderzimmer_deckenlampe_manual_control:
+        friendly_name: "Adaptive Lighting Kinderzimmer Deckenlampe im manuellen Modus"
+        value_template: >-
+          {{ 'light.kinderzimmer_deckenlampe' in state_attr('switch.adaptive_lighting_kinderzimmer_deckenlampe', 'manual_control') }}
+      adaptive_lighting_kinderzimmer_wickeltisch_manual_control:
+        friendly_name: "Adaptive Lighting Kinderzimmer Wickeltisch im manuellen Modus"
+        value_template: >-
+          {{ 'light.kinderzimmer_tischleuchte' in state_attr('switch.adaptive_lighting_kinderzimmer_wickeltisch', 'manual_control') }}
+      adaptive_lighting_kuche_esstisch_manual_control:
+        friendly_name: "Adaptive Lighting Küche Esstisch im manuellen Modus"
+        value_template: >-
+          {{ 'light.kuche_esstisch' in state_attr('switch.adaptive_lighting_kuche_esstisch', 'manual_control') }}
+      adaptive_lighting_kuche_herd_manual_control:
+        friendly_name: "Adaptive Lighting Küche Herd im manuellen Modus"
+        value_template: >-
+          {{ 'light.kuche_herd' in state_attr('switch.adaptive_lighting_kuche_herd', 'manual_control') }}
+      adaptive_lighting_schlafzimmer_deckenlampe_manual_control:
+        friendly_name: "Adaptive Lighting Schlafzimmer Deckenlampe im manuellen Modus"
+        value_template: >-
+          {{ 'light.schlafzimmer_deckenlampe' in state_attr('switch.adaptive_lighting_schlafzimmer_deckenlampe', 'manual_control') }}
+      adaptive_lighting_schlafzimmer_nachttisch_lisa_manual_control:
+        friendly_name: "Adaptive Lighting Schlafzimmer Nachttisch Lisa im manuellen Modus"
+        value_template: >-
+          {{ 'light.schlafzimmer_nachttisch_lisa' in state_attr('switch.adaptive_lighting_schlafzimmer_nachttisch_lisa', 'manual_control') }}
+      adaptive_lighting_schlafzimmer_nachttisch_simon_manual_control:
+        friendly_name: "Adaptive Lighting Schlafzimmer Nachttisch Simon im manuellen Modus"
+        value_template: >-
+          {{ 'light.schlafzimmer_nachttisch_simon' in state_attr('switch.adaptive_lighting_schlafzimmer_nachttisch_simon', 'manual_control') }}
+      adaptive_lighting_treppenhaus_wandlampe_manual_control:
+        friendly_name: "Adaptive Lighting Treppenhaus Wandlampe im manuellen Modus"
+        value_template: >-
+          {{ 'light.treppenhaus_wandlampe_1' in state_attr('switch.adaptive_lighting_treppenhaus_wandlampe', 'manual_control') }}
+      adaptive_lighting_wohnzimmer_deckenlampe_manual_control:
+        friendly_name: "Adaptive Lighting Wohnzimmer Deckenlampe im manuellen Modus"
+        value_template: >-
+          {{ 'light.wohnzimmer_deckenlampe' in state_attr('switch.adaptive_lighting_wohnzimmer_deckenlampe', 'manual_control') }}
+      adaptive_lighting_wohnzimmer_lightstrip_manual_control:
+        friendly_name: "Adaptive Lighting Wohnzimmer Lightstrip im manuellen Modus"
+        value_template: >-
+          {{ 'light.wohnzimmer_lightstrip' in state_attr('switch.adaptive_lighting_wohnzimmer_lightstrip', 'manual_control') }}
+      adaptive_lighting_wohnzimmer_stehlampe_links_manual_control:
+        friendly_name: "Adaptive Lighting Wohnzimmer Stehlampe links im manuellen Modus"
+        value_template: >-
+          {{ 'light.wohnzimmer_stehlampe_links1' in state_attr('switch.adaptive_lighting_wohnzimmer_stehlampe_links', 'manual_control') }}
+      adaptive_lighting_wohnzimmer_stehlampe_rechts_manual_control:
+        friendly_name: "Adaptive Lighting Wohnzimmer Stehlampe rechts im manuellen Modus"
+        value_template: >-
+          {{ 'light.wohnzimmer_stehlampe_rechts' in state_attr('switch.adaptive_lighting_wohnzimmer_stehlampe_rechts', 'manual_control') }}
+
+####################################################
+#                                                  #
+#          END OF CONFIGURATION FILE               #
+#                                                  #
+####################################################

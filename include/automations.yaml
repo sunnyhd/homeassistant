@@ -1,0 +1,1380 @@
+automation:
+
+  - id: '1589361820017'
+    alias: Balkonbewässerung - Einschalten
+    description: Diese Automatisierung schaltet jeden morgen die Balkonbewässerung an
+      und wieder aus.
+    trigger:
+    - at: '10:00:00'
+      platform: time
+    condition:
+    - condition: state
+      entity_id: binary_sensor.wasserstand
+      state: 'off'
+    action:
+    - data: {}
+      entity_id: switch.wasserpumpe
+      service: switch.turn_on
+    - delay: 00:08:00
+    - data: {}
+      entity_id: switch.wasserpumpe
+      service: switch.turn_off
+  - id: '1590424543641'
+    alias: Balkonbewässerung - Notaus
+    description: Diese Automatisierung schaltet die Balkonbewässerung aus, sobald der
+      Wasserstand zu gering wird.
+    trigger:
+    - entity_id: binary_sensor.wasserstand
+      platform: state
+      to: 'on'
+    condition: []
+    action:
+    - data: {}
+      entity_id: switch.wasserpumpe
+      service: switch.turn_off
+    - data:
+        message: Der Wasserstand im Behälter für die Balkonbewässerung ist niedrig.
+          Er sollte aufgefüllt werden!
+        title: Wasserstand Balkonbewässerung niedrig
+      service: notify.home_assistant_smtp
+  - id: '1590425989636'
+    alias: Shellies - Announce
+    description: ''
+    trigger:
+    - event: start
+      platform: homeassistant
+    - hours: /6
+      platform: time_pattern
+    condition: []
+    action:
+    - data:
+        payload: announce
+        topic: shellies/command
+      service: mqtt.publish
+    mode: restart
+  - id: '1590426149382'
+    alias: Shellies - Discovery
+    description: ''
+    trigger:
+    - platform: mqtt
+      topic: shellies/announce
+    condition: []
+    action:
+    - data:
+        id: '{{ trigger.payload_json.id }}'
+        mac: '{{ trigger.payload_json.mac }}'
+        fw_ver: '{{ trigger.payload_json.fw_ver }}'
+        model: '{{ trigger.payload_json.model }}'
+        mode: '{{ trigger.payload_json.mode | default }}'
+      service: python_script.shellies_discovery
+    mode: queued
+    max: 999
+  - id: '1590475178551'
+    alias: Benachrichtigung - Waschmaschine fertig
+    description: Diese Automatisierung benachrichtig über die Fertigstellung des Waschvorgangs.
+    trigger:
+    - entity_id: sensor.status_waschmaschine
+      from: Wäscht
+      platform: state
+    condition:
+    - after: 08:00:00
+      before: '22:30:00'
+      condition: time
+    action:
+    - data:
+        message: Die Waschmaschine hat den Waschvorgang beendet und kann ausgeräumt
+          werden
+        title: Waschmaschine fertig
+      service: notify.home_assistant_smtp
+    - data:
+        delay: 00:00:05
+        message: Die Waschmaschine ist fertig
+        sonos_entity: media_player.wohnzimmer
+        volume: 0.3
+      service: script.sonos_say
+  - id: '1590475368200'
+    alias: Benachrichtigung - Trockner fertig
+    description: Diese Automatisierung benachrichtigt darüber, wenn der Trockner den
+      Trockenvorgang beendet hat.
+    trigger:
+    - entity_id: sensor.status_trockner
+      from: Trocknet
+      platform: state
+    condition:
+    - after: 08:00:00
+      before: '22:30:00'
+      condition: time
+    action:
+    - data:
+        message: Der Trockner hat den Trockenvorgang beendet und kann ausgeräumt werden
+        title: Trockner fertig
+      service: notify.home_assistant_smtp
+    - data:
+        delay: 00:00:05
+        message: Der Trockner ist fertig
+        sonos_entity: media_player.wohnzimmer
+        volume: 0.3
+      service: script.sonos_say
+  - id: '1590475588511'
+    alias: Benachrichtigung - Spülmaschine fertig
+    description: Diese Automatisierung benachrichtigt darüber, wenn die Spülmaschine
+      den Spülvorgang beendet hat.
+    trigger:
+    - entity_id: sensor.status_spuelmaschine
+      platform: state
+      to: 'off'
+    condition:
+    - after: 08:00:00
+      before: '22:30:00'
+      condition: time
+    action:
+    - data:
+        message: Die Spülmaschine hat den Spülvorgang beendet und kann ausgeräumt werden
+        title: Spülmaschine fertig
+      service: notify.home_assistant_smtp
+    - data:
+        delay: 00:00:05
+        message: Die Spülmaschine ist fertig
+        sonos_entity: media_player.wohnzimmer
+        volume: 0.3
+      service: script.sonos_say
+  - id: '1590475745496'
+    alias: Benachrichtigung - Geburtstag
+    description: Diese Automatisierung benachrichtigt zweimal am Tag darüber, wenn jemand
+      Geburtstag hat.
+    trigger:
+    - at: '12:00:00'
+      platform: time
+    - at: '18:00:00'
+      platform: time
+    condition:
+    - condition: state
+      entity_id: calendar.contacts
+      state: 'on'
+    action:
+    - data_template:
+        message: '''{{ state_attr(''calendar.contacts'', ''message'') }}''
+
+          '
+        title: Geburtstagserinnerung
+      service: notify.home_assistant_smtp
+  - id: '1590477492470'
+    alias: Heizung - Bad
+    description: Diese Automatisierung steuert mit Hilfe eine Python Scripts den Heizungsregler
+      im Badezimmer.
+    trigger:
+    - hours: '*'
+      minutes: '1'
+      platform: time_pattern
+    - entity_id: binary_sensor.presence
+      platform: state
+    - entity_id: binary_sensor.heizung_bad_window_open
+      platform: state
+    - entity_id: binary_sensor.all_climates_on
+      platform: state
+    condition: []
+    action:
+    - data:
+        entity_id: climate.heizung_bad
+        heating_from_hour: 8
+        heating_to_hour: 22
+        hvac_active: heat
+        preset_away: eco
+        sensor_presence: binary_sensor.presence
+        sensors_off:
+        - binary_sensor.all_climates_on
+        windows:
+        - binary_sensor.heizung_bad_window_open
+      service: python_script.update_climate
+  - id: '1590477639445'
+    alias: Heizung - Büro
+    description: Diese Automatisierung steuert mit Hilfe eine Python Scripts den Heizungsregler
+      im Büro.
+    trigger:
+    - hours: '*'
+      minutes: '1'
+      platform: time_pattern
+    - entity_id: binary_sensor.presence
+      platform: state
+    - entity_id: binary_sensor.heizung_buro_window_open
+      platform: state
+    - entity_id: binary_sensor.all_climates_on
+      platform: state
+    condition: []
+    action:
+    - data:
+        entity_id: climate.heizung_buro
+        heating_from_hour: 8
+        heating_to_hour: 22
+        hvac_active: heat
+        preset_away: eco
+        sensor_presence: binary_sensor.presence
+        sensors_off:
+        - binary_sensor.all_climates_on
+        windows:
+        - binary_sensor.heizung_buro_window_open
+      service: python_script.update_climate
+  - id: '1591903728654'
+    alias: Theme - Standardtheme bei Start setzen
+    description: Stellt das standardmäßig zu verwendende HA Theme bei Systemstart ein.
+    trigger:
+    - event: start
+      platform: homeassistant
+    condition: []
+    action:
+    - data:
+        name: tablet
+      service: frontend.set_theme
+    mode: single
+  - id: '1595444719573'
+    alias: Beleuchtung - Lichter an wenn anwesend
+    description: Schaltet primäre Lichter beim nach Hause kommen wieder an
+    trigger:
+    - entity_id: group.anwesenheit
+      platform: state
+      to: home
+    condition: []
+    action:
+    - data:
+        entity_id:
+        - light.kuche_esstisch
+        - light.deckenlampen_flur
+        - light.wohnzimmer_deckenlampe
+      service: light.turn_on
+    mode: single
+  - id: '1595444867673'
+    alias: Beleuchtung - Lichter aus wenn abwesend
+    description: Schaltet die komplette Beleuchtung aus wenn alle Personen abwesend
+      sind
+    trigger:
+    - entity_id: group.anwesenheit
+      platform: state
+      to: not_home
+    condition: []
+    action:
+    - data:
+        entity_id: all
+      service: light.turn_off
+    mode: single
+  - id: '1595445128676'
+    alias: Beleuchtung - Wohnzimmer Verkehrslicht Automatisierung an
+    description: ''
+    trigger:
+    - at: '23:59:59'
+      platform: time
+    condition: []
+    action:
+    - data: {}
+      entity_id: automation.beleuchtung_verkehrslicht_an
+      service: homeassistant.turn_on
+    mode: single
+  - id: '1595445444526'
+    alias: Beleuchtung - Wohnzimmer Verkehrslicht an
+    description: ''
+    trigger:
+    - minutes: /1
+      platform: time_pattern
+    condition:
+    - after: 06:00:00
+      before: 07:30:00
+      condition: time
+      weekday:
+      - mon
+      - tue
+      - wed
+      - thu
+      - fri
+    - condition: state
+      entity_id: group.anwesenheit
+      state: home
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: 'on'
+    action:
+    - data:
+        entity_id: light.stehlampe_wohnzimmer_links
+      service: python_script.traffic
+    mode: restart
+  - id: '1595445725384'
+    alias: Beleuchtung - Wohnzimmer Verkehrslicht aus
+    description: ''
+    trigger:
+    - entity_id: light.stehlampe_wohnzimmer_links
+      platform: state
+      to: 'off'
+    - at: 07:31:00
+      platform: time
+    condition: []
+    action:
+    - data: {}
+      entity_id: light.stehlampe_wohnzimmer_links
+      service: light.turn_off
+    - data: {}
+      entity_id: automation.beleuchtung_verkehrslicht_an
+      service: homeassistant.turn_off
+    mode: restart
+  - id: '1595446145358'
+    alias: Beleuchtung - Wohnzimmer Lightstrip mit Deckenlampe an/aus
+    description: ''
+    trigger:
+    - entity_id: light.wohnzimmer_deckenlampe
+      platform: state
+    condition:
+    - condition: time
+      after: '16:00'
+      before: 05:00
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.wohnzimmer_deckenlampe
+          state: 'on'
+        sequence:
+        - data: {}
+          entity_id: light.wohnzimmer_lightstrip
+          service: light.turn_on
+      - conditions:
+        - condition: state
+          entity_id: light.wohnzimmer_deckenlampe
+          state: 'off'
+        sequence:
+        - data: {}
+          entity_id: light.wohnzimmer_lightstrip
+          service: light.turn_off
+      default:
+      - service: light.turn_off
+        data: {}
+        entity_id: light.wohnzimmer_lightstrip
+    mode: single
+  - id: '1595446592140'
+    alias: Beleuchtung - Bad Spiegellampe mit Deckenlampe an/aus
+    description: ''
+    trigger:
+    - entity_id: light.shelly_deckenlampe_bad
+      platform: state
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.shelly_deckenlampe_bad
+          state: 'on'
+        sequence:
+        - data: {}
+          entity_id: light.shelly_badspiegel
+          service: light.turn_on
+      - conditions:
+        - condition: state
+          entity_id: light.shelly_deckenlampe_bad
+          state: 'off'
+        sequence:
+        - data: {}
+          entity_id: light.shelly_badspiegel
+          service: light.turn_off
+      default: []
+    mode: single
+  - id: '1595840375132'
+    alias: Benachrichtigung - Login Fehlversuch
+    description: ''
+    trigger:
+    - entity_id: persistent_notification.httplogin
+      platform: state
+    condition:
+    - condition: template
+      value_template: trigger.to_state.state != ''None''
+    action:
+    - data:
+        message: '{{ trigger.to_state.state }}'
+        title: Fehlerhafter Loginversuch auf Homeassistant
+      service: notify.home_assistant_smtp
+    mode: single
+  - id: '1595840433880'
+    alias: Benachrichtigung - Neues Netzwerkgerät
+    description: ''
+    trigger:
+    - event_data: {}
+      event_type: device_tracker_new_device
+      platform: event
+    condition: []
+    action:
+    - data:
+        message: '> Neues Netzwerkgerät: {{trigger.event.data.host_name}} {{trigger.event.data.entity_id}}'
+        title: Neues Netzwerkgerät
+      service: notify.home_assistant_smtp
+    mode: single
+  - id: '1595841415077'
+    alias: Benachrichtigung - Geänderte IP-Adresse
+    description: ''
+    trigger:
+    - entity_id: sensor.myip
+      platform: state
+    condition: []
+    action:
+    - data:
+        message: 'Die öffentliche IP hat sich geändert: {{ trigger.from_state.state}}
+          → {{ trigger.to_state.state }}'
+        title: Die IP-Adresse hat sich geändert
+      service: notify.home_assistant_smtp
+    mode: single
+  - id: '1595841559545'
+    alias: Media - Sonos Player jeden Morgen zurücksetzen
+    description: ''
+    trigger:
+    - at: 04:30
+      platform: time
+    condition: []
+    action:
+    - data: {}
+      entity_id: media_player.bad, media_player.buro, media_player.schlafzimmer, media_player.wohnzimmer
+      service: sonos.unjoin
+    - data: {}
+      entity_id: media_player.bad, media_player.buro, media_player.schlafzimmer, media_player.wohnzimmer
+      service: media_player.clear_playlist
+    - data:
+        volume_level: 0.15
+      entity_id: media_player.bad, media_player.buro, media_player.schlafzimmer, media_player.wohnzimmer
+      service: media_player.volume_set
+    mode: single
+  - id: '1595841724105'
+    alias: Media - Sonos Player Büro mit PC an
+    description: ''
+    trigger:
+    - entity_id: switch.simon_pc
+      platform: state
+      to: 'on'
+    condition: []
+    action:
+    - data: {}
+      entity_id: media_player.buro
+      service: sonos.unjoin
+    - data:
+        volume_level: 0.5
+      entity_id: media_player.buro
+      service: media_player.volume_set
+    - data:
+        source: Line-in
+      entity_id: media_player.buro
+      service: media_player.select_source
+    - data: {}
+      entity_id: media_player.buro
+      service: media_player.media_play
+    mode: single
+  - id: '1598386979791'
+    alias: 'Beleuchtung - Büro Deckenlampe - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.buro_deckenlampe
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_buro_deckenlampe_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.buro_deckenlampe
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_buro_deckenlampe
+      - conditions:
+        - condition: state
+          entity_id: light.buro_deckenlampe
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_buro_deckenlampe
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_buro_deckenlampe_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_buro_deckenlampe
+      default: []
+    mode: single
+  - id: '1598422031591'
+    alias: 'Beleuchtung - Büro Schreibtischlampe - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.buro_schreibtisch
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_buro_schreibtisch_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.buro_schreibtisch
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_buro_schreibtisch
+      - conditions:
+        - condition: state
+          entity_id: light.buro_schreibtisch
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_buro_schreibtisch
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_buro_schreibtisch_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_buro_schreibtisch
+      default: []
+    mode: single
+  - id: '1825812110646'
+    alias: 'Beleuchtung - Wohnzimmer Deckenlampe - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.wohnzimmer_deckenlampe
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_wohnzimmer_deckenlampe_manual_control
+    condition:
+    - condition: state
+      entity_id: switch.hue_labs_wohnzimmer_scandinavian
+      state: 'off'
+    - condition: state
+      entity_id: switch.hue_labs_wohnzimmer_timeless
+      state: 'off'
+    - condition: state
+      entity_id: switch.hue_labs_wohnzimmer_urban
+      state: 'off'
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.wohnzimmer_deckenlampe
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_deckenlampe
+      - conditions:
+        - condition: state
+          entity_id: light.wohnzimmer_deckenlampe
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_deckenlampe
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_wohnzimmer_deckenlampe_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_deckenlampe
+      default: []
+    mode: single
+  - id: '1983835480808'
+    alias: 'Beleuchtung - Wohnzimmer Lightstrip - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.wohnzimmer_lightstrip
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_wohnzimmer_lightstrip_manual_control
+    condition:
+    - condition: state
+      entity_id: switch.hue_labs_wohnzimmer_scandinavian
+      state: 'off'
+    - condition: state
+      entity_id: switch.hue_labs_wohnzimmer_timeless
+      state: 'off'
+    - condition: state
+      entity_id: switch.hue_labs_wohnzimmer_urban
+      state: 'off'
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.wohnzimmer_lightstrip
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_lightstrip
+      - conditions:
+        - condition: state
+          entity_id: light.wohnzimmer_lightstrip
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_lightstrip
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_wohnzimmer_lightstrip_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_lightstrip
+      default: []
+    mode: single
+  - id: '1718454021724'
+    alias: 'Beleuchtung - Wohnzimmer Stehlampe links - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.stehlampe_wohnzimmer_links
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_wohnzimmer_stehlampe_links_manual_control
+    condition:
+    - condition: state
+      entity_id: switch.hue_labs_wohnzimmer_scandinavian
+      state: 'off'
+    - condition: state
+      entity_id: switch.hue_labs_wohnzimmer_timeless
+      state: 'off'
+    - condition: state
+      entity_id: switch.hue_labs_wohnzimmer_urban
+      state: 'off'
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.stehlampe_wohnzimmer_links
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_stehlampe_links
+      - conditions:
+        - condition: state
+          entity_id: light.stehlampe_wohnzimmer_links
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_stehlampe_links
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_wohnzimmer_stehlampe_links_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_stehlampe_links
+      default: []
+    mode: single
+  - id: '1677077854718'
+    alias: 'Beleuchtung - Wohnzimmer Stehlampe rechts - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.wohnzimmer_stehlampe_rechts
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_wohnzimmer_stehlampe_rechts_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.wohnzimmer_stehlampe_rechts
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_stehlampe_rechts
+      - conditions:
+        - condition: state
+          entity_id: light.wohnzimmer_stehlampe_rechts
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_stehlampe_rechts
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_wohnzimmer_stehlampe_rechts_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_wohnzimmer_stehlampe_rechts
+      default: []
+    mode: single
+  - id: '1672295879095'
+    alias: 'Beleuchtung - Küche Herd - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.kuche_herd
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_kuche_herd_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.kuche_herd
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_kuche_herd
+      - conditions:
+        - condition: state
+          entity_id: light.kuche_herd
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_kuche_herd
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_kuche_herd_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_kuche_herd
+      default: []
+    mode: single
+  - id: '1619763095865'
+    alias: 'Beleuchtung - Küche Esstisch - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.kuche_esstisch
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_kuche_esstisch_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.kuche_esstisch
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_kuche_esstisch
+      - conditions:
+        - condition: state
+          entity_id: light.kuche_esstisch
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_kuche_esstisch
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_kuche_esstisch_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_kuche_esstisch
+      default: []
+    mode: single
+  - id: '1977035196370'
+    alias: 'Beleuchtung - Flur Deckenlampen - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.deckenlampen_flur
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_flur_deckenlampe_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.deckenlampen_flur
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_flur_deckenlampe
+      - conditions:
+        - condition: state
+          entity_id: light.deckenlampen_flur
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_flur_deckenlampe
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_flur_deckenlampe_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_flur_deckenlampe
+      default: []
+    mode: single
+  - id: '1752550331211'
+    alias: 'Beleuchtung - Treppenhaus Wandlampe - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.wandlampen_treppenhaus
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_treppenhaus_wandlampe_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.wandlampen_treppenhaus
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_treppenhaus_wandlampe
+      - conditions:
+        - condition: state
+          entity_id: light.wandlampen_treppenhaus
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_treppenhaus_wandlampe
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_treppenhaus_wandlampe_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_treppenhaus_wandlampe
+      default: []
+    mode: single
+  - id: '1856839961230'
+    alias: 'Beleuchtung - Schlafzimmer Deckenlampe - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.schlafzimmer_deckenlampe
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_schlafzimmer_deckenlampe_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.schlafzimmer_deckenlampe
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_schlafzimmer_deckenlampe
+      - conditions:
+        - condition: state
+          entity_id: light.schlafzimmer_deckenlampe
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_schlafzimmer_deckenlampe
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_schlafzimmer_deckenlampe_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_schlafzimmer_deckenlampe
+      default: []
+    mode: single
+  - id: '1636161269568'
+    alias: 'Beleuchtung - Schlafzimmer Nachttisch Lisa - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.schlafzimmer_nachttisch_lisa
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_schlafzimmer_nachttisch_lisa_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.schlafzimmer_nachttisch_lisa
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_schlafzimmer_nachttisch_lisa
+      - conditions:
+        - condition: state
+          entity_id: light.schlafzimmer_nachttisch_lisa
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_schlafzimmer_nachttisch_lisa
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_schlafzimmer_nachttisch_lisa_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_schlafzimmer_nachttisch_lisa
+      default: []
+    mode: single
+  - id: '1756979213799'
+    alias: 'Beleuchtung - Schlafzimmer Nachttisch Simon - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.schlafzimmer_nachttisch_simon
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_schlafzimmer_nachttisch_simon_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.schlafzimmer_nachttisch_simon
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_schlafzimmer_nachttisch_simon
+      - conditions:
+        - condition: state
+          entity_id: light.schlafzimmer_nachttisch_simon
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_schlafzimmer_nachttisch_simon
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_schlafzimmer_nachttisch_simon_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_schlafzimmer_nachttisch_simon
+      default: []
+    mode: single
+  - id: '1936236190613'
+    alias: 'Beleuchtung - Kinderzimmer Deckenlampe - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.kinderzimmer_deckenlampe
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_kinderzimmer_deckenlampe_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.kinderzimmer_deckenlampe
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_kinderzimmer_deckenlampe
+      - conditions:
+        - condition: state
+          entity_id: light.kinderzimmer_deckenlampe
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_kinderzimmer_deckenlampe
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_kinderzimmer_deckenlampe_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_kinderzimmer_deckenlampe
+      default: []
+    mode: single
+  - id: '1999498729598'
+    alias: 'Beleuchtung - Kinderzimmer Wickeltisch - #Lichtstimmung'
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: light.kinderzimmer_tischleuchte
+      from: 'on'
+    - platform: state
+      entity_id: binary_sensor.adaptive_lighting_kinderzimmer_wickeltisch_manual_control
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: light.kinderzimmer_tischleuchte
+          state: 'off'
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_kinderzimmer_wickeltisch
+      - conditions:
+        - condition: state
+          entity_id: light.kinderzimmer_tischleuchte
+          state: unavailable
+        sequence:
+        - service: switch.turn_on
+          data: {}
+          entity_id: switch.adaptive_lighting_kinderzimmer_wickeltisch
+      - conditions:
+        - condition: state
+          entity_id: binary_sensor.adaptive_lighting_kinderzimmer_wickeltisch_manual_control
+          state: 'on'
+        sequence:
+        - service: switch.turn_off
+          data: {}
+          entity_id: switch.adaptive_lighting_kinderzimmer_wickeltisch
+      default: []
+    mode: single
+  - id: '1601484887894'
+    alias: System - Purge Database
+    description: Diese Automatisierung löscht jede Nacht alle Events die älter als 7
+      Tage sind aus der Datenbank. Zusätzlich wird die Datenbank komprimiert, um Platz
+      einzusparen.
+    trigger:
+    - platform: time
+      at: 04:00:00
+    condition: []
+    action:
+    - service: recorder.purge
+      data:
+        keep_days: 2
+        repack: true
+    mode: single
+  - id: '1601550132829'
+    alias: Staubsauger - Wochentags reinigen
+    description: ''
+    trigger:
+    - platform: time
+      at: 08:30:00
+    condition:
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: 'on'
+    action:
+    - service: vacuum.start
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+    mode: single
+  - id: '1601550156741'
+    alias: Staubsauger -  Samstags reinigen
+    description: ''
+    trigger:
+    - platform: time
+      at: 09:30:00
+    condition:
+    - condition: state
+      entity_id: binary_sensor.workday_sensor
+      state: 'off'
+    - condition: state
+      entity_id: sensor.dayoftheweek
+      state: saturday
+    action:
+    - service: vacuum.start
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+    mode: single
+  - id: '1612076833542'
+    alias: Beleuchtung - Linas Nachtlichter aus
+    description: ''
+    trigger:
+    - platform: time
+      at: 07:30
+    condition: []
+    action:
+    - service: light.turn_off
+      data: {}
+      entity_id:
+      - light.kinderzimmer_tischleuchte
+      - light.schlafzimmer_nachttisch_lisa
+    mode: single
+  - id: '1612091552439'
+    alias: Beleuchtung - HUE Labs Wohnzimmer Skandinavien - Helper
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: switch.hue_labs_wohnzimmer_scandinavian
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: switch.hue_labs_wohnzimmer_scandinavian
+          state: 'on'
+        sequence:
+        - service: python_script.light_store
+          data:
+            store_name: hl_w_scandinavian
+            entity_id:
+            - light.wohnzimmer_deckenlampe
+            - light.wohnzimmer_lightstrip
+            - light.wohnzimmer_stehlampe_links1
+            - light.wohnzimmer_stehlampe_links2
+        - service: switch.turn_off
+          data: {}
+          entity_id:
+          - switch.adaptive_lighting_wohnzimmer_deckenlampe
+          - switch.adaptive_lighting_wohnzimmer_lightstrip
+          - switch.adaptive_lighting_wohnzimmer_stehlampe_links
+      default:
+      - service: python_script.light_store
+        data:
+          store_name: hl_w_scandinavian
+          operation: restore
+      - service: switch.turn_on
+        data: {}
+        entity_id:
+        - switch.adaptive_lighting_wohnzimmer_deckenlampe
+        - switch.adaptive_lighting_wohnzimmer_lightstrip
+        - switch.adaptive_lighting_wohnzimmer_stehlampe_links
+    mode: single
+  - id: '1612091735098'
+    alias: Beleuchtung - HUE Labs Wohnzimmer Timeless - Helper
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: switch.hue_labs_wohnzimmer_timeless
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: switch.hue_labs_wohnzimmer_timeless
+          state: 'on'
+        sequence:
+        - service: python_script.light_store
+          data:
+            store_name: hl_w_timeless
+            entity_id:
+            - light.wohnzimmer_deckenlampe
+            - light.wohnzimmer_lightstrip
+            - light.wohnzimmer_stehlampe_links1
+            - light.wohnzimmer_stehlampe_links2
+        - service: switch.turn_off
+          data: {}
+          entity_id:
+          - switch.adaptive_lighting_wohnzimmer_deckenlampe
+          - switch.adaptive_lighting_wohnzimmer_lightstrip
+          - switch.adaptive_lighting_wohnzimmer_stehlampe_links
+      default:
+      - service: python_script.light_store
+        data:
+          store_name: hl_w_timeless
+          operation: restore
+      - service: switch.turn_on
+        data: {}
+        entity_id:
+        - switch.adaptive_lighting_wohnzimmer_deckenlampe
+        - switch.adaptive_lighting_wohnzimmer_lightstrip
+        - switch.adaptive_lighting_wohnzimmer_stehlampe_links
+    mode: single
+  - id: '1612091778863'
+    alias: Beleuchtung - HUE Labs Wohnzimmer Urban - Helper
+    description: ''
+    trigger:
+    - platform: state
+      entity_id: switch.hue_labs_wohnzimmer_urban
+    condition: []
+    action:
+    - choose:
+      - conditions:
+        - condition: state
+          entity_id: switch.hue_labs_wohnzimmer_urban
+          state: 'on'
+        sequence:
+        - service: python_script.light_store
+          data:
+            store_name: hl_w_urban
+            entity_id:
+            - light.wohnzimmer_deckenlampe
+            - light.wohnzimmer_lightstrip
+            - light.wohnzimmer_stehlampe_links1
+            - light.wohnzimmer_stehlampe_links2
+        - service: switch.turn_off
+          data: {}
+          entity_id:
+          - switch.adaptive_lighting_wohnzimmer_deckenlampe
+          - switch.adaptive_lighting_wohnzimmer_lightstrip
+          - switch.adaptive_lighting_wohnzimmer_stehlampe_links
+      default:
+      - service: python_script.light_store
+        data:
+          store_name: hl_w_urban
+          operation: restore
+      - service: switch.turn_on
+        data: {}
+        entity_id:
+        - switch.adaptive_lighting_wohnzimmer_deckenlampe
+        - switch.adaptive_lighting_wohnzimmer_lightstrip
+        - switch.adaptive_lighting_wohnzimmer_stehlampe_links
+    mode: single
+
+      ####################################################
+      #                                                  #
+      #                  POWER MEASURES                  #
+      #                                                  #
+      ####################################################
+
+  - id: '1621344159065'
+    alias: Messe Strom (Mired)
+    description: ''
+    trigger:
+    - platform: webhook
+      webhook_id: measure_power_mired_ps
+    condition: []
+    action:
+    - service: pyscript.measure_power_consumption
+      data:
+        powermeter: sensor.steckdose_wohnzimmer_lowboard_power_consumption
+        entity_id: light.wohnzimmer_lightstrip
+        manufacturer: Signify Netherlands B.V.
+        bulb: LST002
+    mode: single
+
+  - id: '1621626130867'
+    alias: Messe Strom (RGB)
+    description: ''
+    trigger:
+    - platform: webhook
+      webhook_id: measure_power_rgb_ps
+    condition: []
+    action:
+    - service: pyscript.measure_power_consumption_rgb
+      data:
+        powermeter: sensor.steckdose_wohnzimmer_lowboard_power_consumption
+        entity_id: light.wohnzimmer_lightstrip
+        manufacturer: Signify Netherlands B.V.
+        bulb: LST002
+    mode: single
+
+  - id: '1621626130845647'
+    alias: Messe Strom (Hue)
+    description: ''
+    trigger:
+    - platform: webhook
+      webhook_id: measure_power_hue_ps
+    condition: []
+    action:
+    - service: pyscript.measure_power_consumption_hs
+      data:
+        powermeter: sensor.steckdose_wohnzimmer_lowboard_power_consumption
+        entity_id: light.wohnzimmer_lightstrip
+        manufacturer: Signify Netherlands B.V.
+        bulb: LST002
+    mode: single
+
+      ####################################################
+      #                                                  #
+      #                CONDITIONAL MEDIA                 #
+      #                                                  #
+      ####################################################
+
+  - alias: conditional_media_playing
+    id: '5557842567134'
+    initial_state: true
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id:
+          - media_player.wohnzimmer_2
+          - media_player.wohnzimmer
+          - media_player.kueche
+          - media_player.schlafzimmer
+          - media_player.bad
+          - media_player.buro
+        to: playing
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.conditional_media
+          option: >
+            {{ trigger.to_state.object_id }}
+
+  - alias: conditional_media_paused_idle
+    id: '3603627624707'
+    initial_state: true
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id:
+          - media_player.wohnzimmer_2
+          - media_player.wohnzimmer
+          - media_player.kueche
+          - media_player.schlafzimmer
+          - media_player.bad
+          - media_player.buro
+        to:
+          ['off', 'idle', 'standby']
+      - platform: state
+        entity_id:
+          - media_player.wohnzimmer_2
+          - media_player.wohnzimmer
+          - media_player.kueche
+          - media_player.schlafzimmer
+          - media_player.bad
+          - media_player.buro
+        to: paused
+        for:
+          minutes: 10
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.conditional_media
+          option: >
+            {% set media_players =
+              [states.media_player.wohnzimmer_2, states.media_player.wohnzimmer, states.media_player.kueche,
+                states.media_player.schlafzimmer, states.media_player.bad, states.media_player.buro] %}
+            {% if media_players | selectattr('state','eq','playing') | list | count == 0 %}
+              {% if media_players | selectattr('state','eq','paused') | list | count == 0 %}
+              Letzte Aktivität
+              {% else %}
+              {{ media_players | selectattr('state','eq','paused') | map(attribute='name') | max }}
+              {% endif %}
+            {% else %}
+            {{ media_players | selectattr('state','eq','playing') | map(attribute='name') | max }}
+            {% endif %}
+
+  - alias: conditional_media_all_off
+    id: '6882931899148'
+    initial_state: true
+    trigger:
+      - platform: template
+        value_template: >
+          {{ is_state('media_player.wohnzimmer_2', 'idle') and
+          is_state('media_player.wohnzimmer', 'idle') and
+          is_state('media_player.kueche', 'idle') and
+          is_state('media_player.schlafzimmer', 'idle') and
+          is_state('media_player.schlafzimmer', 'bad') and
+          is_state('media_player.schlafzimmer', 'buro') }}
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.conditional_media
+          option: Mediaplayer aus

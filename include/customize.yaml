@@ -1,0 +1,589 @@
+homeassistant:
+  customize:
+
+#########################################################
+#                                                       #
+#                       LIGHTS                          #
+#                                                       #
+#########################################################
+
+    sensor.current_lights_on:
+      friendly_name: Lichter an
+      icon: mdi:lightbulb-group
+
+    binary_sensor.indicator_lights_on:
+      friendly_name: Lichter an
+      icon: mdi:lightbulb-group
+
+    light.wohnzimmer_deckenlampe:
+      friendly_name: Wohnzimmer Deckenlampe
+      icon: mdi:ceiling-light
+    light.wohnzimmer_lightstrip:
+      friendly_name: Wohnzimmer Lightstrip
+      icon: mdi:led-strip-variant
+    light.stehlampe_wohnzimmer_links:
+      friendly_name: Wohnzimmer Stehlampe links
+      icon: mdi:floor-lamp
+    light.wohnzimmer_stehlampe_rechts:
+      friendly_name: Wohnzimmer Stehlampe rechts
+      icon: mdi:floor-lamp
+    light.kuche_herd:
+      friendly_name: Küche Herdlampe
+      icon: mdi:ceiling-light
+    light.kuche_esstisch:
+      friendly_name: Küche Esstisch Lampe
+      icon: mdi:ceiling-light
+
+    light.schlafzimmer_deckenlampe:
+      friendly_name: Schlafzimmer Deckenlampe
+      icon: mdi:ceiling-light
+    light.schlafzimmer_nachttisch_lisa:
+      friendly_name: Schlafzimmer Nachttisch Lisa
+      icon: mdi:lava-lamp
+    light.schlafzimmer_nachttisch_simon:
+      friendly_name: Schlafzimmer Nachttisch Simon
+      icon: mdi:lava-lamp
+
+    light.kinderzimmer_deckenlampe:
+      friendly_name: Kinderzimmer Deckelampe
+      icon: mdi:ceiling-light
+    light.kinderzimmer_tischleuchte:
+      friendly_name: Kinderzimmer Tischleuchte
+      icon: mdi:lamp
+    light.ankleide_nahtisch_wand:
+      friendly_name: Büro Nähtischlampe Wand
+      icon: mdi:track-light
+    light.ankleide_nahtisch_links:
+      friendly_name: Büro Nähtischlampe links
+      icon: mdi:track-light
+    light.ankleide_nahtisch_rechts:
+      friendly_name: Büro Nähtischlampe rechts
+      icon: mdi:track-light
+
+
+    light.shelly_deckenlampe_bad:
+      friendly_name: Badezimmer Deckenlampe
+      icon: mdi:ceiling-light
+    light.shelly_badspiegel:
+      friendly_name: Badezimmer Spiegellampe
+      icon: mdi:led-strip
+
+    light.buro_deckenlampe:
+      friendly_name: Büro Deckenlampe
+      icon: mdi:ceiling-light
+    light.buro_schreibtisch:
+      friendly_name: Büro Schreibtischlampe
+      icon: mdi:lamp
+
+    light.deckenlampen_flur:
+      friendly_name: Flur Deckenlampen
+      icon: mdi:ceiling-light
+    light.wandlampen_treppenhaus:
+      friendly_name: Treppenhaus Wandleuchte
+      icon: mdi:track-light
+    light.eingangstuer_decke:
+      friendly_name: Eingangstür Deckenlampe
+      icon: mdi:track-light
+
+    #########################################################
+    #                                                       #
+    #                  INPUT NUMBERS                        #
+    #                                                       #
+    #########################################################
+
+    input_number.lamp_bright:
+      icon: mdi:brightness-5
+    input_number.lamp_temp:
+      icon: mdi:thermometer-lines
+
+    #########################################################
+    #                                                       #
+    #                      SENSORS                          #
+    #                                                       #
+    #########################################################
+
+    sensor.fritz_netmonitor:
+      friendly_name: Netmonitor
+    sensor.since_last_boot_templated:
+      friendly_name: Letzer Bootvorgang
+      icon: mdi:clock
+    sensor.myipopendnscom:
+      friendly_name: IPV4
+      icon: mdi:wallet-membership
+    sensor.ha_uptime:
+      friendly_name: HA Betriebszeit
+      icon: mdi:timetable
+    sensor.connected_clients:
+      friendly_name: Verbundene Clients
+      icon: mdi:lan-connect
+    sensor.chromecast_wohnzimmer_state:
+      friendly_name: Chromecast Wohnzimmer
+      icon: mdi:cast
+    sensor.tv_wohnzimmer_state:
+      friendly_name: Fernseher Wohnzimmer
+      icon: mdi:television-classic
+    sensor.munzesheim_to_karlsruhe_hbf:
+      friendly_name: Münzesheim --> Karlsruhe
+      icon: mdi:tram
+    sensor.munzesheim_to_menzingenbaden:
+      friendly_name: Münzesheim --> Menzingen
+      icon: mdi:tram
+    sensor.e10mue:
+      friendly_name: E10 - Münzesheim
+      icon: mdi:gas-station
+    sensor.luftdaten_pm10:
+      friendly_name: PM10 Feinstaubwert
+      icon: mdi:biohazard
+    sensor.luftdaten_pm25:
+      friendly_name: PM2.5 Feinstaubwert
+      icon: mdi:biohazard
+    sensor.luftdaten_temperature:
+      friendly_name: Außentemperatur
+      icon: mdi:thermometer
+    sensor.luftdaten_humidity:
+      friendly_name: Luftfeuchtigkeit
+      icon: mdi:water-percent
+    sun.sun:
+      friendly_name: Sonnenstand
+    sensor.time:
+      friendly_name: Uhrzeit
+    sensor.date:
+      friendly_name: Datum
+    sensor.darksky_cloud_coverage:
+      friendly_name: Bewölkung
+      icon: mdi:weather-cloudy
+    sensor.wetter_fog:
+      friendly_name: Nebel
+      icon: mdi:weather-fog
+    sensor.darksky_precip_probability:
+      friendly_name: Niederschlagswahrscheinlichkeit
+      icon: mdi:weather-pouring
+    sensor.wetter_symbol:
+      friendly_name: Wetter
+      hidden: true
+    sensor.dwd_weather_kraichtal_gochsheim_wind_bearing:
+      friendly_name: Windrichtung
+      icon: mdi:compass
+    sensor.dwd_weather_kraichtal_gochsheim_wind_speed:
+      friendly_name: Windgeschwindigkeit
+      icon: mdi:weather-windy
+    sensor.dwd_weather_kraichtal_gochsheim_visibility:
+      friendly_name: Sichtweite
+    sensor.stromverbrauch_spuehlmaschine:
+      icon: mdi:flash
+    sensor.stromverbrauch_trockner:
+      icon: mdi:flash
+    sensor.stromverbrauch_waschmaschine:
+      icon: mdi:flash
+    sensor.stromverbrauch_kueche_mehrfachstecker:
+      icon: mdi:flash
+    sensor.stromverbrauch_ankleide:
+      icon: mdi:flash
+    sensor.stromverbrauch_wohnzimmer_lowboard:
+      icon: mdi:flash
+    sensor.gesamtverbrauch_spuehlmaschine:
+      icon: mdi:sigma
+    sensor.gesamtverbrauch_trockner:
+      icon: mdi:sigma
+    sensor.gesamtverbrauch_waschmaschine:
+      icon: mdi:sigma
+    sensor.gesamtverbrauch_kueche_mehrfachstecker:
+      icon: mdi:sigma
+    sensor.gesamtverbrauch_ankleide:
+      icon: mdi:sigma
+    sensor.gesamtverbrauch_wohnzimmer_lowboard:
+      icon: mdi:sigma
+    sensor.status_spuelmaschine:
+      icon: mdi:dishwasher
+    sensor.status_trockner:
+      icon: mdi:tumble-dryer
+    sensor.status_waschmaschine:
+      icon: mdi:washing-machine
+    sensor.google_travel_time_driving:
+      friendly_name: Fahrtzeit Arbeit --> Zu Hause
+      icon: mdi:map-clock-outline
+    sensor.google_travel_time_driving_2:
+      friendly_name: Fahrtzeit Zu Hause --> Arbeit
+      icon: mdi:map-clock-outline
+
+    sensor.temperatur_wohnzimmer_lowboard:
+      friendly_name: Wohnzimmer
+      device_class: temperature
+      icon: mdi:thermometer
+    sensor.temperatur_ankleide:
+      friendly_name: Ankleide
+      device_class: temperature
+      icon: mdi:thermometer
+    sensor.temperatur_wohnzimmer_avg:
+      friendly_name: Wohnzimmer Durchschnitt
+      device_class: temperature
+      icon: mdi:thermometer
+    sensor.temperatur_climate_bad:
+      friendly_name: Bad
+      device_class: temperature
+      icon: mdi:thermometer
+    sensor.temperatur_climate_buero:
+      friendly_name: Büro
+      device_class: temperature
+      icon: mdi:thermometer
+    sensor.temperatur_keller:
+      friendly_name: Keller
+      device_class: temperature
+      icon: mdi:thermometer
+    sensor.temperatur_wohness:
+      friendly_name: Esszimmer
+      device_class: temperature
+      icon: mdi:thermometer
+    sensor.dwd_weather_kraichtal_gochsheim_temperature:
+      friendly_name: Außen
+      device_class: temperature
+      icon: mdi:thermometer
+
+    sensor.dwd_weather_kraichtal_gochsheim_humidity:
+      friendly_name: Außen
+      icon: mdi:water-percent
+
+    sensor.dwd_weather_kraichtal_gochsheim_pressure:
+      friendly_name: Außen
+      icon: mdi:chart-line
+
+    #########################################################
+    #                                                       #
+    #                   BINARY SENSORS                      #
+    #                                                       #
+    #########################################################
+
+    binary_sensor.philipstv:
+      friendly_name: TV
+      icon: mdi:television
+    binary_sensor.openmediavault:
+      friendly_name: Server
+      device_class: connectivity
+      icon: mdi:server
+    binary_sensor.simondrucker:
+      friendly_name: Drucker
+      device_class: connectivity
+      icon: mdi:printer
+    binary_sensor.heizung_bad_window_open:
+      friendly_name: Fenster Bad
+      device_class: window
+      icon: mdi:window-closed-variant
+    binary_sensor.heizung_buro_window_open:
+      friendly_name: Fenster Büro
+      device_class: window
+      icon: mdi:window-closed-variant
+    binary_sensor.presence:
+      friendly_name: Anwesenheit
+      device_class: presence
+      icon: mdi:account-check
+    binary_sensor.all_climates_on:
+      friendly_name: Heizungen freigeschaltet
+      device_class: lock
+      icon: mdi:lock
+
+    binary_sensor.spuehlmaschine:
+      friendly_name: Spühlmaschine
+      icon: mdi:dishwasher
+    binary_sensor.trockner:
+      friendly_name: Trockner
+      icon: mdi:thumble-dryer
+    binary_sensor.waschmaschine:
+      friendly_name: Waschmaschine
+      icon: mdi:washing-machine
+
+    #########################################################
+    #                                                       #
+    #                       DOCKER                          #
+    #                                                       #
+    #########################################################
+
+    sensor.docker_home_assistant_1cpu:
+      friendly_name: CPU
+    sensor.docker_home_assistant_memory_percent:
+      friendly_name: Memory
+
+    #########################################################
+    #                                                       #
+    #                       SYSTEM                          #
+    #                                                       #
+    #########################################################
+
+    sensor.network_in_eno1:
+      friendly_name: In
+    sensor.network_out_eno1:
+      friendly_name: Out
+    sensor.processor_temperature:
+      friendly_name: CPU Temp
+    sensor.load_15m:
+      friendly_name: Load 15 M.
+      icon: custom:synology-nas
+
+    #########################################################
+    #                                                       #
+    #                        WEATHER                        #
+    #                                                       #
+    #########################################################
+
+    weather.dwd_weather_kraichtal_gochsheim:
+      friendly_name: Kraichtal
+      icon: mdi:weather-partly-cloudy
+
+    #########################################################
+    #                                                       #
+    #                  Toyota Corolla                       #
+    #                                                       #
+    #########################################################
+
+    device_tracker.corolla_location:
+      friendly_name: Corolla
+      icon: mdi:car
+    person.corolla:
+      friendly_name: Corolla
+      icon: mdi:car
+    sensor.tank_corolla:
+      friendly_name: Tankstand
+      icon: mdi:fuel
+    sensor.odo_corolla:
+      friendly_name: ODO
+      icon: mdi:map-marker-distance
+    sensor.o_spritverbrauch_corolla_aktuelles_jahr:
+      friendly_name: Ø Spritverbrauch
+      icon: mdi:gas-station
+    sensor.ev_distanz_anteil_corolla_aktuelles_jahr:
+      friendly_name: EV Anteil
+      icon: mdi:ev-station
+    sensor.ev_distanz_corolla_aktuelles_jahr:
+      friendly_name: EV Strecke
+      icon: mdi:ev-station
+    sensor.gesamtdistanz_corolla_aktuelles_jahr:
+      friendly_name: Gesamtstrecke
+      icon: mdi:map-marker-path
+    sensor.gesamtfahrten_corolla_aktuelles_jahr:
+      friendly_name: Gesamtfahren
+      icon: mdi:car
+    sensor.nachtfahrten_corolla_aktuelles_jahr:
+      friendly_name: Nachtfahren
+      icon: mdi:weather-night
+    sensor.max_geschwindigkeit_corolla_aktuelles_jahr:
+      friendly_name: Höchstgeschwindigkeit
+      icon: mdi:speedometer
+    sensor.o_geschwindigkeit_corolla_aktuelles_jahr:
+      friendly_name: Ø Geschwindigkeit
+      icon: mdi:speedometer-medium
+    sensor.o_spritverbrauch_corolla_aktuelle_woche:
+      friendly_name: Ø Spritverbrauch
+      icon: mdi:gas-station
+    sensor.ev_distanz_anteil_corolla_aktuelle_woche:
+      friendly_name: EV Anteil
+      icon: mdi:ev-station
+    sensor.ev_distanz_corolla_aktuelle_woche:
+      friendly_name: EV Strecke
+      icon: mdi:ev-station
+    sensor.gesamtdistanz_corolla_aktuelle_woche:
+      friendly_name: Gesamtstrecke
+      icon: mdi:map-marker-path
+    sensor.gesamtfahrten_corolla_aktuelle_woche:
+      friendly_name: Gesamtfahren
+      icon: mdi:car
+    sensor.nachtfahrten_corolla_aktuelle_woche:
+      friendly_name: Nachtfahren
+      icon: mdi:weather-night
+    sensor.max_geschwindigkeit_corolla_aktuelle_woche:
+      friendly_name: Höchstgeschwindigkeit
+      icon: mdi:speedometer
+    sensor.o_geschwindigkeit_corolla_aktuelle_woche:
+      friendly_name: Ø Geschwindigkeit
+      icon: mdi:speedometer-medium
+    sensor.o_spritverbrauch_corolla_aktueller_tag:
+      friendly_name: Ø Spritverbrauch
+      icon: mdi:gas-station
+    sensor.ev_distanz_anteil_corolla_aktueller_tag:
+      friendly_name: EV Anteil
+      icon: mdi:ev-station
+    sensor.ev_distanz_corolla_aktueller_tag:
+      friendly_name: EV Strecke
+      icon: mdi:ev-station
+    sensor.gesamtdistanz_corolla_aktueller_tag:
+      friendly_name: Gesamtstrecke
+      icon: mdi:map-marker-path
+    sensor.gesamtfahrten_corolla_aktueller_tag:
+      friendly_name: Gesamtfahren
+      icon: mdi:car
+    sensor.nachtfahrten_corolla_aktueller_tag:
+      friendly_name: Nachtfahren
+      icon: mdi:weather-night
+    sensor.max_geschwindigkeit_corolla_aktueller_tag:
+      friendly_name: Höchstgeschwindigkeit
+      icon: mdi:speedometer
+    sensor.o_geschwindigkeit_corolla_aktueller_tag:
+      friendly_name: Ø Geschwindigkeit
+      icon: mdi:speedometer-medium
+
+    #########################################################
+    #                                                       #
+    #                     SWITCHES                          #
+    #                                                       #
+    #########################################################
+
+    switch.simon_pc:
+      friendly_name: Simon-PC
+      icon: mdi:desktop-classic
+    switch.automatische_lichtstimmung:
+      icon: mdi:playlist-play
+    switch.wohnzimmer:
+      friendly_name: Wohnzimmer
+      icon: mdi:sofa
+    switch.kueche:
+      friendly_name: Küche
+      icon: mdi:food-fork-drink
+    switch.schlafzimmer:
+      friendly_name: Schlafzimmer
+      icon: mdi:hotel
+    switch.badezimmer:
+      friendly_name: Badezimmer
+      icon: mdi:hot-tub
+    switch.buero:
+      friendly_name: Büro
+      icon: mdi:briefcase
+    switch.flur:
+      friendly_name: Flur
+      icon: mdi:floor-plan
+    switch.ankleide:
+      friendly_name: Ankleide
+      icon: mdi:tshirt-v
+    switch.steckdose_spulmaschine:
+      icon: mdi:power-socket-eu
+    switch.steckdose_trockner:
+      icon: mdi:power-socket-eu
+    switch.steckdose_waschmaschine:
+      icon: mdi:power-socket-eu
+    switch.steckdose_kuche_mehrfachstecker:
+      icon: mdi:power-socket-eu
+    switch.steckdose_ankleide:
+      icon: mdi:power-socket-eu
+    switch.steckdose_wohnzimmer_lowboard:
+      icon: mdi:power-socket-eu
+
+    #########################################################
+    #                                                       #
+    #                      SCRIPTS                          #
+    #                                                       #
+    #########################################################
+
+    script.nachtlicht_an:
+      friendly_name: Nachtlicht
+      icon: mdi:weather-night
+      assumed_state: false
+    script.alle_lichter_aus:
+      friendly_name: Alle Lichter aus
+      icon: mdi:lightbulb
+      assumed_state: false
+
+    #########################################################
+    #                                                       #
+    #                      INPUT TEXT                       #
+    #                                                       #
+    #########################################################
+
+    input_text.reminder_simon:
+      icon: mdi:calendar-edit
+    input_text.reminder_lisa:
+      icon: mdi:calendar-edit
+    weblink.home_assistant_chat:
+      friendly_name: Home Assistant Chat
+      hidden: false
+
+    #########################################################
+    #                                                       #
+    #                       CLIMATE                         #
+    #                                                       #
+    #########################################################
+
+    climate.heizung_bad:
+      friendly_name: Bad
+      icon: mdi:calendar-edit
+    climate.heizung_buro:
+      friendly_name: Büro
+      icon: mdi:calendar-edit
+
+    #########################################################
+    #                                                       #
+    #                      AUTOMATIONS                      #
+    #                                                       #
+    #########################################################
+
+    automation.benachrichtigung_spulmaschine_fertig:
+      friendly_name: Benachrichtigung - Spülmaschine
+      icon: mdi:bell-ring
+    automation.benachrichtigung_waschmaschine_fertig:
+      friendly_name: Benachrichtigung - Waschmaschine
+      icon: mdi:bell-ring
+    automation.benachrichtigung_trockner_fertig:
+      friendly_name: Benachrichtigung - Trockner
+      icon: mdi:bell-ring
+
+    #########################################################
+    #                                                       #
+    #                        WEBLINK                        #
+    #                                                       #
+    #########################################################
+
+    weblink.home_assistant_forum:
+      friendly_name: Home Assistant Forum
+      hidden: false
+    weblink.home_assistant_webpage:
+      friendly_name: Home Assistant Webpage
+      hidden: false
+    weblink.router:
+      friendly_name: Router
+      hidden: false
+    weblink.repeater:
+      friendly_name: Repeater
+      hidden: false
+
+    #########################################################
+    #                                                       #
+    #                      MEDIA PLAYER                     #
+    #                                                       #
+    #########################################################
+
+    media_player.bad:
+      friendly_name: Sonos Bad
+      icon: mdi:speaker
+    media_player.buro:
+      friendly_name: Sonos Büro
+      icon: mdi:speaker
+    media_player.schlafzimmer:
+      friendly_name: Sonos Schlafzimmer
+      icon: mdi:speaker
+    media_player.wohnzimmer:
+      friendly_name: Sonos Wohnzimmer
+      icon: mdi:speaker
+    media_player.kueche:
+      friendly_name: Sonos Küche
+      icon: mdi:speaker
+    media_player.chromecast:
+      friendly_name: Chromecast
+      icon: mdi:cast
+
+    #########################################################
+    #                                                       #
+    #                         VACUUM                        #
+    #                                                       #
+    #########################################################
+
+    sensor.template_roborock_filter:
+      friendly_name: Filter
+      icon: custom:roborock-filter
+    sensor.template_roborock_mainbrush:
+      friendly_name: Hauptbürste
+      icon: custom:roborock-mainbrush
+    sensor.template_roborock_sensors:
+      friendly_name: Sensoren
+      icon: custom:roborock-sensor
+    sensor.template_roborock_sidebrush:
+      friendly_name: Seitenbürste
+      icon: custom:roborock-sidebrush
+    sensor.template_roborock_last_clean:
+      friendly_name: Letzte Reinigung
+      icon: mdi:calendar-clock
