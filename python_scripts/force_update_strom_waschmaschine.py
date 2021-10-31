@@ -1,5 +1,5 @@
 # pass entity_id as argument from call
-sensor = data.get("entity_id")
+sensor = data.get('entity_id')
 
 # read old state
 oldstate = hass.states.get(sensor)
