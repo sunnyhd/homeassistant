@@ -1,0 +1,24 @@
+button_card_templates: !include_dir_merge_named minimalist-templates/
+views:
+  - title: Minimalist
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: custom:button-card
+            template: title
+            name: Welcome to UI-Lovelace-Minimalist
+          - type: custom:button-card
+            template: edge
+  - title: Minimalist page 2
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: custom:button-card
+            template: title
+            name: UI-Lovelace-Minimalist second page
+          - type: custom:button-card
+            template: edge
