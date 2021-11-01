@@ -1,24 +1,192 @@
 button_card_templates: !include_dir_merge_named minimalist-templates/
 views:
-  - title: Minimalist
+  - title: _home
     cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: 'custom:button-card'
+            template: chip_temperature
+            variables:
+              ulm_chip_temperature_inside: sensor.steckdose_spulmaschine_temperature
+              ulm_chip_temperature_outside: sensor.dwd_weather_kraichtal_gochsheim_temperature
+              ulm_chip_temperature_weather: weather.dwd_weather_kraichtal_gochsheim
+          - type: custom:button-card
+            template: edge
       - type: horizontal-stack
         cards:
           - type: custom:button-card
             template: edge
           - type: custom:button-card
             template: title
-            name: Welcome to UI-Lovelace-Minimalist
+            name: Zu Hause
           - type: custom:button-card
             template: edge
-  - title: Minimalist page 2
-    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: custom:button-card
+            template: card_navigate
+            variables:
+              ulm_card_navigate_path: /lovelace-minimalist/1
+              ulm_card_navigate_title: Beleuchtung
+              ulm_card_navigate_icon: mdi:lamps-outline
+          - type: custom:button-card
+            template: card_navigate
+            variables:
+              ulm_card_navigate_path: /lovelace-minimalist/2
+              ulm_card_navigate_title: Geräte
+              ulm_card_navigate_icon: mdi:devices
+          - type: custom:button-card
+            template: edge
       - type: horizontal-stack
         cards:
           - type: custom:button-card
             template: edge
           - type: custom:button-card
             template: title
-            name: UI-Lovelace-Minimalist second page
+            name: Anwesenheit
+            label: '2 Personen'
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: 'custom:button-card'
+            template: card_person
+            variables:
+              ulm_card_person_entity: person.simon
+              ulm_card_person_use_entity_picture: false
+              ulm_card_person_zone1: Simon Arbeit
+          - type: 'custom:button-card'
+            template: card_person
+            variables:
+              ulm_card_person_entity: person.lisa
+              ulm_card_person_use_entity_picture: false
+              ulm_card_person_zone1: Lisa Arbeit
+          - type: custom:button-card
+            template: edge
+  - title: _lights
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: 'custom:button-card'
+            template: chip_back
+            variables:
+              ulm_chip_back_path: /lovelace-minimalist/_home
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: custom:button-card
+            template: title
+            name: Wohnzimmer
+            label: '5 Leuchte'
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: 'custom:button-card'
+            template: card_light
+            entity: light.wohnzimmer_deckenlampe
+          - type: 'custom:button-card'
+            template: card_light
+            entity: light.wohnzimmer_lightstrip
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: 'custom:button-card'
+            template: card_light
+            entity: light.stehlampe_wohnzimmer_links
+          - type: 'custom:button-card'
+            template: card_light
+            entity: light.wohnzimmer_stehlampe_rechts
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: 'custom:button-card'
+            template: card_light
+            entity: light.wohnzimmer_weihnachtsstern
+          - type: custom:button-card
+            template: edge
+  - title: _devices
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: 'custom:button-card'
+            template: chip_back
+            variables:
+              ulm_chip_back_path: /lovelace-minimalist/_home
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: custom:button-card
+            template: title
+            name: Wohnzimmer
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: custom:button-card
+            template: title
+            name: Küche
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: custom:button-card
+            template: title
+            name: Schlafzimmer
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: custom:button-card
+            template: title
+            name: Kinderzimmer
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: custom:button-card
+            template: title
+            name: Büro
+          - type: custom:button-card
+            template: edge
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            template: edge
+          - type: custom:button-card
+            template: title
+            name: Flur & Treppenhaus
           - type: custom:button-card
             template: edge
