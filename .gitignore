@@ -14,7 +14,7 @@ known_devices.yaml
 *.data
 *.HA_VERSION
 *.json
-*.log
+*.log*
 *.sh
 *.token
 *.uuid
