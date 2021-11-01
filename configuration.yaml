@@ -62,6 +62,12 @@ lovelace:
       require_admin: false
       icon: mdi:floor-plan
       filename: ui-lovelace.yaml
+    lovelace-minimalist:
+      mode: yaml
+      title: Minimalist
+      icon: mdi:script
+      show_in_sidebar: true
+      filename: lovelace-minimalist.yaml
 
 ####################################################
 #                                                  #
