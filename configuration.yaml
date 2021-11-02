@@ -55,19 +55,19 @@ lovelace:
       { url: '/local/custom_icons.js?v=25052001',                                    type: module },
       { url: /local/font.css,                                                        type: css    } ]
   dashboards:
-    default-dashboard:
-      mode: yaml
-      title: Dashboard
-      show_in_sidebar: true
-      require_admin: false
-      icon: mdi:floor-plan
-      filename: ui-lovelace.yaml
+#    default-dashboard:
+#      mode: yaml
+#      title: Dashboard
+#      show_in_sidebar: true
+#      require_admin: false
+#      icon: mdi:floor-plan
+#      filename: ui-lovelace.yaml
     lovelace-minimalist:
       mode: yaml
       title: Minimalist
-      icon: mdi:script
+      icon: mdi:floor-plan
       show_in_sidebar: true
-      filename: lovelace-minimalist.yaml
+      filename: lovelace-minimalist2.yaml
 
 ####################################################
 #                                                  #
