@@ -11,7 +11,7 @@ views:
       #default
       grid-gap: 1px 1px
       grid-template-columns: 0 repeat(5, 1fr) 0
-      grid-template-rows: 45px repeat(7, minmax(75px, 100px)) 0
+      grid-template-rows: 45px repeat(7, 75px) 0
       grid-template-areas: |
         ".  chips       chips         chips         chips         chips       ."
         ".  t1          t1            t1            t1            t1          ."
@@ -27,7 +27,7 @@ views:
         "(max-width: 800px)":
           grid-gap: 1px 1px
           grid-template-columns: 0 repeat(2, 1fr) 0
-          grid-template-rows: 45px repeat(7, minmax(75px, 100px)) 0
+          grid-template-rows: 45px repeat(7, 75px) 0
           grid-template-areas: |
             ".  chips       chips         ."
             ".  t1          t1            ."
@@ -42,7 +42,7 @@ views:
         "(max-width: 1200px)":
           grid-gap: 1px 1px
           grid-template-columns: 0 repeat(3, 1fr) 0
-          grid-template-rows: 45px repeat(7, minmax(75px, 100px)) 0
+          grid-template-rows: 45px repeat(7, 75px) 0
           grid-template-areas: |
             ".  chips       chips         chips         ."
             ".  t1          t1            t1            ."
