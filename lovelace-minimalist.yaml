@@ -3,194 +3,377 @@ button_card_templates: !include_dir_merge_named minimalist-templates/
 kiosk_mode:
   kiosk: true
 
+###############################
+#                             #
+#          HOME VIEW          #
+#                             #
+###############################
+
 views:
-  - title: _home
+  - type: custom:grid-layout
+    title: _home
+    path: 0
+    layout:
+      #default
+      grid-gap: 1px 1px
+      grid-template-columns: 25% 25% 25% 25%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips        chips         chips         chips      "
+        "t1           t1            t1            t1         "
+        "navigation1  navigation1   navigation2   navigation2"
+        "t2           t2            t2            t2         "
+        "person1      person2       .             .          "
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 50% 50%
+          grid-template-areas: |
+            "chips        chips      "
+            "t1           t1         "
+            "navigation1  navigation2"
+            "t2           t2         "
+            "person1      person2    "
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 33% 33% 33%
+          grid-template-areas: |
+            "chips        chips        chips"
+            "t1           t1           t1   "
+            "navigation1  navigation2  .    "
+            "t2           t2           t2   "
+            "person1      person2      .    "
     cards:
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: 'custom:button-card'
-            template: chip_temperature
-            variables:
-              ulm_chip_temperature_inside: sensor.steckdose_spulmaschine_temperature
-              ulm_chip_temperature_outside: sensor.dwd_weather_kraichtal_gochsheim_temperature
-              ulm_chip_temperature_weather: weather.dwd_weather_kraichtal_gochsheim
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: custom:button-card
-            template: title
-            name: Zu Hause
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: custom:button-card
-            template: card_navigate
-            variables:
-              ulm_card_navigate_path: /lovelace-minimalist/1
-              ulm_card_navigate_title: Beleuchtung
-              ulm_card_navigate_icon: mdi:lamps-outline
-          - type: custom:button-card
-            template: card_navigate
-            variables:
-              ulm_card_navigate_path: /lovelace-minimalist/2
-              ulm_card_navigate_title: Geräte
-              ulm_card_navigate_icon: mdi:devices
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: custom:button-card
-            template: title
-            name: Anwesenheit
-            label: '2 Personen'
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: 'custom:button-card'
-            template: card_person
-            variables:
-              ulm_card_person_entity: person.simon
-              ulm_card_person_use_entity_picture: false
-              ulm_card_person_zone1: Simon Arbeit
-          - type: 'custom:button-card'
-            template: card_person
-            variables:
-              ulm_card_person_entity: person.lisa
-              ulm_card_person_use_entity_picture: false
-              ulm_card_person_zone1: Lisa Arbeit
-          - type: custom:button-card
-            template: edge
-  - title: _lights
+
+      - type: 'custom:button-card'
+        template: chip_temperature
+        variables:
+          ulm_chip_temperature_inside: sensor.steckdose_spulmaschine_temperature
+          ulm_chip_temperature_outside: sensor.dwd_weather_kraichtal_gochsheim_temperature
+          ulm_chip_temperature_weather: weather.dwd_weather_kraichtal_gochsheim
+        view_layout:
+          grid-area: chips
+
+      - type: custom:button-card
+        template: title
+        name: Zu Hause
+        view_layout:
+          grid-area: t1
+
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/1
+          ulm_card_navigate_title: Beleuchtung
+          ulm_card_navigate_icon: mdi:lamps-outline
+        view_layout:
+          grid-area: navigation1
+
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/2
+          ulm_card_navigate_title: Geräte
+          ulm_card_navigate_icon: mdi:devices
+        view_layout:
+          grid-area: navigation2
+
+      - type: custom:button-card
+        template: title
+        name: Anwesenheit
+        label: 'Personen'
+        view_layout:
+          grid-area: t2
+
+      - type: 'custom:button-card'
+        template: card_person
+        variables:
+          ulm_card_person_entity: person.simon
+          ulm_card_person_use_entity_picture: false
+          ulm_card_person_zone1: Simon Arbeit
+        view_layout:
+          grid-area: person1
+
+      - type: 'custom:button-card'
+        template: card_person
+        variables:
+          ulm_card_person_entity: person.lisa
+          ulm_card_person_use_entity_picture: false
+          ulm_card_person_zone1: Lisa Arbeit
+        view_layout:
+          grid-area: person2
+
+###############################
+#                             #
+#         LIGHT VIEW          #
+#                             #
+###############################
+
+  - type: custom:grid-layout
+    title: _lights
+    path: 1
+    layout:
+      #default
+      grid-gap: 1px 1px
+      grid-template-columns: 25% 25% 25% 25%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips        chips         chips         chips      "
+        "t1           t1            t1            t1         "
+        "wl1          wl2           wl3           wl4        "
+        "wl5          .             .             .          "
+        "t2           t2            t2            t2         "
+        "sl1          sl2           sl3           sl4        "
+        "sl5          .             .             .          "
+        "t3           t3            t4            t4         "
+        "kl1          kl2           bl1           bl2        "
+        "t5           t5            t6            t6         "
+        "bul1         bul2          fl1           fl2        "
+        "bul3         bul4          fl3           .          "
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 50% 50%
+          grid-template-areas: |
+            "chips        chips      "
+            "t1           t1         "
+            "wl1          wl2        "
+            "wl3          wl4        "
+            "wl5          .          "
+            "t2           t2         "
+            "sl1          sl2        "
+            "sl3          sl4        "
+            "sl5          .          "
+            "t3           t3         "
+            "kl1          kl2        "
+            "t4           t4         "
+            "bl1          bl2        "
+            "t5           t5         "
+            "bul1         bul2       "
+            "bul3         bul4       "
+            "t6           t6         "
+            "fl1          fl2        "
+            "fl3          .          "
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 33% 33% 33%
+          grid-template-areas: |
+            "chips        chips         chips  "
+            "t1           t1            t1     "
+            "wl1          wl2           wl3    "
+            "wl4          wl5           .      "
+            "t2           t2            t2     "
+            "sl1          sl2           sl3    "
+            "sl4          sl5           .      "
+            "t3           t3            t3     "
+            "kl1          kl1           .      "
+            "t4           t4            t4     "
+            "bl1          bl1           .      "
+            "t5           t5            t5     "
+            "bul1         bul2          bul3   "
+            "bul4         .             .      "
+            "t6           t6            t6     "
+            "fl1          fl2           fl3    "
     cards:
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: 'custom:button-card'
-            template: chip_back
-            variables:
-              ulm_chip_back_path: /lovelace-minimalist/_home
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: custom:button-card
-            template: title
-            name: Wohnzimmer
-            label: '5 Leuchte'
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: 'custom:button-card'
-            template: card_light
-            entity: light.wohnzimmer_deckenlampe
-          - type: 'custom:button-card'
-            template: card_light
-            entity: light.wohnzimmer_lightstrip
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: 'custom:button-card'
-            template: card_light
-            entity: light.stehlampe_wohnzimmer_links
-          - type: 'custom:button-card'
-            template: card_light
-            entity: light.wohnzimmer_stehlampe_rechts
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: 'custom:button-card'
-            template: card_light
-            entity: light.wohnzimmer_weihnachtsstern
-          - type: custom:button-card
-            template: edge
-  - title: _devices
-    cards:
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: 'custom:button-card'
-            template: chip_back
-            variables:
-              ulm_chip_back_path: /lovelace-minimalist/_home
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: custom:button-card
-            template: title
-            name: Wohnzimmer
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: custom:button-card
-            template: title
-            name: Küche
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: custom:button-card
-            template: title
-            name: Schlafzimmer
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: custom:button-card
-            template: title
-            name: Kinderzimmer
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: custom:button-card
-            template: title
-            name: Büro
-          - type: custom:button-card
-            template: edge
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            template: edge
-          - type: custom:button-card
-            template: title
-            name: Flur & Treppenhaus
-          - type: custom:button-card
-            template: edge
+
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/0
+
+      - type: custom:button-card
+        template: title
+        name: Wohnzimmer
+        view_layout:
+          grid-area: t1
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.wohnzimmer_deckenlampe
+        name: Deckenlampe
+        view_layout:
+          grid-area: wl1
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.wohnzimmer_lightstrip
+        name: Lightstrip
+        view_layout:
+          grid-area: wl2
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.stehlampe_wohnzimmer_links
+        name: Stehlampe links
+        view_layout:
+          grid-area: wl3
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.wohnzimmer_stehlampe_rechts
+        name: Stehlampe rechts
+        view_layout:
+          grid-area: wl4
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.wohnzimmer_weihnachtsstern
+        name: Weihnachtsstern
+        view_layout:
+          grid-area: wl5
+
+
+
+      - type: custom:button-card
+        template: title
+        name: Schlaf- & Kinderzimmer
+        view_layout:
+          grid-area: t2
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.schlafzimmer_deckenlampe
+        name: Schlafzimmer Deckenlampe
+        view_layout:
+          grid-area: sl1
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.schlafzimmer_nachttisch_lisa
+        name: Nachttisch Lisa
+        view_layout:
+          grid-area: sl2
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.schlafzimmer_nachttisch_simon
+        name: Nachttisch Simon
+        view_layout:
+          grid-area: sl3
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.kinderzimmer_deckenlampe
+        name: Kinderzimmer Deckenlampe
+        view_layout:
+          grid-area: sl4
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.kinderzimmer_tischleuchte
+        name: Kinderzimmer Kommode
+        view_layout:
+          grid-area: sl5
+
+
+
+      - type: custom:button-card
+        template: title
+        name: Küche
+        view_layout:
+          grid-area: t3
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.kuche_esstisch
+        name: Esstisch
+        view_layout:
+          grid-area: kl1
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.kuche_herd
+        name: Herd
+        view_layout:
+          grid-area: kl2
+
+
+
+      - type: custom:button-card
+        template: title
+        name: Bad
+        view_layout:
+          grid-area: t4
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.shelly_deckenlampe_bad
+        name: Deckenlampe
+        view_layout:
+          grid-area: bl1
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.shelly_badspiegel
+        name: Spiegel
+        view_layout:
+          grid-area: bl2
+
+
+
+      - type: custom:button-card
+        template: title
+        name: Büro
+        view_layout:
+          grid-area: t5
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.buro_deckenlampe
+        name: Deckenlampe
+        view_layout:
+          grid-area: bul1
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.buro_schreibtisch
+        name: Schreibtisch
+        view_layout:
+          grid-area: bul2
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.buero_naehtisch_wand
+        name: Nähtisch Wand
+        view_layout:
+          grid-area: bul3
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.buero_naehtisch_decke
+        name: Nähtisch Decke
+        view_layout:
+          grid-area: bul4
+
+
+
+      - type: custom:button-card
+        template: title
+        name: Flur & Treppenhaus
+        view_layout:
+          grid-area: t6
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.deckenlampen_flur
+        name: Flur
+        view_layout:
+          grid-area: fl1
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.wandlampen_treppenhaus
+        name: Treppenhaus
+        view_layout:
+          grid-area: fl2
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.eingangstuer_decke
+        name: Eingangstür
+        view_layout:
+          grid-area: fl3
