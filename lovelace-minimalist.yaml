@@ -176,6 +176,8 @@ views:
         "  t1     t1     t1     t1     "
         "  l1     l2     l3     l4     "
         "  l5     .      .      .      "
+        "  t2     t2     t2     t2     "
+        "  m1     m2     m3     .      "
       mediaquery:
         #phone
         "(max-width: 800px)":
@@ -187,6 +189,9 @@ views:
             "  l1     l2     "
             "  l3     l4     "
             "  l5     .      "
+            "  t2     t2     "
+            "  m1     m2     "
+            "  m3     .      "
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
@@ -196,6 +201,8 @@ views:
             "  t1     t1     t1     "
             "  l1     l2     l3     "
             "  l4     l5     .      "
+            "  t2     t2     t2     "
+            "  m1     m2     m3     "
     cards:
 
       - type: 'custom:button-card'
@@ -245,6 +252,33 @@ views:
         view_layout:
           grid-area: l5
 
+      - type: custom:button-card
+        template: title
+        label: 'Media'
+        view_layout:
+          grid-area: t2
+
+      - type: 'custom:button-card'
+        template: card_media_player_with_control
+        entity: media_player.wohnzimmer
+        name: Sonos
+        view_layout:
+          grid-area: m1
+
+      - type: 'custom:button-card'
+        template: card_media_player_with_control
+        entity: media_player.lisasimon_tv
+        name: Chromecast
+        view_layout:
+          grid-area: m2
+
+      - type: 'custom:button-card'
+        template: card_media_player_with_control
+        entity: media_player.homemini_wohnzimmer
+        name: Home Mini
+        view_layout:
+          grid-area: m3
+
 ###############################
 #                             #
 #         KÜCHE               #
@@ -263,6 +297,8 @@ views:
         "  chips  chips  chips  chips  "
         "  t1     t1     t1     t1     "
         "  l1     l2     .      .      "
+        "  t2     t2     t2     t2     "
+        "  m1     .      .      .      "
       mediaquery:
         #phone
         "(max-width: 800px)":
@@ -272,6 +308,8 @@ views:
             "  chips  chips  "
             "  t1     t1     "
             "  l1     l2     "
+            "  t2     t2     "
+            "  m1     .      "
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
@@ -280,6 +318,8 @@ views:
             "  chips  chips  chips  "
             "  t1     t1     t1     "
             "  l1     l2     .      "
+            "  t2     t2     t2     "
+            "  m1     .      .      "
     cards:
 
       - type: 'custom:button-card'
@@ -308,6 +348,19 @@ views:
         view_layout:
           grid-area: l2
 
+      - type: custom:button-card
+        template: title
+        label: 'Media'
+        view_layout:
+          grid-area: t2
+
+      - type: 'custom:button-card'
+        template: card_media_player_with_control
+        entity: media_player.kueche
+        name: Sonos
+        view_layout:
+          grid-area: m1
+
 ###############################
 #                             #
 #         SCHLAFZIMMER        #
@@ -326,6 +379,8 @@ views:
         "  chips  chips  chips  chips  "
         "  t1     t1     t1     t1     "
         "  l1     l2     l3     .      "
+        "  t2     t2     t2     t2     "
+        "  m1     .      .      .      "
       mediaquery:
         #phone
         "(max-width: 800px)":
@@ -336,6 +391,8 @@ views:
             "  t1     t1     "
             "  l1     l2     "
             "  l3     .      "
+            "  t2     t2     "
+            "  m1     .      "
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
@@ -344,6 +401,8 @@ views:
             "  chips  chips  chips  "
             "  t1     t1     t1     "
             "  l1     l2     l3     "
+            "  t2     t2     t2     "
+            "  m1     .      .      "
     cards:
 
       - type: 'custom:button-card'
@@ -378,6 +437,19 @@ views:
         name: Nachttisch Simon
         view_layout:
           grid-area: l3
+
+      - type: custom:button-card
+        template: title
+        label: 'Media'
+        view_layout:
+          grid-area: t2
+
+      - type: 'custom:button-card'
+        template: card_media_player_with_control
+        entity: media_player.schlafzimmer
+        name: Sonos
+        view_layout:
+          grid-area: m1
 
 ###############################
 #                             #
@@ -460,7 +532,9 @@ views:
       grid-template-areas: |
         "  chips  chips  chips  chips  "
         "  t1     t1     t1     t1     "
-        "  l1     l2     .      .     "
+        "  l1     l2     .      .      "
+        "  t2     t2     t2     t2     "
+        "  m1     .      .      .      "
       mediaquery:
         #phone
         "(max-width: 800px)":
@@ -470,6 +544,8 @@ views:
             "  chips  chips  "
             "  t1     t1     "
             "  l1     l2     "
+            "  t2     t2     "
+            "  m1     .      "
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
@@ -478,6 +554,8 @@ views:
             "  chips  chips  chips  "
             "  t1     t1     t1     "
             "  l1     l2     .      "
+            "  t2     t2     t2     "
+            "  m1     .      .      "
     cards:
 
       - type: 'custom:button-card'
@@ -506,6 +584,19 @@ views:
         view_layout:
           grid-area: l2
 
+      - type: custom:button-card
+        template: title
+        label: 'Media'
+        view_layout:
+          grid-area: t2
+
+      - type: 'custom:button-card'
+        template: card_media_player_with_control
+        entity: media_player.bad
+        name: Sonos
+        view_layout:
+          grid-area: m1
+
 
 ###############################
 #                             #
@@ -525,6 +616,8 @@ views:
         "  chips  chips  chips  chips  "
         "  t1     t1     t1     t1     "
         "  l1     l2     l3     l4     "
+        "  t2     t2     t2     t2     "
+        "  m1     .      .      .      "
       mediaquery:
         #phone
         "(max-width: 800px)":
@@ -535,6 +628,8 @@ views:
             "  t1     t1     "
             "  l1     l2     "
             "  l3     l4     "
+            "  t2     t2     "
+            "  m1     .      "
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
@@ -544,6 +639,8 @@ views:
             "  t1     t1     t1     "
             "  l1     l2     l3     "
             "  l4     .      .      "
+            "  t2     t2     t2     "
+            "  m1     .      .      "
     cards:
 
       - type: 'custom:button-card'
@@ -585,6 +682,19 @@ views:
         name: Nähtisch Decke
         view_layout:
           grid-area: l4
+
+      - type: custom:button-card
+        template: title
+        label: 'Media'
+        view_layout:
+          grid-area: t2
+
+      - type: 'custom:button-card'
+        template: card_media_player_with_control
+        entity: media_player.buro
+        name: Sonos
+        view_layout:
+          grid-area: m1
 
 ###############################
 #                             #
