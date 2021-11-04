@@ -100,8 +100,8 @@ sensor:
 
   - platform: template
     sensors:
-      persons_at_home:
-        friendly_name: 'Personen Anwesend'
+      guests_at_home:
+        friendly_name: 'Gäste Anwesend'
         value_template: >
           {{ [states.person.guest]
              | selectattr('state', '==', 'home') | list | count }}
