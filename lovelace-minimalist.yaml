@@ -159,12 +159,12 @@ views:
 
 ###############################
 #                             #
-#         LIGHT VIEW          #
+#         WOHNZIMMER          #
 #                             #
 ###############################
 
   - type: custom:grid-layout
-    title: _lights
+    title: _living_room
     path: 1
     layout:
       #default
@@ -278,6 +278,185 @@ views:
         view_layout:
           grid-area: wl5
 
+###############################
+#                             #
+#         KÜCHE               #
+#                             #
+###############################
+
+  - type: custom:grid-layout
+    title: _kitchen
+    path: 2
+    layout:
+      #default
+      grid-gap: 1px 1px
+      grid-template-columns: 25% 25% 25% 25%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips        chips         chips         chips      "
+        "t1           t1            t1            t1         "
+        "wl1          wl2           wl3           wl4        "
+        "wl5          .             .             .          "
+        "t2           t2            t2            t2         "
+        "sl1          sl2           sl3           sl4        "
+        "sl5          .             .             .          "
+        "t3           t3            t4            t4         "
+        "kl1          kl2           bl1           bl2        "
+        "t5           t5            t6            t6         "
+        "bul1         bul2          fl1           fl2        "
+        "bul3         bul4          fl3           .          "
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 50% 50%
+          grid-template-areas: |
+            "chips        chips      "
+            "t1           t1         "
+            "wl1          wl2        "
+            "wl3          wl4        "
+            "wl5          .          "
+            "t2           t2         "
+            "sl1          sl2        "
+            "sl3          sl4        "
+            "sl5          .          "
+            "t3           t3         "
+            "kl1          kl2        "
+            "t4           t4         "
+            "bl1          bl2        "
+            "t5           t5         "
+            "bul1         bul2       "
+            "bul3         bul4       "
+            "t6           t6         "
+            "fl1          fl2        "
+            "fl3          .          "
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 33% 33% 33%
+          grid-template-areas: |
+            "chips        chips         chips  "
+            "t1           t1            t1     "
+            "wl1          wl2           wl3    "
+            "wl4          wl5           .      "
+            "t2           t2            t2     "
+            "sl1          sl2           sl3    "
+            "sl4          sl5           .      "
+            "t3           t3            t3     "
+            "kl1          kl2           .      "
+            "t4           t4            t4     "
+            "bl1          bl2           .      "
+            "t5           t5            t5     "
+            "bul1         bul2          bul3   "
+            "bul4         .             .      "
+            "t6           t6            t6     "
+            "fl1          fl2           fl3    "
+    cards:
+
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/0
+
+      - type: custom:button-card
+        template: title
+        name: Küche
+        view_layout:
+          grid-area: t3
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.kuche_esstisch
+        name: Esstisch
+        view_layout:
+          grid-area: kl1
+
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.kuche_herd
+        name: Herd
+        view_layout:
+          grid-area: kl2
+
+###############################
+#                             #
+#         SCHLAFZIMMER        #
+#                             #
+###############################
+
+  - type: custom:grid-layout
+    title: _bedroom
+    path: 3
+    layout:
+      #default
+      grid-gap: 1px 1px
+      grid-template-columns: 25% 25% 25% 25%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips        chips         chips         chips      "
+        "t1           t1            t1            t1         "
+        "wl1          wl2           wl3           wl4        "
+        "wl5          .             .             .          "
+        "t2           t2            t2            t2         "
+        "sl1          sl2           sl3           sl4        "
+        "sl5          .             .             .          "
+        "t3           t3            t4            t4         "
+        "kl1          kl2           bl1           bl2        "
+        "t5           t5            t6            t6         "
+        "bul1         bul2          fl1           fl2        "
+        "bul3         bul4          fl3           .          "
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 50% 50%
+          grid-template-areas: |
+            "chips        chips      "
+            "t1           t1         "
+            "wl1          wl2        "
+            "wl3          wl4        "
+            "wl5          .          "
+            "t2           t2         "
+            "sl1          sl2        "
+            "sl3          sl4        "
+            "sl5          .          "
+            "t3           t3         "
+            "kl1          kl2        "
+            "t4           t4         "
+            "bl1          bl2        "
+            "t5           t5         "
+            "bul1         bul2       "
+            "bul3         bul4       "
+            "t6           t6         "
+            "fl1          fl2        "
+            "fl3          .          "
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 33% 33% 33%
+          grid-template-areas: |
+            "chips        chips         chips  "
+            "t1           t1            t1     "
+            "wl1          wl2           wl3    "
+            "wl4          wl5           .      "
+            "t2           t2            t2     "
+            "sl1          sl2           sl3    "
+            "sl4          sl5           .      "
+            "t3           t3            t3     "
+            "kl1          kl2           .      "
+            "t4           t4            t4     "
+            "bl1          bl2           .      "
+            "t5           t5            t5     "
+            "bul1         bul2          bul3   "
+            "bul4         .             .      "
+            "t6           t6            t6     "
+            "fl1          fl2           fl3    "
+    cards:
+
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/0
 
 
       - type: custom:button-card
@@ -307,6 +486,86 @@ views:
         view_layout:
           grid-area: sl3
 
+###############################
+#                             #
+#        KINDERZIMMER         #
+#                             #
+###############################
+
+  - type: custom:grid-layout
+    title: _childsroom
+    path: 4
+    layout:
+      #default
+      grid-gap: 1px 1px
+      grid-template-columns: 25% 25% 25% 25%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips        chips         chips         chips      "
+        "t1           t1            t1            t1         "
+        "wl1          wl2           wl3           wl4        "
+        "wl5          .             .             .          "
+        "t2           t2            t2            t2         "
+        "sl1          sl2           sl3           sl4        "
+        "sl5          .             .             .          "
+        "t3           t3            t4            t4         "
+        "kl1          kl2           bl1           bl2        "
+        "t5           t5            t6            t6         "
+        "bul1         bul2          fl1           fl2        "
+        "bul3         bul4          fl3           .          "
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 50% 50%
+          grid-template-areas: |
+            "chips        chips      "
+            "t1           t1         "
+            "wl1          wl2        "
+            "wl3          wl4        "
+            "wl5          .          "
+            "t2           t2         "
+            "sl1          sl2        "
+            "sl3          sl4        "
+            "sl5          .          "
+            "t3           t3         "
+            "kl1          kl2        "
+            "t4           t4         "
+            "bl1          bl2        "
+            "t5           t5         "
+            "bul1         bul2       "
+            "bul3         bul4       "
+            "t6           t6         "
+            "fl1          fl2        "
+            "fl3          .          "
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 33% 33% 33%
+          grid-template-areas: |
+            "chips        chips         chips  "
+            "t1           t1            t1     "
+            "wl1          wl2           wl3    "
+            "wl4          wl5           .      "
+            "t2           t2            t2     "
+            "sl1          sl2           sl3    "
+            "sl4          sl5           .      "
+            "t3           t3            t3     "
+            "kl1          kl2           .      "
+            "t4           t4            t4     "
+            "bl1          bl2           .      "
+            "t5           t5            t5     "
+            "bul1         bul2          bul3   "
+            "bul4         .             .      "
+            "t6           t6            t6     "
+            "fl1          fl2           fl3    "
+    cards:
+
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/0
+
       - type: 'custom:button-card'
         template: card_light
         entity: light.kinderzimmer_deckenlampe
@@ -322,28 +581,85 @@ views:
           grid-area: sl5
 
 
+###############################
+#                             #
+#             BAD             #
+#                             #
+###############################
 
-      - type: custom:button-card
-        template: title
-        name: Küche
-        view_layout:
-          grid-area: t3
+  - type: custom:grid-layout
+    title: _bath
+    path: 5
+    layout:
+      #default
+      grid-gap: 1px 1px
+      grid-template-columns: 25% 25% 25% 25%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips        chips         chips         chips      "
+        "t1           t1            t1            t1         "
+        "wl1          wl2           wl3           wl4        "
+        "wl5          .             .             .          "
+        "t2           t2            t2            t2         "
+        "sl1          sl2           sl3           sl4        "
+        "sl5          .             .             .          "
+        "t3           t3            t4            t4         "
+        "kl1          kl2           bl1           bl2        "
+        "t5           t5            t6            t6         "
+        "bul1         bul2          fl1           fl2        "
+        "bul3         bul4          fl3           .          "
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 50% 50%
+          grid-template-areas: |
+            "chips        chips      "
+            "t1           t1         "
+            "wl1          wl2        "
+            "wl3          wl4        "
+            "wl5          .          "
+            "t2           t2         "
+            "sl1          sl2        "
+            "sl3          sl4        "
+            "sl5          .          "
+            "t3           t3         "
+            "kl1          kl2        "
+            "t4           t4         "
+            "bl1          bl2        "
+            "t5           t5         "
+            "bul1         bul2       "
+            "bul3         bul4       "
+            "t6           t6         "
+            "fl1          fl2        "
+            "fl3          .          "
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 33% 33% 33%
+          grid-template-areas: |
+            "chips        chips         chips  "
+            "t1           t1            t1     "
+            "wl1          wl2           wl3    "
+            "wl4          wl5           .      "
+            "t2           t2            t2     "
+            "sl1          sl2           sl3    "
+            "sl4          sl5           .      "
+            "t3           t3            t3     "
+            "kl1          kl2           .      "
+            "t4           t4            t4     "
+            "bl1          bl2           .      "
+            "t5           t5            t5     "
+            "bul1         bul2          bul3   "
+            "bul4         .             .      "
+            "t6           t6            t6     "
+            "fl1          fl2           fl3    "
+    cards:
 
       - type: 'custom:button-card'
-        template: card_light
-        entity: light.kuche_esstisch
-        name: Esstisch
-        view_layout:
-          grid-area: kl1
-
-      - type: 'custom:button-card'
-        template: card_light
-        entity: light.kuche_herd
-        name: Herd
-        view_layout:
-          grid-area: kl2
-
-
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/0
 
       - type: custom:button-card
         template: title
@@ -365,6 +681,86 @@ views:
         view_layout:
           grid-area: bl2
 
+
+###############################
+#                             #
+#            BÜRO             #
+#                             #
+###############################
+
+  - type: custom:grid-layout
+    title: _office
+    path: 6
+    layout:
+      #default
+      grid-gap: 1px 1px
+      grid-template-columns: 25% 25% 25% 25%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips        chips         chips         chips      "
+        "t1           t1            t1            t1         "
+        "wl1          wl2           wl3           wl4        "
+        "wl5          .             .             .          "
+        "t2           t2            t2            t2         "
+        "sl1          sl2           sl3           sl4        "
+        "sl5          .             .             .          "
+        "t3           t3            t4            t4         "
+        "kl1          kl2           bl1           bl2        "
+        "t5           t5            t6            t6         "
+        "bul1         bul2          fl1           fl2        "
+        "bul3         bul4          fl3           .          "
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 50% 50%
+          grid-template-areas: |
+            "chips        chips      "
+            "t1           t1         "
+            "wl1          wl2        "
+            "wl3          wl4        "
+            "wl5          .          "
+            "t2           t2         "
+            "sl1          sl2        "
+            "sl3          sl4        "
+            "sl5          .          "
+            "t3           t3         "
+            "kl1          kl2        "
+            "t4           t4         "
+            "bl1          bl2        "
+            "t5           t5         "
+            "bul1         bul2       "
+            "bul3         bul4       "
+            "t6           t6         "
+            "fl1          fl2        "
+            "fl3          .          "
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 33% 33% 33%
+          grid-template-areas: |
+            "chips        chips         chips  "
+            "t1           t1            t1     "
+            "wl1          wl2           wl3    "
+            "wl4          wl5           .      "
+            "t2           t2            t2     "
+            "sl1          sl2           sl3    "
+            "sl4          sl5           .      "
+            "t3           t3            t3     "
+            "kl1          kl2           .      "
+            "t4           t4            t4     "
+            "bl1          bl2           .      "
+            "t5           t5            t5     "
+            "bul1         bul2          bul3   "
+            "bul4         .             .      "
+            "t6           t6            t6     "
+            "fl1          fl2           fl3    "
+    cards:
+
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/0
 
 
       - type: custom:button-card
@@ -401,11 +797,89 @@ views:
         view_layout:
           grid-area: bul4
 
+###############################
+#                             #
+#    FLUR & EINGANGSBEREICH   #
+#                             #
+###############################
 
+  - type: custom:grid-layout
+    title: _entry_area
+    path: 7
+    layout:
+      #default
+      grid-gap: 1px 1px
+      grid-template-columns: 25% 25% 25% 25%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "chips        chips         chips         chips      "
+        "t1           t1            t1            t1         "
+        "wl1          wl2           wl3           wl4        "
+        "wl5          .             .             .          "
+        "t2           t2            t2            t2         "
+        "sl1          sl2           sl3           sl4        "
+        "sl5          .             .             .          "
+        "t3           t3            t4            t4         "
+        "kl1          kl2           bl1           bl2        "
+        "t5           t5            t6            t6         "
+        "bul1         bul2          fl1           fl2        "
+        "bul3         bul4          fl3           .          "
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 50% 50%
+          grid-template-areas: |
+            "chips        chips      "
+            "t1           t1         "
+            "wl1          wl2        "
+            "wl3          wl4        "
+            "wl5          .          "
+            "t2           t2         "
+            "sl1          sl2        "
+            "sl3          sl4        "
+            "sl5          .          "
+            "t3           t3         "
+            "kl1          kl2        "
+            "t4           t4         "
+            "bl1          bl2        "
+            "t5           t5         "
+            "bul1         bul2       "
+            "bul3         bul4       "
+            "t6           t6         "
+            "fl1          fl2        "
+            "fl3          .          "
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 33% 33% 33%
+          grid-template-areas: |
+            "chips        chips         chips  "
+            "t1           t1            t1     "
+            "wl1          wl2           wl3    "
+            "wl4          wl5           .      "
+            "t2           t2            t2     "
+            "sl1          sl2           sl3    "
+            "sl4          sl5           .      "
+            "t3           t3            t3     "
+            "kl1          kl2           .      "
+            "t4           t4            t4     "
+            "bl1          bl2           .      "
+            "t5           t5            t5     "
+            "bul1         bul2          bul3   "
+            "bul4         .             .      "
+            "t6           t6            t6     "
+            "fl1          fl2           fl3    "
+    cards:
+
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/0
 
       - type: custom:button-card
         template: title
-        name: Flur & Treppenhaus
+        name: Flur & Eingang
         view_layout:
           grid-area: t6
 
