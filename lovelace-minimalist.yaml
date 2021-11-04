@@ -21,7 +21,8 @@ views:
       grid-template-areas: |
         "chips        chips         chips         chips      "
         "t1           t1            t1            t1         "
-        "navigation1  navigation1   navigation2   navigation2"
+        "navigation1  navigation2   navigation3   navigation4"
+        "navigation5  navigation6   navigation7   .          "
         "t2           t2            t2            t2         "
         "person1      person2       .             .          "
       mediaquery:
@@ -33,6 +34,9 @@ views:
             "chips        chips      "
             "t1           t1         "
             "navigation1  navigation2"
+            "navigation3  navigation4"
+            "navigation5  navigation6"
+            "navigation7  .          "
             "t2           t2         "
             "person1      person2    "
         #portrait
@@ -40,11 +44,13 @@ views:
           grid-gap: 1px 1px
           grid-template-columns: 33% 33% 33%
           grid-template-areas: |
-            "chips        chips        chips"
-            "t1           t1           t1   "
-            "navigation1  navigation2  .    "
-            "t2           t2           t2   "
-            "person1      person2      .    "
+            "chips        chips        chips      "
+            "t1           t1           t1         "
+            "navigation1  navigation2  navigation3"
+            "navigation4  navigation5  navigation6"
+            "navigation7  .            .          "
+            "t2           t2           t2         "
+            "person1      person2      .          "
     cards:
 
       - type: 'custom:button-card'
@@ -59,6 +65,7 @@ views:
       - type: custom:button-card
         template: title
         name: Zu Hause
+        label: 'Räume'
         view_layout:
           grid-area: t1
 
@@ -66,8 +73,8 @@ views:
         template: card_navigate
         variables:
           ulm_card_navigate_path: /lovelace-minimalist/1
-          ulm_card_navigate_title: Beleuchtung
-          ulm_card_navigate_icon: mdi:lamps-outline
+          ulm_card_navigate_title: Wohnzimmer
+          ulm_card_navigate_icon: mdi:sofa
         view_layout:
           grid-area: navigation1
 
@@ -75,10 +82,55 @@ views:
         template: card_navigate
         variables:
           ulm_card_navigate_path: /lovelace-minimalist/2
-          ulm_card_navigate_title: Geräte
-          ulm_card_navigate_icon: mdi:devices
+          ulm_card_navigate_title: Küche
+          ulm_card_navigate_icon: mdi:countertop
         view_layout:
           grid-area: navigation2
+
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/3
+          ulm_card_navigate_title: Schlafzimmer
+          ulm_card_navigate_icon: mdi:bed
+        view_layout:
+          grid-area: navigation3
+
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/4
+          ulm_card_navigate_title: Kinderzimmer
+          ulm_card_navigate_icon: mdi:teddy-bear
+        view_layout:
+          grid-area: navigation4
+
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/5
+          ulm_card_navigate_title: Bad
+          ulm_card_navigate_icon: mdi:bathtub
+        view_layout:
+          grid-area: navigation5
+
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/6
+          ulm_card_navigate_title: Büro
+          ulm_card_navigate_icon: mdi:chair-rolling
+        view_layout:
+          grid-area: navigation6
+
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/7
+          ulm_card_navigate_title: Flur & Eingang
+          ulm_card_navigate_icon: mdi:door
+        view_layout:
+          grid-area: navigation7
 
       - type: custom:button-card
         template: title
