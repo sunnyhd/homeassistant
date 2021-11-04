@@ -53,12 +53,19 @@ views:
             "  person1      person2      .            "
     cards:
 
-      - type: 'custom:button-card'
-        template: chip_temperature
-        variables:
-          ulm_chip_temperature_inside: sensor.steckdose_spulmaschine_temperature
-          ulm_chip_temperature_outside: sensor.dwd_weather_kraichtal_gochsheim_temperature
-          ulm_chip_temperature_weather: weather.dwd_weather_kraichtal_gochsheim
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: chip_temperature
+            variables:
+              ulm_chip_temperature_inside: sensor.steckdose_spulmaschine_temperature
+              ulm_chip_temperature_outside: sensor.dwd_weather_kraichtal_gochsheim_temperature
+              ulm_chip_temperature_weather: weather.dwd_weather_kraichtal_gochsheim
+          - type: 'custom:button-card'
+            template: chip_presence_detection
+            variables:
+              ulm_chip_presence_counter_residents: sensor.persons_at_home
+              ulm_chip_presence_counter_guests: sensor.guests_at_home
         view_layout:
           grid-area: chips
 

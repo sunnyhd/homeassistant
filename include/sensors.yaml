@@ -84,6 +84,31 @@ sensor:
 
 ####################################################
 #                                                  #
+#               PERSONS AT HOME                    #
+#                                                  #
+####################################################
+
+#https://community.home-assistant.io/t/updating-number-of-people-at-home/168127/17
+
+  - platform: template
+    sensors:
+      persons_at_home:
+        friendly_name: 'Personen Anwesend'
+        value_template: >
+          {{ [states.person.simon, states.person.lisa]
+             | selectattr('state', '==', 'home') | list | count }}
+
+  - platform: template
+    sensors:
+      persons_at_home:
+        friendly_name: 'Personen Anwesend'
+        value_template: >
+          {{ [states.person.guest]
+             | selectattr('state', '==', 'home') | list | count }}
+
+
+####################################################
+#                                                  #
 #                  Attributes                      #
 #                                                  #
 ####################################################
