@@ -66,6 +66,11 @@ views:
             variables:
               ulm_chip_presence_counter_residents: sensor.persons_at_home
               ulm_chip_presence_counter_guests: sensor.corolla_at_home
+          - type: 'custom:button-card'
+            template: chip_icon_state
+            variables:
+              ulm_chip_icon_state_icon: '💡'
+              ulm_chip_icon_state_entity: sensor.current_lights_on
         view_layout:
           grid-area: chips
 
