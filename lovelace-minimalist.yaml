@@ -315,6 +315,8 @@ views:
         "  l1     l2     .      .      "
         "  t2     t2     t2     t2     "
         "  m1     .      .      .      "
+        "  t3     t3     t3     t3     "
+        "  s1     .      .      .      "
       mediaquery:
         #phone
         "(max-width: 800px)":
@@ -326,6 +328,8 @@ views:
             "  l1     l2     "
             "  t2     t2     "
             "  m1     .      "
+            "  t3     t3     "
+            "  s1     .      "
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
@@ -336,6 +340,8 @@ views:
             "  l1     l2     .      "
             "  t2     t2     t2     "
             "  m1     .      .      "
+            "  t3     t3     t3     "
+            "  s1     .      .      "
     cards:
 
       - type: 'custom:button-card'
@@ -376,6 +382,22 @@ views:
         name: Sonos
         view_layout:
           grid-area: m1
+
+      - type: custom:button-card
+        template: title
+        label: 'Sensoren'
+        view_layout:
+          grid-area: t3
+
+      - type: 'custom:button-card'
+        template: card_binary_sensor_alert
+        variables:
+          - ulm_card_binary_sensor_alert: false
+        entity: binary_sensor.spuehlmaschine
+        name: Spülmaschine
+        show_last_changed: true
+        view_layout:
+          grid-area: s1
 
 ###############################
 #                             #
