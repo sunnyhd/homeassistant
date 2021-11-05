@@ -721,6 +721,10 @@ views:
         "  chips  chips  chips  chips  "
         "  t1     t1     t1     t1     "
         "  l1     l2     l3     .      "
+        "  t2     t2     t2     t2     "
+        "  te1    .      .      .      "
+        "  t3     t3     t3     t3     "
+        "  s1     .      .      .      "
       mediaquery:
         #phone
         "(max-width: 800px)":
@@ -731,7 +735,10 @@ views:
             "  t1     t1     "
             "  l1     l2     "
             "  l3     .      "
-
+            "  t2     t2     "
+            "  te1    .      "
+            "  t3     t3     "
+            "  s1     .      "
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
@@ -740,6 +747,10 @@ views:
             "  chips  chips  chips  "
             "  t1     t1     t1     "
             "  l1     l2     l3     "
+            "  t2     t2     t2     "
+            "  te1    .      .      "
+            "  t3     t3     t3     "
+            "  s1     .      .      "
     cards:
 
       - type: 'custom:button-card'
@@ -774,3 +785,33 @@ views:
         name: Eingangstür
         view_layout:
           grid-area: l3
+
+      - type: custom:button-card
+        template: title
+        label: 'Temperatur'
+        view_layout:
+          grid-area: t2
+
+    - type: 'custom:button-card'
+      template: card_graph
+      variables:
+        ulm_card_graph_color: "var(--google-blue)"
+        ulm_card_graph_name: Eingangstür
+        ulm_card_graph_entity: sensor.einganstuer_bewegungsmelder_temperature
+        view_layout:
+          grid-area: te1
+
+      - type: custom:button-card
+        template: title
+        label: 'Sensoren'
+        view_layout:
+          grid-area: t3
+
+      - type: 'custom:button-card'
+        template: card_binary_sensor_alert
+        variables:
+          - ulm_card_binary_sensor_alert: true
+        entity: binary_sensor.eingangstuer_bewegungsmelder_motion
+        show_last_changed: true
+        view_layout:
+          grid-area: s1
