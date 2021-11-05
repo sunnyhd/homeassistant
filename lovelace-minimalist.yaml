@@ -792,14 +792,14 @@ views:
         view_layout:
           grid-area: t2
 
-    - type: 'custom:button-card'
-      template: card_graph
-      variables:
-        ulm_card_graph_color: "var(--google-blue)"
-        ulm_card_graph_name: Eingangstür
-        ulm_card_graph_entity: sensor.einganstuer_bewegungsmelder_temperature
-        view_layout:
-          grid-area: te1
+      - type: 'custom:button-card'
+        template: card_graph
+        variables:
+          ulm_card_graph_color: "var(--google-blue)"
+          ulm_card_graph_name: Eingangstür
+          ulm_card_graph_entity: sensor.einganstuer_bewegungsmelder_temperature
+          view_layout:
+            grid-area: te1
 
       - type: custom:button-card
         template: title
