@@ -297,11 +297,11 @@ sensor:
       status_spuelmaschine:
         friendly_name: 'Spülmaschine'
         value_template: >-
-          {% if state_attr("switch.steckdose_spulmaschine", "current_power_w")|float <= 0 %}
+          {% if states("sensor.steckdose_spulmaschine_power_consumption")|float <= 0 %}
             off
-          {% elif state_attr("switch.steckdose_spulmaschine", "current_power_w")|float < 100 %}
+          {% elif states("sensor.steckdose_spulmaschine_power_consumption")|float < 100 %}
             on
-          {% elif state_attr("switch.steckdose_spulmaschine", "current_power_w")|float >= 100 %}
+          {% elif states("sensor.steckdose_spulmaschine_power_consumption")|float >= 100 %}
             on
           {% else %}
             unknown
@@ -309,11 +309,11 @@ sensor:
       status_waschmaschine:
         friendly_name: 'Waschmaschine'
         value_template: >-
-          {% if state_attr("switch.steckdose_waschmaschine", "current_power_w")|float <= 0.8 %}
+          {% if states("sensor.steckdose_waschmaschine_power_consumption")|float <= 0.8 %}
             off
-          {% elif state_attr("switch.steckdose_waschmaschine", "current_power_w")|float <= 3.9 %}
+          {% elif states("sensor.steckdose_waschmaschine_power_consumption")|float <= 3.9 %}
             off
-          {% elif state_attr("switch.steckdose_waschmaschine", "current_power_w")|float > 3.9 %}
+          {% elif states("sensor.steckdose_waschmaschine_power_consumption")|float > 3.9 %}
             on
           {% else %}
             unknown
@@ -321,11 +321,11 @@ sensor:
       status_trockner:
         friendly_name: 'Trockner'
         value_template: >-
-          {% if state_attr("switch.steckdose_trockner", "current_power_w")|float <= 0 %}
+          {% if states("sensor.steckdose_trockner_power_consumption")|float <= 0 %}
             off
-          {% elif state_attr("switch.steckdose_trockner", "current_power_w")|float <= 7 %}
+          {% elif states("sensor.steckdose_trockner_power_consumption")|float <= 7 %}
             off
-          {% elif state_attr("switch.steckdose_trockner", "current_power_w")|float > 7 %}
+          {% elif states("sensor.steckdose_trockner_power_consumption")|float > 7 %}
             on
           {% else %}
             unknown
