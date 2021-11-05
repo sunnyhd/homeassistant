@@ -22,7 +22,7 @@ views:
         "  chips        chips        chips        chips        "
         "  t1           t1           t1           t1           "
         "  navigation1  navigation2  navigation3  navigation4  "
-        "  navigation5  navigation6  navigation7  .            "
+        "  navigation5  navigation6  navigation7  navigation8  "
         "  t2           t2           t2           t2           "
         "  person1      person2      .            .            "
       mediaquery:
@@ -36,7 +36,7 @@ views:
             "  navigation1  navigation2  "
             "  navigation3  navigation4  "
             "  navigation5  navigation6  "
-            "  navigation7  .            "
+            "  navigation7  navigation8  "
             "  t2           t2           "
             "  person1      person2      "
         #portrait
@@ -48,7 +48,7 @@ views:
             "  t1           t1           t1           "
             "  navigation1  navigation2  navigation3  "
             "  navigation4  navigation5  navigation6  "
-            "  navigation7  .            .            "
+            "  navigation7  navigation8  .            "
             "  t2           t2           t2           "
             "  person1      person2      .            "
     cards:
@@ -138,6 +138,15 @@ views:
           ulm_card_navigate_icon: mdi:door
         view_layout:
           grid-area: navigation7
+
+      - type: custom:button-card
+        template: card_navigate
+        variables:
+          ulm_card_navigate_path: /lovelace-minimalist/8
+          ulm_card_navigate_title: Keller
+          ulm_card_navigate_icon: mdi:washing-machine
+        view_layout:
+          grid-area: navigation8
 
       - type: custom:button-card
         template: title
@@ -723,6 +732,8 @@ views:
         "  l1     l2     l3     .      "
         "  t2     t2     t2     t2     "
         "  te1    .      .      .      "
+        "  te1    .      .      .      "
+        "  te1    .      .      .      "
         "  t3     t3     t3     t3     "
         "  s1     .      .      .      "
       mediaquery:
@@ -737,6 +748,8 @@ views:
             "  l3     .      "
             "  t2     t2     "
             "  te1    .      "
+            "  te1    .      "
+            "  te1    .      "
             "  t3     t3     "
             "  s1     .      "
         #portrait
@@ -748,6 +761,8 @@ views:
             "  t1     t1     t1     "
             "  l1     l2     l3     "
             "  t2     t2     t2     "
+            "  te1    .      .      "
+            "  te1    .      .      "
             "  te1    .      .      "
             "  t3     t3     t3     "
             "  s1     .      .      "
@@ -792,14 +807,16 @@ views:
         view_layout:
           grid-area: t2
 
-      - type: 'custom:button-card'
-        template: card_graph
-        variables:
-          ulm_card_graph_color: "var(--google-blue)"
-          ulm_card_graph_name: Eingangstür
-          ulm_card_graph_entity: sensor.einganstuer_bewegungsmelder_temperature
-          view_layout:
-            grid-area: te1
+      - type: vertical-stack
+        cards:
+          - type: 'custom:button-card'
+            template: card_graph
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Eingangstür
+              ulm_card_graph_entity: sensor.einganstuer_bewegungsmelder_temperature
+        view_layout:
+          grid-area: te1
 
       - type: custom:button-card
         template: title
@@ -812,6 +829,105 @@ views:
         variables:
           - ulm_card_binary_sensor_alert: true
         entity: binary_sensor.eingangstuer_bewegungsmelder_motion
+        name: Eingangstür Bewegungsmelder
         show_last_changed: true
         view_layout:
           grid-area: s1
+
+###############################
+#                             #
+#            Keller           #
+#                             #
+###############################
+
+  - type: custom:grid-layout
+    title: _cellar
+    path: 8
+    layout:
+      #default
+      grid-gap: 1px 1px
+      grid-template-columns: 25% 25% 25% 25%
+      grid-template-rows: auto
+      grid-template-areas: |
+        "  chips  chips  chips  chips  "
+        "  t1     t1     t1     t1     "
+        "  te1    .      .      .      "
+        "  te1    .      .      .      "
+        "  te1    .      .      .      "
+        "  t2     t2     t2     t2     "
+        "  s1     s2     .      .      "
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 50% 50%
+          grid-template-areas: |
+            "  chips  chips  "
+            "  t1     t1     "
+            "  te1    .      "
+            "  te1    .      "
+            "  te1    .      "
+            "  t2     t2     "
+            "  s1     s2     "
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: 1px 1px
+          grid-template-columns: 33% 33% 33%
+          grid-template-areas: |
+            "  chips  chips  chips  "
+            "  t1     t1     t1     "
+            "  te1    .      .      "
+            "  te1    .      .      "
+            "  te1    .      .      "
+            "  t2     t2     t2     "
+            "  s1     s2     .      "
+    cards:
+
+      - type: 'custom:button-card'
+        template: chip_back
+        variables:
+          ulm_chip_back_path: /lovelace-minimalist/0
+
+      - type: custom:button-card
+        template: title
+        name: Keller
+        label: 'Temperatur'
+        view_layout:
+          grid-area: t1
+
+      - type: vertical-stack
+        cards:
+          - type: 'custom:button-card'
+            template: card_graph
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Keller
+              ulm_card_graph_entity: sensor.steckdose_trockner_temperature
+        view_layout:
+          grid-area: te1
+
+      - type: custom:button-card
+        template: title
+        label: 'Sensoren'
+        view_layout:
+          grid-area: t2
+
+      - type: 'custom:button-card'
+        template: card_binary_sensor_alert
+        variables:
+          - ulm_card_binary_sensor_alert: false
+        entity: binary_sensor.waschmaschine
+        name: Waschmaschine
+        show_last_changed: true
+        view_layout:
+          grid-area: s1
+
+      - type: 'custom:button-card'
+        template: card_binary_sensor_alert
+        variables:
+          - ulm_card_binary_sensor_alert: false
+        entity: binary_sensor.trockner
+        name: Trockner
+        show_last_changed: true
+        view_layout:
+          grid-area: s2
