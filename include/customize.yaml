@@ -286,7 +286,7 @@ homeassistant:
       icon: mdi:dishwasher
     binary_sensor.trockner:
       friendly_name: Trockner
-      icon: mdi:thumble-dryer
+      icon: mdi:tumble-dryer
     binary_sensor.waschmaschine:
       friendly_name: Waschmaschine
       icon: mdi:washing-machine
