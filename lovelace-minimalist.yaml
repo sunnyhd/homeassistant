@@ -65,7 +65,7 @@ views:
             template: chip_presence_detection
             variables:
               ulm_chip_presence_counter_residents: sensor.persons_at_home
-              ulm_chip_presence_counter_guests: sensor.guests_at_home
+              ulm_chip_presence_counter_guests: sensor.corolla_at_home
         view_layout:
           grid-area: chips
 
