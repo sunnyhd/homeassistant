@@ -34,15 +34,15 @@ binary_sensor:
       waschmaschine:
         friendly_name: "Waschmaschine"
         value_template: >-
-          {{ is_state('sensor.status_waschmaschine', 'Wäscht') }}
+          {{ is_state('sensor.status_waschmaschine', 'on') }}
       trockner:
         friendly_name: "Trockner"
         value_template: >-
-          {{ is_state('sensor.status_trockner', 'Trocknet') }}
+          {{ is_state('sensor.status_trockner', 'on') }}
       spuehlmaschine:
         friendly_name: "Spülmaschine"
         value_template: >-
-          {{ not is_state('sensor.status_spuelmaschine', 'Aus') }}
+          {{ is_state('sensor.status_spuelmaschine', 'on') }}
 
 
 ####################################################
