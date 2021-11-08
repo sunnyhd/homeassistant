@@ -155,7 +155,6 @@ views:
 
       - type: custom:button-card
         template: title
-        name: Anwesenheit
         label: 'Personen'
         view_layout:
           grid-area: t2
