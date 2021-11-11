@@ -617,9 +617,9 @@ sensor:
 
 # https://www.home-assistant.io/integrations/utility_meter/
   - utility_meter:
-    energy_consumption_bath_energy_yearly:
-        source: sensor.energy_consumption_bath_energy
-        cycle: yearly
+      energy_consumption_bath_energy_yearly:
+          source: sensor.energy_consumption_bath_energy
+          cycle: yearly
 
 
   - platform: powercalc
