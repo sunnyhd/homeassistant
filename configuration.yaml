@@ -390,17 +390,18 @@ ltss:
       - sensor.max_geschwindigkeit_corolla_aktueller_tag
       - sensor.o_geschwindigkeit_corolla_aktueller_tag
 
+####################################################
+#                                                  #
+#                    POWERCALC                     #
+#                                                  #
+####################################################
 
-lock:
-  - platform: template
-    name: Dator
-    value_template: "{{ states('input_boolean.computer_lock') }}"
-    lock:
-      service: input_boolean.turn_on
-      entity_id: input_boolean.computer_lock
-    unlock:
-      service: input_boolean.turn_off
-      entity_id: input_boolean.computer_lock
+#https://github.com/bramstroker/homeassistant-powercalc
+
+powercalc:
+  create_utility_meters: true
+  utility_meter_types:
+    - yearly
 
 ####################################################
 #                                                  #

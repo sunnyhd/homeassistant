@@ -600,10 +600,18 @@ views:
             "  m1     .      .      "
     cards:
 
-      - type: 'custom:button-card'
-        template: chip_back
-        variables:
-          ulm_chip_back_path: /lovelace-minimalist/0
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: chip_back
+            variables:
+              ulm_chip_back_path: /lovelace-minimalist/0
+          - type: 'custom:button-card'
+            template: chip_power_consumption
+            variables:
+              ulm_chip_electric_consumption: sensor.energy_bad_total
+        view_layout:
+          grid-area: chips
 
       - type: custom:button-card
         template: title

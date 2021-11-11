@@ -193,6 +193,28 @@ sensor:
       current_lights_on:
         friendly_name: 'Anzahl angeschalteter Lichter'
         unit_of_measurement: 'an'
+        entity_id:
+          - light.ankleide_nahtisch_links
+          - light.ankleide_nahtisch_rechts
+          - light.ankleide_nahtisch_wand
+          - light.buro_deckenlampe
+          - light.buro_schreibtisch
+          - light.deckenlampen_flur
+          - light.eingangstuer_decke
+          - light.kinderzimmer_deckenlampe
+          - light.kinderzimmer_tischleuchte
+          - light.kuche_esstisch
+          - light.kuche_herd
+          - light.schlafzimmer_deckenlampe
+          - light.schlafzimmer_nachttisch_lisa
+          - light.schlafzimmer_nachttisch_simon
+          - light.shelly_badspiegel
+          - light.shelly_deckenlampe_bad
+          - light.stehlampe_wohnzimmer_links
+          - light.wandlampen_treppenhaus
+          - light.wohnzimmer_deckenlampe
+          - light.wohnzimmer_lightstrip
+          - light.wohnzimmer_stehlampe_rechts
         value_template: >
           {% set lights = [
             states.light.ankleide_nahtisch_links,
@@ -332,6 +354,16 @@ sensor:
         value_template: '{{ states("sensor.corolla_fuel_tank") | multiply(0.43) | round(2)}}'
         unit_of_measurement: 'l'
         friendly_name: 'Tank Corolla Liter'
+
+
+      energy_bad_total:
+        friendly_name: 'Energieverbrauch Bad'
+        entity_id:
+          - sensor.shelly_1pm_76d8e1_energy_0
+          - sensor.shelly_1pm_76da84_energy_0
+          - sensor.bad_energy
+        value_template: "{{ (states('sensor.shelly_1pm_76d8e1_energy_0')|float + states('sensor.shelly_1pm_76da84_energy_0')|float + states('sensor.bad_energy')|float)|round(1) }}"
+        unit_of_measurement: "kWh"
 
 ####################################################
 #                                                  #
@@ -474,7 +506,7 @@ sensor:
 #                     POWERCALC                    #
 #                                                  #
 ####################################################
-# https://community.home-assistant.io/t/powercalc-virtual-power-sensors
+# https://github.com/bramstroker/homeassistant-powercalc
 
 
 #lights
@@ -571,42 +603,55 @@ sensor:
         paused: 8.8
         idle: 8.8
 
-  - platform: template
-    sensors:
-      total_bulb_power:
-        unique_id: sensor_total_bulb_power
-        device_class: power
-        unit_of_measurement: W
-        value_template: >-
-            {{ (
-            (states('sensor.wohnzimmer_stehlampe_links1_power') | float) +
-            (states('sensor.wohnzimmer_stehlampe_links2_power') | float) +
-            (states('sensor.flur_deckenleuchte_1_power') | float) +
-            (states('sensor.kinderzimmer_deckenlampe_power') | float) +
-            (states('sensor.kinderzimmer_tischleuchte_power') | float) +
-            (states('sensor.schlafzimmer_deckenlampe_power') | float) +
-            (states('sensor.buro_schreibtisch_power') | float) +
-            (states('sensor.schlafzimmer_nachttisch_lisa_power') | float) +
-            (states('sensor.schlafzimmer_nachttisch_simon_power') | float) +
-            (states('sensor.wohnzimmer_deckenlampe_power') | float) +
-            (states('sensor.shelly_1pm_76d8e1_power_0') | float) +
-            (states('sensor.shelly_1pm_76da84_power_0') | float) +
-            (states('sensor.flur_deckenleuchte_2_power') | float)
-            )| round(4) }}
+#  - platform: template
+#    sensors:
+#      total_bulb_power:
+#        unique_id: sensor_total_bulb_power
+#        device_class: power
+#        unit_of_measurement: W
+#        value_template: >-
+#            {{ (
+#            (states('sensor.wohnzimmer_stehlampe_links1_power') | float) +
+#            (states('sensor.wohnzimmer_stehlampe_links2_power') | float) +
+#            (states('sensor.flur_deckenleuchte_1_power') | float) +
+#            (states('sensor.kinderzimmer_deckenlampe_power') | float) +
+#            (states('sensor.kinderzimmer_tischleuchte_power') | float) +
+#            (states('sensor.schlafzimmer_deckenlampe_power') | float) +
+#            (states('sensor.buro_schreibtisch_power') | float) +
+#            (states('sensor.schlafzimmer_nachttisch_lisa_power') | float) +
+#            (states('sensor.schlafzimmer_nachttisch_simon_power') | float) +
+#            (states('sensor.wohnzimmer_deckenlampe_power') | float) +
+#            (states('sensor.shelly_1pm_76d8e1_power_0') | float) +
+#            (states('sensor.shelly_1pm_76da84_power_0') | float) +
+#            (states('sensor.flur_deckenleuchte_2_power') | float)
+#            )| round(4) }}
 
 # https://www.home-assistant.io/integrations/integration/
-  - platform: integration
-    source: sensor.total_bulb_power
-    name: bulb_power_consumption
-    unit_prefix: k
-    round: 4
-    unit: kWh
+#  - platform: integration
+#    source: sensor.total_bulb_power
+#    name: bulb_power_consumption
+#    unit_prefix: k
+#    round: 4
+#    unit: kWh
 
 # https://www.home-assistant.io/integrations/utility_meter/
-utility_meter:
-    bulb_daily_load:
-        source: sensor.bulb_power_consumption
-        cycle: daily
+#utility_meter:
+#    bulb_daily_load:
+#        source: sensor.bulb_power_consumption
+#        cycle: daily
+
+  - platform: powercalc
+    create_group: energy_consumption_sleeping_room
+    entities:
+      -  entity_id: media_player.schlafzimmer
+         fixed:
+           states_power:
+             playing: 8.3
+             paused: 4.4
+             idle: 4.4
+      - entity_id: light.schlafzimmer_deckenlampe
+      - entity_id: light.schlafzimmer_nachttisch_lisa
+      - entity_id: light.schlafzimmer_nachttisch_simon
 
 ####################################################
 #                                                  #
