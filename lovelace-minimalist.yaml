@@ -616,9 +616,10 @@ views:
             variables:
               ulm_chip_back_path: /lovelace-minimalist/0
           - type: 'custom:button-card'
-            template: chip_power_consumption
+            template: chip_power_consumption_cm000n
             variables:
-              ulm_chip_electric_consumption: sensor.energy_bad_total
+              ulm_chip_electric_energy: sensor.energy_consumption_bath_energy_yearly
+              ulm_chip_electric_power: sensor.energy_consumption_bath_power
         view_layout:
           grid-area: chips
 

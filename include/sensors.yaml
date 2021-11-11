@@ -596,7 +596,7 @@ sensor:
 
   - platform: template
     sensors:
-      total_bulb_power:
+      energy_consumption_bath_power:
         unique_id: sensor.energy_consumption_bath_power
         device_class: power
         unit_of_measurement: W
@@ -614,12 +614,6 @@ sensor:
     unit_prefix: k
     round: 4
     unit: kWh
-
-# https://www.home-assistant.io/integrations/utility_meter/
-  - utility_meter:
-      energy_consumption_bath_energy_yearly:
-          source: sensor.energy_consumption_bath_energy
-          cycle: yearly
 
 
   - platform: powercalc

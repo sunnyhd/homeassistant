@@ -401,6 +401,13 @@ powercalc:
   utility_meter_types:
     - yearly
 
+
+# https://www.home-assistant.io/integrations/utility_meter/
+utility_meter:
+  energy_consumption_bath_energy_yearly:
+      source: sensor.energy_consumption_bath_energy
+      cycle: yearly
+
 ####################################################
 #                                                  #
 #            END OF CONFIGURATION FILE             #
