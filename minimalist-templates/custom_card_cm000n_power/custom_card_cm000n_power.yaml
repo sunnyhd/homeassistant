@@ -1,0 +1,14 @@
+chip_power_consumption_cm000n:
+  template:
+    - chips
+  triggers_update: all
+  label: |
+    [[[
+      var energy = parseFloat(states[variables.ulm_chip_electric_energy].state).toFixed(1);
+      var power = parseFloat(states[variables.ulm_chip_electric_power].state).toFixed(1);
+      if ((states[variables.ulm_chip_electric_power].state) > 0) {
+        return '⚡ ' + energy + ' kWh / ' + power + ' W';
+      } else {
+        return '⚡ ' + energy + ' kWh';
+      }
+    ]]]
