@@ -71,6 +71,11 @@ views:
             variables:
               ulm_chip_icon_state_icon: '💡'
               ulm_chip_icon_state_entity: sensor.current_lights_on
+          - type: 'custom:button-card'
+            template: chip_power_consumption_cm000n
+            variables:
+              ulm_chip_electric_energy: sensor.total_energy_yearly
+              ulm_chip_electric_power: person.simon
         view_layout:
           grid-area: chips
 

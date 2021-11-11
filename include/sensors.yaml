@@ -629,6 +629,18 @@ sensor:
       - entity_id: light.schlafzimmer_nachttisch_lisa
       - entity_id: light.schlafzimmer_nachttisch_simon
 
+  - platform: template
+    sensors:
+      total_energy_yearly:
+        unique_id: sensor.total_energy_yearly
+        device_class: power
+        unit_of_measurement: kWh
+        value_template: >-
+            {{ (
+            (states('sensor.energy_consumption_bedroom_energy_yearly') | float) +
+            (states('sensor.energy_consumption_bath_energy_yearly') | float)
+            )| round(4) }}
+
 ####################################################
 #                                                  #
 #            END OF CONFIGURATION FILE             #
