@@ -593,6 +593,20 @@ sensor:
         playing: 16.6
         paused: 8.8
         idle: 8.8
+  - platform: powercalc
+    entity_id: media_player.homemini_wohnzimmer
+    fixed:
+      states_power:
+        playing: 1.7
+        paused: 1.4
+        idle: 1.4
+  - platform: powercalc
+    entity_id: media_player.lisasimon_tv
+    fixed:
+      states_power:
+        playing: 4.1
+        paused: 3.4
+        idle: 3.4
 
   - platform: template
     sensors:
@@ -617,6 +631,66 @@ sensor:
 
 
   - platform: powercalc
+    create_group: energy_consumption_living_room
+    entities:
+      - entity_id: media_player.wohnzimmer
+        fixed:
+          states_power:
+            playing: 16.6
+            paused: 8.8
+            idle: 8.8
+      - entity_id: media_player.homemini_wohnzimmer
+        fixed:
+          states_power:
+            playing: 1.7
+            paused: 1.4
+            idle: 1.4
+      - entity_id: media_player.lisasimon_tv
+        fixed:
+          states_power:
+            playing: 4.1
+            paused: 3.4
+            idle: 3.4
+      - entity_id: light.wohnzimmer_deckenlampe
+      - entity_id: light.wohnzimmer_lightstrip
+      - entity_id: light.wohnzimmer_stehlampe_links1
+      - entity_id: light.wohnzimmer_stehlampe_links2
+      - entity_id: light.wohnzimmer_stehlampe_rechts
+      - entity_id: light.wohnzimmer_weihnachtsstern
+
+
+  - platform: powercalc
+    create_group: energy_consumption_kitchen
+    entities:
+      - entity_id: media_player.kueche
+        fixed:
+          states_power:
+            playing: 8.3
+            paused: 4.4
+            idle: 4.4
+      - entity_id: light.schlafzimmer_deckenlampe
+      - entity_id: light.kuche_esstisch
+      - entity_id: light.kuche_herd
+        manufacturer: ikea
+        model: LED1545G12
+
+
+  - platform: powercalc
+    create_group: energy_consumption_office
+    entities:
+      - entity_id: media_player.buro
+        fixed:
+          states_power:
+            playing: 8.3
+            paused: 4.4
+            idle: 4.4
+      - entity_id: light.buero_naehtisch_decke
+      - entity_id: light.buero_naehtisch_wand
+      - entity_id: light.buro_deckenlampe
+      - entity_id: light.buro_schreibtisch
+
+
+  - platform: powercalc
     create_group: energy_consumption_bedroom
     entities:
       - entity_id: media_player.schlafzimmer
@@ -628,6 +702,31 @@ sensor:
       - entity_id: light.schlafzimmer_deckenlampe
       - entity_id: light.schlafzimmer_nachttisch_lisa
       - entity_id: light.schlafzimmer_nachttisch_simon
+
+  - platform: powercalc
+    create_group: energy_consumption_childs_room
+    entities:
+      - entity_id: light.kinderzimmer_deckenlampe
+      - entity_id: light.kinderzimmer_tischleuchte
+
+
+  - platform: powercalc
+    create_group: energy_consumption_others
+    entities:
+      - entity_id: light.eingangstuer_decke
+      - entity_id: light.flur_deckenlampe_1
+      - entity_id: light.flur_deckenlampe_2
+      - entity_id: light.treppenhaus_wandlampe_1
+        manufacturer: ikea
+        model: LED1537R6
+      - entity_id: light.treppenhaus_wandlampe_2
+        manufacturer: ikea
+        model: LED1537R6
+      - entity_id: light.treppenhaus_wandlampe_3
+        manufacturer: ikea
+        model: LED1537R6
+
+
 
   - platform: template
     sensors:
