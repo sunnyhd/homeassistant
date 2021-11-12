@@ -619,12 +619,12 @@ sensor:
   - platform: powercalc
     create_group: energy_consumption_bedroom
     entities:
-      -  entity_id: media_player.schlafzimmer
-         fixed:
-           states_power:
-             playing: 8.3
-             paused: 4.4
-             idle: 4.4
+      - entity_id: media_player.schlafzimmer
+        fixed:
+          states_power:
+            playing: 8.3
+            paused: 4.4
+            idle: 4.4
       - entity_id: light.schlafzimmer_deckenlampe
       - entity_id: light.schlafzimmer_nachttisch_lisa
       - entity_id: light.schlafzimmer_nachttisch_simon
