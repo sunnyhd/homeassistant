@@ -630,6 +630,27 @@ sensor:
     unit: kWh
 
 
+  - platform: template
+    sensors:
+      energy_consumption_bath_power:
+        unique_id: sensor.energy_consumption_cellar_power
+        device_class: power
+        unit_of_measurement: W
+        value_template: >-
+            {{ (
+            (states('sensor.steckdose_trockner_power_consumption') | float) +
+            (states('sensor.steckdose_waschmaschine_power_consumption') | float) 
+            )| round(4) }}
+
+# https://www.home-assistant.io/integrations/integration/
+  - platform: integration
+    source: sensor.energy_consumption_cellar_power
+    name: energy_consumption_cellar_energy
+    unit_prefix: k
+    round: 4
+    unit: kWh
+
+
   - platform: powercalc
     create_group: energy_consumption_living_room
     entities:
@@ -660,7 +681,7 @@ sensor:
 
 
   - platform: powercalc
-    create_group: energy_consumption_kitchen
+    create_group: energy_consumption_kitchen_lights_and_media
     entities:
       - entity_id: media_player.kueche
         fixed:
@@ -673,6 +694,18 @@ sensor:
       - entity_id: light.kuche_herd
         manufacturer: ikea
         model: LED1545G12
+      
+  - platform: template
+    sensors:
+      energy_consumption_kitchen_energy_yearly:
+        unique_id: sensor.energy_consumption_kitchen_energy_yearly
+        device_class: power
+        unit_of_measurement: kWh
+        value_template: >-
+            {{ (
+            (states('sensor.energy_consumption_kitchen_lights_and_media_energy_yearly') | float) +
+            (states('sensor.energy_consumption_dishwasher_energy_yearly') | float) 
+            )| round(4) }}
 
 
   - platform: powercalc
