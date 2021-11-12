@@ -21,6 +21,7 @@ views:
       grid-template-rows: auto
       grid-template-areas: |
         "  chips        chips        chips        chips        "
+        "  chips_c      chips_c      chips_c      chips_c      "
         "  t1           t1           t1           t1           "
         "  navigation1  navigation2  navigation3  navigation4  "
         "  navigation5  navigation6  navigation7  navigation8  "
@@ -33,6 +34,7 @@ views:
           grid-template-columns: 50% 50%
           grid-template-areas: |
             "  chips        chips        "
+            "  chips_c      chips_c      "
             "  t1           t1           "
             "  navigation1  navigation2  "
             "  navigation3  navigation4  "
@@ -46,6 +48,7 @@ views:
           grid-template-columns: 33% 33% 33%
           grid-template-areas: |
             "  chips        chips        chips        "
+            "  chips_c      chips_c      chips_c      "
             "  t1           t1           t1           "
             "  navigation1  navigation2  navigation3  "
             "  navigation4  navigation5  navigation6  "
@@ -77,6 +80,11 @@ views:
             variables:
               ulm_chip_electric_energy: sensor.total_energy_yearly
               ulm_chip_electric_power: person.simon
+        view_layout:
+          grid-area: chips
+
+      - type: horizontal-stack
+        cards:
           - type: conditional
             conditions:
               - entity: binary_sensor.spuehlmaschine
@@ -108,7 +116,7 @@ views:
                 ulm_entity: binary_sensor.trockner
                 ulm_mdi_icon: mdi:tumble-dryer
         view_layout:
-          grid-area: chips
+          grid-area: chips_c
 
       - type: custom:button-card
         template: title
