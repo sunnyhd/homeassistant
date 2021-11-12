@@ -96,7 +96,7 @@ sensor:
         friendly_name: 'Personen Anwesend'
         value_template: >
           {{ [states.person.simon, states.person.lisa]
-             | selectattr('state', '==', 'home') | list | count }}
+              | selectattr('state', '==', 'home') | list | count }}
 
   - platform: template
     sensors:
@@ -104,7 +104,7 @@ sensor:
         friendly_name: 'Corolla Anwesend'
         value_template: >
           {{ [states.person.corolla]
-             | selectattr('state', '==', 'home') | list | count }}
+              | selectattr('state', '==', 'home') | list | count }}
 
 
 ####################################################
