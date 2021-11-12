@@ -51,8 +51,7 @@ chip_icon_only:
     ]]]
 chip_icon_state:
   template: chips
-  triggers_update:
-    - "[[[ variables.ulm_chip_icon_state_entity ]]]"
+  triggers_update: all
   label: |
     [[[
       var icon = '❔';
@@ -67,9 +66,7 @@ chip_icon_state:
     ]]]
 chip_icon_double_state:
   template: chips
-  triggers_update:
-    - "[[[ variables.ulm_chip_icon_double_state_entity_1 ]]]"
-    - "[[[ variables.ulm_chip_icon_double_state_entity_2 ]]]"
+  triggers_update: all
   label: |
     [[[
       var icon = '❔';

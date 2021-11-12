@@ -3,6 +3,7 @@ button_card_templates: !include_dir_merge_named minimalist-templates/
 kiosk_mode:
   kiosk: true
 
+
 ###############################
 #                             #
 #          HOME VIEW          #
@@ -182,6 +183,7 @@ views:
         view_layout:
           grid-area: person2
 
+
 ###############################
 #                             #
 #         WOHNZIMMER          #
@@ -230,10 +232,19 @@ views:
             "  m1     m2     m3     "
     cards:
 
-      - type: 'custom:button-card'
-        template: chip_back
-        variables:
-          ulm_chip_back_path: /lovelace-minimalist/0
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: chip_back
+            variables:
+              ulm_chip_back_path: /lovelace-minimalist/0
+          - type: 'custom:button-card'
+            template: chip_power_consumption_cm000n
+            variables:
+              ulm_chip_electric_energy: sensor.energy_consumption_living_room_energy_yearly
+              ulm_chip_electric_power: sensor.energy_consumption_living_room_power
+        view_layout:
+          grid-area: chips
 
       - type: custom:button-card
         template: title
@@ -304,6 +315,7 @@ views:
         view_layout:
           grid-area: m3
 
+
 ###############################
 #                             #
 #         KÜCHE               #
@@ -353,10 +365,19 @@ views:
             "  s1     .      .      "
     cards:
 
-      - type: 'custom:button-card'
-        template: chip_back
-        variables:
-          ulm_chip_back_path: /lovelace-minimalist/0
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: chip_back
+            variables:
+              ulm_chip_back_path: /lovelace-minimalist/0
+          - type: 'custom:button-card'
+            template: chip_power_consumption_cm000n
+            variables:
+              ulm_chip_electric_energy: sensor.energy_consumption_kitchen_energy_yearly
+              ulm_chip_electric_power: sensor.energy_consumption_kitchen_power
+        view_layout:
+          grid-area: chips
 
       - type: custom:button-card
         template: title
@@ -407,6 +428,7 @@ views:
         show_last_changed: true
         view_layout:
           grid-area: s1
+
 
 ###############################
 #                             #
@@ -507,6 +529,7 @@ views:
         view_layout:
           grid-area: m1
 
+
 ###############################
 #                             #
 #        KINDERZIMMER         #
@@ -544,10 +567,19 @@ views:
             "  l1     l2     .      "
     cards:
 
-      - type: 'custom:button-card'
-        template: chip_back
-        variables:
-          ulm_chip_back_path: /lovelace-minimalist/0
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: chip_back
+            variables:
+              ulm_chip_back_path: /lovelace-minimalist/0
+          - type: 'custom:button-card'
+            template: chip_power_consumption_cm000n
+            variables:
+              ulm_chip_electric_energy: sensor.energy_consumption_childs_room_energy_yearly
+              ulm_chip_electric_power: sensor.energy_consumption_childs_room_power
+        view_layout:
+          grid-area: chips
 
       - type: custom:button-card
         template: title
@@ -708,10 +740,19 @@ views:
             "  m1     .      .      "
     cards:
 
-      - type: 'custom:button-card'
-        template: chip_back
-        variables:
-          ulm_chip_back_path: /lovelace-minimalist/0
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: chip_back
+            variables:
+              ulm_chip_back_path: /lovelace-minimalist/0
+          - type: 'custom:button-card'
+            template: chip_power_consumption_cm000n
+            variables:
+              ulm_chip_electric_energy: sensor.energy_consumption_office_energy_yearly
+              ulm_chip_electric_power: sensor.energy_consumption_office_power
+        view_layout:
+          grid-area: chips
 
       - type: custom:button-card
         template: title
@@ -760,6 +801,7 @@ views:
         name: Sonos
         view_layout:
           grid-area: m1
+
 
 ###############################
 #                             #
@@ -817,10 +859,19 @@ views:
             "  s1     .      .      "
     cards:
 
-      - type: 'custom:button-card'
-        template: chip_back
-        variables:
-          ulm_chip_back_path: /lovelace-minimalist/0
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: chip_back
+            variables:
+              ulm_chip_back_path: /lovelace-minimalist/0
+          - type: 'custom:button-card'
+            template: chip_power_consumption_cm000n
+            variables:
+              ulm_chip_electric_energy: sensor.energy_consumption_others_energy_yearly
+              ulm_chip_electric_power: sensor.energy_consumption_others_power
+        view_layout:
+          grid-area: chips
 
       - type: custom:button-card
         template: title
@@ -883,6 +934,7 @@ views:
         view_layout:
           grid-area: s1
 
+
 ###############################
 #                             #
 #            Keller           #
@@ -932,10 +984,19 @@ views:
             "  s1     s2     .      "
     cards:
 
-      - type: 'custom:button-card'
-        template: chip_back
-        variables:
-          ulm_chip_back_path: /lovelace-minimalist/0
+      - type: horizontal-stack
+        cards:
+          - type: 'custom:button-card'
+            template: chip_back
+            variables:
+              ulm_chip_back_path: /lovelace-minimalist/0
+          - type: 'custom:button-card'
+            template: chip_power_consumption_cm000n
+            variables:
+              ulm_chip_electric_energy: sensor.energy_consumption_cellar_energy_yearly
+              ulm_chip_electric_power: sensor.energy_consumption_cellar_power
+        view_layout:
+          grid-area: chips
 
       - type: custom:button-card
         template: title
