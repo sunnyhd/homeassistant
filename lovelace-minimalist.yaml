@@ -77,6 +77,36 @@ views:
             variables:
               ulm_chip_electric_energy: sensor.total_energy_yearly
               ulm_chip_electric_power: person.simon
+          - type: conditional
+            conditions:
+              - entity: binary_sensor.spuehlmaschine
+                state: "on"
+            card:
+              type: 'custom:button-card'
+              template: custom_chip_cm000n_mdi_icon
+              variables:
+                ulm_entity: binary_sensor.spuehlmaschine
+                ulm_mdi_icon: mdi:dishwasher
+          - type: conditional
+            conditions:
+              - entity: binary_sensor.waschmaschine
+                state: "on"
+            card:
+              type: 'custom:button-card'
+              template: custom_chip_cm000n_mdi_icon
+              variables:
+                ulm_entity: binary_sensor.waschmaschine
+                ulm_mdi_icon: mdi:washing-machine
+          - type: conditional
+            conditions:
+              - entity: binary_sensor.trockner
+                state: "on"
+            card:
+              type: 'custom:button-card'
+              template: custom_chip_cm000n_mdi_icon
+              variables:
+                ulm_entity: binary_sensor.trockner
+                ulm_mdi_icon: mdi:tumble-dryer
         view_layout:
           grid-area: chips
 
