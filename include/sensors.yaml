@@ -792,7 +792,7 @@ sensor:
             (states('sensor.energy_consumption_kitchen_energy_yearly') | float) +
             (states('sensor.energy_consumption_living_room_energy_yearly') | float) +
             (states('sensor.energy_consumption_office_energy_yearly') | float) +
-            (states('sensor.energy_consumption_others_energy_yearly') | float) +
+            (states('sensor.energy_consumption_others_energy_yearly') | float)
             )| round(4) }}
 
 ####################################################

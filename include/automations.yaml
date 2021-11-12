@@ -66,6 +66,7 @@ automation:
         fw_ver: '{{ trigger.payload_json.fw_ver }}'
         model: '{{ trigger.payload_json.model }}'
         mode: '{{ trigger.payload_json.mode | default }}'
+        host: '{{ trigger.payload_json.ip }}'
       service: python_script.shellies_discovery
     mode: queued
     max: 999
