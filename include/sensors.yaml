@@ -371,7 +371,7 @@ sensor:
     entity_id: sensor.deckenlampe_bad_temp_offset
     filters:
       - filter: time_simple_moving_average
-        window_size: "00:05"
+        window_size: "00:08"
         precision: 1
 
 ####################################################
