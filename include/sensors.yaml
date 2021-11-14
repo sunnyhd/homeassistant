@@ -361,7 +361,7 @@ sensor:
         unit_of_measurement: '°C'
         value_template: >-
           {% if is_state('switch.shelly_1pm_76d8e1_relay_0', "on") %}
-            {{ float(states('sensor.shelly_1pm_76d8e1_temperature')) -27 }}
+            {{ float(states('sensor.shelly_1pm_76d8e1_temperature')) -25 }}
           {% else %}
             {{ float(states('sensor.shelly_1pm_76d8e1_temperature')) -20 }}
           {% endif %}
