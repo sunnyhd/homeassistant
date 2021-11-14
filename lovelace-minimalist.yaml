@@ -83,7 +83,13 @@ views:
         view_layout:
           grid-area: chips
 
-      - type: horizontal-stack
+# https://community.home-assistant.io/t/lovelace-ui-minimalist/322687/239
+      - type: custom:grid-layout
+        layout:
+          grid-template-columns: auto
+          grid-template-rows: 100%
+          grid-template-areas: |
+            "  chips_c1  chips_c2  chips_c3  "
         cards:
           - type: conditional
             conditions:
@@ -91,30 +97,36 @@ views:
                 state: "on"
             card:
               type: 'custom:button-card'
-              template: custom_chip_cm000n_mdi_icon
+              template: chip_mdi_icon_only
               variables:
-                ulm_entity: binary_sensor.spuehlmaschine
-                ulm_mdi_icon: mdi:dishwasher
+                ulm_chip_mdi_icon_only_entity: binary_sensor.spuehlmaschine
+                ulm_chip_mdi_icon_only_icon: mdi:dishwasher
+            view_layout:
+              grid-area: chips_c1
           - type: conditional
             conditions:
               - entity: binary_sensor.waschmaschine
                 state: "on"
             card:
               type: 'custom:button-card'
-              template: custom_chip_cm000n_mdi_icon
+              template: chip_mdi_icon_only
               variables:
-                ulm_entity: binary_sensor.waschmaschine
-                ulm_mdi_icon: mdi:washing-machine
+                ulm_chip_mdi_icon_only_entity: binary_sensor.waschmaschine
+                ulm_chip_mdi_icon_only_icon: mdi:washing-machine
+            view_layout:
+              grid-area: chips_c2
           - type: conditional
             conditions:
               - entity: binary_sensor.trockner
                 state: "on"
             card:
               type: 'custom:button-card'
-              template: custom_chip_cm000n_mdi_icon
+              template: chip_mdi_icon_only
               variables:
-                ulm_entity: binary_sensor.trockner
-                ulm_mdi_icon: mdi:tumble-dryer
+                ulm_chip_mdi_icon_only_entity: binary_sensor.trockner
+                ulm_chip_mdi_icon_only_icon: mdi:tumble-dryer
+            view_layout:
+              grid-area: chips_c3
         view_layout:
           grid-area: chips_c
 
