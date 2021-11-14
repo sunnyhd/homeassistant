@@ -355,6 +355,25 @@ sensor:
         unit_of_measurement: 'l'
         friendly_name: 'Tank Corolla Liter'
 
+
+      deckenlampe_bad_temp_offset:
+        friendly_name: 'Deckenlampe Bad Temperatur Offset'
+        unit_of_measurement: '°C'
+        value_template: >-
+          {% if is_state('switch.shelly_1pm_76d8e1_relay_0', "on") %}
+            {{ float(states('sensor.shelly_1pm_76d8e1_temperature')) -27 }}
+          {% else %}
+            {{ float(states('sensor.shelly_1pm_76d8e1_temperature')) -20 }}
+          {% endif %}
+
+  - platform: filter
+    name: "Deckenlampe Bad Temperatur Offset gefiltert"
+    entity_id: sensor.deckenlampe_bad_temp_offset
+    filters:
+      - filter: time_simple_moving_average
+        window_size: "00:05"
+        precision: 1
+
 ####################################################
 #                                                  #
 #                  HISTORY STATS                   #
