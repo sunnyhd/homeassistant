@@ -822,6 +822,10 @@ views:
         "  t1     t1     t1     t1     "
         "  l1     l2     l3     l4     "
         "  t2     t2     t2     t2     "
+        "  te1    .      .      .      "
+        "  te1    .      .      .      "
+        "  te1    .      .      .      "
+        "  t3     t3     t3     t3     "
         "  m1     .      .      .      "
       mediaquery:
         #phone
@@ -834,6 +838,10 @@ views:
             "  l1     l2     "
             "  l3     l4     "
             "  t2     t2     "
+            "  te1    .      "
+            "  te1    .      "
+            "  te1    .      "
+            "  t3     t3     "
             "  m1     .      "
         #portrait
         "(max-width: 1200px)":
@@ -845,6 +853,10 @@ views:
             "  l1     l2     l3     "
             "  l4     .      .      "
             "  t2     t2     t2     "
+            "  te1    .      .      "
+            "  te1    .      .      "
+            "  te1    .      .      "
+            "  t3     t3     t3     "
             "  m1     .      .      "
     cards:
 
@@ -897,11 +909,35 @@ views:
         view_layout:
           grid-area: l4
 
+      - type: 'custom:button-card'
+        template: card_light
+        entity: light.shelly_badspiegel
+        name: Spiegel
+        view_layout:
+          grid-area: l2
+
+      - type: custom:button-card
+        template: title
+        label: 'Temperatur'
+        view_layout:
+          grid-area: t2
+
+      - type: vertical-stack
+        cards:
+          - type: 'custom:button-card'
+            template: card_graph
+            variables:
+              ulm_card_graph_color: "var(--google-blue)"
+              ulm_card_graph_name: Büro
+              ulm_card_graph_entity: sensor.steckdose_buero_temperature
+        view_layout:
+          grid-area: te1
+
       - type: custom:button-card
         template: title
         label: 'Media'
         view_layout:
-          grid-area: t2
+          grid-area: t3
 
       - type: 'custom:button-card'
         template: card_media_player_with_control
