@@ -114,6 +114,8 @@ person:
 # https://www.home-assistant.io/integrations/logger
 logger:
   default: error
+# https://www.home-assistant.io/integrations/python_script/
+python_script:
 # https://www.home-assistant.io/docs/energy
 #energy:
 
