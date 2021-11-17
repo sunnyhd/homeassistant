@@ -518,64 +518,6 @@ sensor:
 ####################################################
 # https://github.com/bramstroker/homeassistant-powercalc
 
-
-#lights
-  - platform: powercalc
-    entity_id: light.buero_naehtisch_decke
-  - platform: powercalc
-    entity_id: light.buero_naehtisch_wand
-  - platform: powercalc
-    entity_id: light.buro_deckenlampe
-  - platform: powercalc
-    entity_id: light.buro_schreibtisch
-  - platform: powercalc
-    entity_id: light.eingangstuer_decke
-  - platform: powercalc
-    entity_id: light.flur_deckenlampe_1
-  - platform: powercalc
-    entity_id: light.flur_deckenlampe_2
-  - platform: powercalc
-    entity_id: light.kinderzimmer_deckenlampe
-  - platform: powercalc
-    entity_id: light.kinderzimmer_tischleuchte
-  - platform: powercalc
-    entity_id: light.kuche_esstisch
-  - platform: powercalc
-    entity_id: light.kuche_herd
-    manufacturer: ikea
-    model: LED1545G12
-  - platform: powercalc
-    entity_id: light.schlafzimmer_deckenlampe
-  - platform: powercalc
-    entity_id: light.schlafzimmer_nachttisch_lisa
-  - platform: powercalc
-    entity_id: light.schlafzimmer_nachttisch_simon
-  - platform: powercalc
-    entity_id: light.treppenhaus_wandlampe_1
-    manufacturer: ikea
-    model: LED1537R6
-  - platform: powercalc
-    entity_id: light.treppenhaus_wandlampe_2
-    manufacturer: ikea
-    model: LED1537R6
-  - platform: powercalc
-    entity_id: light.treppenhaus_wandlampe_3
-    manufacturer: ikea
-    model: LED1537R6
-  - platform: powercalc
-    entity_id: light.wohnzimmer_deckenlampe
-  - platform: powercalc
-    entity_id: light.wohnzimmer_lightstrip
-  - platform: powercalc
-    entity_id: light.wohnzimmer_stehlampe_links1
-  - platform: powercalc
-    entity_id: light.wohnzimmer_stehlampe_links2
-  - platform: powercalc
-    entity_id: light.wohnzimmer_stehlampe_rechts
-  - platform: powercalc
-    entity_id: light.wohnzimmer_weihnachtsstern
-
-
 #sonos
   - platform: powercalc
     entity_id: media_player.bad
@@ -584,48 +526,6 @@ sensor:
         playing: 8.3
         paused: 4.4
         idle: 4.4
-  - platform: powercalc
-    entity_id: media_player.buro
-    fixed:
-      states_power:
-        playing: 8.3
-        paused: 4.4
-        idle: 4.4
-  - platform: powercalc
-    entity_id: media_player.kueche
-    fixed:
-      states_power:
-        playing: 8.3
-        paused: 4.4
-        idle: 4.4
-  - platform: powercalc
-    entity_id: media_player.schlafzimmer
-    fixed:
-      states_power:
-        playing: 8.3
-        paused: 4.4
-        idle: 4.4
-  - platform: powercalc
-    entity_id: media_player.wohnzimmer
-    fixed:
-      states_power:
-        playing: 16.6
-        paused: 8.8
-        idle: 8.8
-  - platform: powercalc
-    entity_id: media_player.homemini_wohnzimmer
-    fixed:
-      states_power:
-        playing: 1.7
-        paused: 1.4
-        idle: 1.4
-  - platform: powercalc
-    entity_id: media_player.lisasimon_tv
-    fixed:
-      states_power:
-        playing: 4.1
-        paused: 3.4
-        idle: 3.4
 
 ###########
 
