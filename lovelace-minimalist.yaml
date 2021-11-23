@@ -17,7 +17,7 @@ views:
     layout:
       #default
       grid-gap: 1px 1px
-      grid-template-columns: 25% 25% 25% 25%
+      grid-template-columns: repeat(4, 1fr)
       grid-template-rows: auto
       grid-template-areas: |
         "  chips        chips        chips        chips        "
@@ -31,7 +31,7 @@ views:
         #phone
         "(max-width: 800px)":
           grid-gap: 1px 1px
-          grid-template-columns: 50% 50%
+          grid-template-columns: repeat(2, 1fr)
           grid-template-areas: |
             "  chips        chips        "
             "  chips_c      chips_c      "
@@ -45,7 +45,7 @@ views:
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
-          grid-template-columns: 33% 33% 33%
+          grid-template-columns: repeat(3, 1fr)
           grid-template-areas: |
             "  chips        chips        chips        "
             "  chips_c      chips_c      chips_c      "
@@ -235,7 +235,7 @@ views:
     layout:
       #default
       grid-gap: 1px 1px
-      grid-template-columns: 25% 25% 25% 25%
+      grid-template-columns: repeat(4, 1fr)
       grid-template-rows: auto
       grid-template-areas: |
         "  chips  chips  chips  chips  "
@@ -248,7 +248,7 @@ views:
         #phone
         "(max-width: 800px)":
           grid-gap: 1px 1px
-          grid-template-columns: 50% 50%
+          grid-template-columns: repeat(2, 1fr)
           grid-template-areas: |
             "  chips  chips  "
             "  t1     t1     "
@@ -261,7 +261,7 @@ views:
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
-          grid-template-columns: 33% 33% 33%
+          grid-template-columns: repeat(3, 1fr)
           grid-template-areas: |
             "  chips  chips  chips  "
             "  t1     t1     t1     "
@@ -367,7 +367,7 @@ views:
     layout:
       #default
       grid-gap: 1px 1px
-      grid-template-columns: 25% 25% 25% 25%
+      grid-template-columns: repeat(4, 1fr)
       grid-template-rows: auto
       grid-template-areas: |
         "  chips  chips  chips  chips  "
@@ -381,7 +381,7 @@ views:
         #phone
         "(max-width: 800px)":
           grid-gap: 1px 1px
-          grid-template-columns: 50% 50%
+          grid-template-columns: repeat(2, 1fr)
           grid-template-areas: |
             "  chips  chips  "
             "  t1     t1     "
@@ -393,7 +393,7 @@ views:
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
-          grid-template-columns: 33% 33% 33%
+          grid-template-columns: repeat(3, 1fr)
           grid-template-areas: |
             "  chips  chips  chips  "
             "  t1     t1     t1     "
@@ -481,7 +481,7 @@ views:
     layout:
       #default
       grid-gap: 1px 1px
-      grid-template-columns: 25% 25% 25% 25%
+      grid-template-columns: repeat(4, 1fr)
       grid-template-rows: auto
       grid-template-areas: |
         "  chips  chips  chips  chips  "
@@ -497,7 +497,7 @@ views:
         #phone
         "(max-width: 800px)":
           grid-gap: 1px 1px
-          grid-template-columns: 50% 50%
+          grid-template-columns: repeat(2, 1fr)
           grid-template-areas: |
             "  chips  chips  "
             "  t1     t1     "
@@ -512,7 +512,7 @@ views:
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
-          grid-template-columns: 33% 33% 33%
+          grid-template-columns: repeat(3, 1fr)
           grid-template-areas: |
             "  chips  chips  chips  "
             "  t1     t1     t1     "
@@ -610,7 +610,7 @@ views:
     layout:
       #default
       grid-gap: 1px 1px
-      grid-template-columns: 25% 25% 25% 25%
+      grid-template-columns: repeat(4, 1fr)
       grid-template-rows: auto
       grid-template-areas: |
         "  chips  chips  chips  chips  "
@@ -620,7 +620,7 @@ views:
         #phone
         "(max-width: 800px)":
           grid-gap: 1px 1px
-          grid-template-columns: 50% 50%
+          grid-template-columns: repeat(2, 1fr)
           grid-template-areas: |
             "  chips  chips  "
             "  t1     t1     "
@@ -628,7 +628,7 @@ views:
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
-          grid-template-columns: 33% 33% 33%
+          grid-template-columns: repeat(3, 1fr)
           grid-template-areas: |
             "  chips  chips  chips  "
             "  t1     t1     t1     "
@@ -683,7 +683,7 @@ views:
     layout:
       #default
       grid-gap: 1px 1px
-      grid-template-columns: 25% 25% 25% 25%
+      grid-template-columns: repeat(4, 1fr)
       grid-template-rows: auto
       grid-template-areas: |
         "  chips  chips  chips  chips  "
@@ -699,7 +699,7 @@ views:
         #phone
         "(max-width: 800px)":
           grid-gap: 1px 1px
-          grid-template-columns: 50% 50%
+          grid-template-columns: repeat(2, 1fr)
           grid-template-areas: |
             "  chips  chips  "
             "  t1     t1     "
@@ -713,7 +713,7 @@ views:
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
-          grid-template-columns: 33% 33% 33%
+          grid-template-columns: repeat(3, 1fr)
           grid-template-areas: |
             "  chips  chips  chips  "
             "  t1     t1     t1     "
@@ -804,7 +804,7 @@ views:
     layout:
       #default
       grid-gap: 1px 1px
-      grid-template-columns: 25% 25% 25% 25%
+      grid-template-columns: repeat(4, 1fr)
       grid-template-rows: auto
       grid-template-areas: |
         "  chips  chips  chips  chips  "
@@ -820,7 +820,7 @@ views:
         #phone
         "(max-width: 800px)":
           grid-gap: 1px 1px
-          grid-template-columns: 50% 50%
+          grid-template-columns: repeat(2, 1fr)
           grid-template-areas: |
             "  chips  chips  "
             "  t1     t1     "
@@ -835,7 +835,7 @@ views:
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
-          grid-template-columns: 33% 33% 33%
+          grid-template-columns: repeat(3, 1fr)
           grid-template-areas: |
             "  chips  chips  chips  "
             "  t1     t1     t1     "
@@ -948,7 +948,7 @@ views:
     layout:
       #default
       grid-gap: 1px 1px
-      grid-template-columns: 25% 25% 25% 25%
+      grid-template-columns: repeat(4, 1fr)
       grid-template-rows: auto
       grid-template-areas: |
         "  chips  chips  chips  chips  "
@@ -964,7 +964,7 @@ views:
         #phone
         "(max-width: 800px)":
           grid-gap: 1px 1px
-          grid-template-columns: 50% 50%
+          grid-template-columns: repeat(2, 1fr)
           grid-template-areas: |
             "  chips  chips  "
             "  t1     t1     "
@@ -979,7 +979,7 @@ views:
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
-          grid-template-columns: 33% 33% 33%
+          grid-template-columns: repeat(3, 1fr)
           grid-template-areas: |
             "  chips  chips  chips  "
             "  t1     t1     t1     "
@@ -1080,7 +1080,7 @@ views:
     layout:
       #default
       grid-gap: 1px 1px
-      grid-template-columns: 25% 25% 25% 25%
+      grid-template-columns: repeat(4, 1fr)
       grid-template-rows: auto
       grid-template-areas: |
         "  chips  chips  chips  chips  "
@@ -1094,7 +1094,7 @@ views:
         #phone
         "(max-width: 800px)":
           grid-gap: 1px 1px
-          grid-template-columns: 50% 50%
+          grid-template-columns: repeat(2, 1fr)
           grid-template-areas: |
             "  chips  chips  "
             "  t1     t1     "
@@ -1106,7 +1106,7 @@ views:
         #portrait
         "(max-width: 1200px)":
           grid-gap: 1px 1px
-          grid-template-columns: 33% 33% 33%
+          grid-template-columns: repeat(3, 1fr)
           grid-template-areas: |
             "  chips  chips  chips  "
             "  t1     t1     t1     "
