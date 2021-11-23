@@ -84,12 +84,7 @@ views:
           grid-area: chips
 
 # https://community.home-assistant.io/t/lovelace-ui-minimalist/322687/239
-      - type: custom:grid-layout
-        layout:
-          grid-template-columns: auto
-          grid-template-rows: 100%
-          grid-template-areas: |
-            "  chips_c1  chips_c2  chips_c3  "
+      - type: horizontal-stack
         cards:
           - type: conditional
             conditions:
@@ -101,8 +96,6 @@ views:
               variables:
                 ulm_chip_mdi_icon_only_entity: binary_sensor.spuehlmaschine
                 ulm_chip_mdi_icon_only_icon: mdi:dishwasher
-            view_layout:
-              grid-area: chips_c1
           - type: conditional
             conditions:
               - entity: binary_sensor.waschmaschine
@@ -113,8 +106,6 @@ views:
               variables:
                 ulm_chip_mdi_icon_only_entity: binary_sensor.waschmaschine
                 ulm_chip_mdi_icon_only_icon: mdi:washing-machine
-            view_layout:
-              grid-area: chips_c2
           - type: conditional
             conditions:
               - entity: binary_sensor.trockner
@@ -125,8 +116,6 @@ views:
               variables:
                 ulm_chip_mdi_icon_only_entity: binary_sensor.trockner
                 ulm_chip_mdi_icon_only_icon: mdi:tumble-dryer
-            view_layout:
-              grid-area: chips_c3
         view_layout:
           grid-area: chips_c
 
