@@ -22,14 +22,6 @@ script:
       - service: homeassistant.update_entity
         entity_id: binary_sensor.monitors_mute_check
 
-  homeassistant_restart:
-    sequence:
-      - service: browser_mod.toast
-        data:
-          duration: 16000
-          message: Startar om Home Assistant container...
-      - service: shell_command.ha_dockermon_restart_container
-
   zoned_cleanup:
     sequence:
       - condition: not
@@ -43,21 +35,6 @@ script:
           command: zoned_cleanup
           params:
             zone_ids: ["{{ states('input_select.roborock_zone') }}"]
-
-  samsung_tv_energy_saving:
-    alias: Eko-läge
-    icon: mdi:leaf
-    sequence:
-      - service: browser_mod.toast
-        data:
-          duration: 8000
-          message: Ställer in eko-läge på Tv i sovrummet...
-      - service: media_player.play_media
-        data:
-          entity_id: media_player.samsung_tv
-          media_content_type: send_key
-          media_content_id: >
-            KEY_MENU+870+KEY_DOWN+470+KEY_DOWN+470+KEY_DOWN+470+KEY_ENTER+870+KEY_DOWN+470+KEY_DOWN+470+KEY_DOWN+470+KEY_DOWN+470+KEY_ENTER+870+KEY_ENTER+870+KEY_DOWN+470+KEY_DOWN+470+KEY_ENTER+870+KEY_HOME+470+KEY_HOME+470
 
   mattias_find_my_iphone:
     sequence:
