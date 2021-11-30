@@ -321,7 +321,7 @@ ltss:
       #- sensor.stromverbrauch_beleuchtung
 
       - sensor.energy_consumption_bath_power
-      - sensor.energy_consumption_bedroom_powers
+      - sensor.energy_consumption_bedroom_power
       - sensor.energy_consumption_cellar_power
       - sensor.energy_consumption_childs_room_power
       - sensor.energy_consumption_kitchen_power
