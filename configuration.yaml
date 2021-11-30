@@ -329,7 +329,6 @@ ltss:
       - sensor.energy_consumption_office_power
       - sensor.energy_consumption_others_power
 
-
       - sensor.energy_consumption_bath_energy_yearly
       - sensor.energy_consumption_bedroom_energy_yearly
       - sensor.energy_consumption_cellar_energy_yearly
