@@ -291,23 +291,7 @@ monitor_docker:
 ltss:
   db_url: !secret ltss_url
   include:
-    domains:
-      #        - automation
-      - climate
-      #        - input_boolean
-      #        - input_select
-      #        - light
-      - media_player
-    #        - script
-    #        - sensor
-    #        - switch
-    #        - vacuum
     entities:
-      - sensor.heizung_bad_battery_level
-      - sensor.heizung_buro_battery_level
-      - sensor.ipad_von_simon_battery_level_2
-      - sensor.mi_a3_battery_level
-      - sensor.nokia_7_2_battery_level
       - sensor.von_der_arbeit_nach_hause
       - sensor.von_zu_hause_zur_arbeit
       - sensor.tankerkoenig_zg_raiffeisen_tankstelle_kraichtal_munzesheim_e10
@@ -351,30 +335,6 @@ ltss:
       - sensor.corolla_odometer
       - sensor.corolla_fuel_tank
       - sensor.tank_corolla_l
-      - sensor.o_spritverbrauch_corolla_aktuelles_jahr
-      - sensor.ev_distanz_anteil_corolla_aktuelles_jahr
-      - sensor.ev_distanz_corolla_aktuelles_jahr
-      - sensor.gesamtdistanz_corolla_aktuelles_jahr
-      - sensor.gesamtfahrten_corolla_aktuelles_jahr
-      - sensor.nachtfahrten_corolla_aktuelles_jahr
-      - sensor.max_geschwindigkeit_corolla_aktuelles_jahr
-      - sensor.o_geschwindigkeit_corolla_aktuelles_jahr
-      - sensor.o_spritverbrauch_corolla_aktuelle_woche
-      - sensor.ev_distanz_anteil_corolla_aktuelle_woche
-      - sensor.ev_distanz_corolla_aktuelle_woche
-      - sensor.gesamtdistanz_corolla_aktuelle_woche
-      - sensor.gesamtfahrten_corolla_aktuelle_woche
-      - sensor.nachtfahrten_corolla_aktuelle_woche
-      - sensor.max_geschwindigkeit_corolla_aktuelle_woche
-      - sensor.o_geschwindigkeit_corolla_aktuelle_woche
-      - sensor.o_spritverbrauch_corolla_aktueller_tag
-      - sensor.ev_distanz_anteil_corolla_aktueller_tag
-      - sensor.ev_distanz_corolla_aktueller_tag
-      - sensor.gesamtdistanz_corolla_aktueller_tag
-      - sensor.gesamtfahrten_corolla_aktueller_tag
-      - sensor.nachtfahrten_corolla_aktueller_tag
-      - sensor.max_geschwindigkeit_corolla_aktueller_tag
-      - sensor.o_geschwindigkeit_corolla_aktueller_tag
 
 ####################################################
 #                                                  #
