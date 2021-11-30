@@ -308,16 +308,37 @@ ltss:
       - sensor.speedtest_download
       - sensor.speedtest_upload
       - sensor.speedtest_ping
-      - sensor.gesamtverbrauch_waschmaschine
-      - sensor.gesamtverbrauch_trockner
-      - sensor.gesamtverbrauch_spuehlmaschine
-      - sensor.gesamtverbrauch_wohnzimmer_lowboard
-      - sensor.gesamtverbrauch_beleuchtung
-      - sensor.stromverbrauch_spuehlmaschine
-      - sensor.stromverbrauch_waschmaschine
-      - sensor.stromverbrauch_wohnzimmer_lowboard
-      - sensor.stromverbrauch_trockner
-      - sensor.stromverbrauch_beleuchtung
+
+      #- sensor.gesamtverbrauch_waschmaschine
+      #- sensor.gesamtverbrauch_trockner
+      #- sensor.gesamtverbrauch_spuehlmaschine
+      #- sensor.gesamtverbrauch_wohnzimmer_lowboard
+      #- sensor.gesamtverbrauch_beleuchtung
+      #- sensor.stromverbrauch_spuehlmaschine
+      #- sensor.stromverbrauch_waschmaschine
+      #- sensor.stromverbrauch_wohnzimmer_lowboard
+      #- sensor.stromverbrauch_trockner
+      #- sensor.stromverbrauch_beleuchtung
+
+      - sensor.energy_consumption_bath_power
+      - sensor.energy_consumption_bedroom_powers
+      - sensor.energy_consumption_cellar_power
+      - sensor.energy_consumption_childs_room_power
+      - sensor.energy_consumption_kitchen_power
+      - sensor.energy_consumption_living_room_power
+      - sensor.energy_consumption_office_power
+      - sensor.energy_consumption_others_power
+
+
+      - sensor.energy_consumption_bath_energy_yearly
+      - sensor.energy_consumption_bedroom_energy_yearly
+      - sensor.energy_consumption_cellar_energy_yearly
+      - sensor.energy_consumption_childs_room_energy_yearly
+      - sensor.energy_consumption_kitchen_energy_yearly
+      - sensor.energy_consumption_living_room_energy_yearly
+      - sensor.energy_consumption_office_energy_yearly
+      - sensor.energy_consumption_others_energy_yearly
+
       - sensor.temperatur_ankleide
       - sensor.temperatur_wohnzimmer_lowboard
       - sensor.temperatur_climate_buero
