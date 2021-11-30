@@ -23,7 +23,8 @@ recorder:
     entities:
       - device_tracker.mi_a3
       - device_tracker.nokia_7_2
-      - device_tracker.lisi_philipstv
+      - device_tracker.ipad_von_simon
+      - device_tracker.corolla_parking_location
       - vacuum.xiaomi_vacuum_cleaner
       - sun.sun
 
